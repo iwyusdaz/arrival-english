@@ -92,7 +92,7 @@
         { "id": "p-a", "type": "effective", "text": "Can I pay by card here?", "feedback": "Good question. The machine didn't take your card, so you check before you pay.", "reaction": "nod", "to": "paid", "chunks": ["t1-pay-by-card"] },
         { "id": "p-b", "type": "acceptable", "text": "Sorry, what does 'off-peak' mean?", "feedback": "Great repair strategy. Asking about one word is quick and normal.", "reaction": "warm", "to": "offpeak", "chunks": ["r-mean"] },
         { "id": "p-c", "type": "odd", "text": "Eleven forty? That's too expensive.", "feedback": "You can say a price is high, but here it sounds like a complaint to the wrong person. Sam does not set the prices.", "recast": "OK, is that the cheapest ticket?", "reaction": "put-off", "to": "pricey", "chunks": [] },
-        { "id": "p-d", "type": "error", "text": "I can pay with card?", "feedback": "Sam understands, but questions need the verb first: 'Can I pay ...?' Also say 'by card'.", "recast": "Can I pay by card?", "reaction": "nod", "to": "paid", "chunks": [] }
+        { "id": "p-d", "type": "error", "text": "I can pay with card?", "feedback": "Sam understands — a rising question like this is fine in speech. The usual phrase is 'by card': 'Can I pay by card?' Starting with 'Can I' is also clearer and more polite.", "recast": "Can I pay by card?", "reaction": "nod", "to": "paid", "chunks": [] }
       ]
     },
     "offpeak": {

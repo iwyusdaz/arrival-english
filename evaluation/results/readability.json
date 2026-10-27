@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-27T13:15:39.394Z",
+  "generated": "2026-10-27T18:45:21.191Z",
   "method": "Flesch Reading Ease / Flesch-Kincaid grade (standard formulas, not CEFR-calibrated). Vocabulary: Cambridge English A2 Key and B1 Preliminary vocabulary lists (UCLES), headwords extracted with pdftotext; crude lemmatisation; names of fictional people and places excluded.",
   "sources": {
     "A2": "https://www.cambridgeenglish.org/images/506886-a2-key-2020-vocabulary-list.pdf",
@@ -25,12 +25,12 @@
         "fleschKincaidGrade": 1
       },
       "feedback": {
-        "sentences": 60,
-        "words": 457,
-        "wordsPerSentence": 7.62,
+        "sentences": 61,
+        "words": 474,
+        "wordsPerSentence": 7.77,
         "syllablesPerWord": 1.26,
-        "fleschReadingEase": 92.8,
-        "fleschKincaidGrade": 2.2
+        "fleschReadingEase": 92.6,
+        "fleschKincaidGrade": 2.3
       },
       "vocabulary": {
         "tokens": 416,
@@ -108,25 +108,25 @@
       },
       "learnerOptions": {
         "sentences": 35,
-        "words": 181,
-        "wordsPerSentence": 5.17,
+        "words": 179,
+        "wordsPerSentence": 5.11,
         "syllablesPerWord": 1.28,
-        "fleschReadingEase": 93.1,
+        "fleschReadingEase": 92.9,
         "fleschKincaidGrade": 1.6
       },
       "feedback": {
         "sentences": 61,
-        "words": 413,
-        "wordsPerSentence": 6.77,
+        "words": 414,
+        "wordsPerSentence": 6.79,
         "syllablesPerWord": 1.43,
-        "fleschReadingEase": 79.3,
+        "fleschReadingEase": 79,
         "fleschKincaidGrade": 3.9
       },
       "vocabulary": {
-        "tokens": 466,
-        "types": 198,
-        "tokenCoverageA2": 0.936,
-        "tokenCoverageA2B1": 0.97,
+        "tokens": 465,
+        "types": 197,
+        "tokenCoverageA2": 0.935,
+        "tokenCoverageA2B1": 0.972,
         "b1Words": [
           "counter",
           "painful",
@@ -147,8 +147,7 @@
           "suck",
           "swallow",
           "swallowing",
-          "task",
-          "troat"
+          "task"
         ]
       }
     },

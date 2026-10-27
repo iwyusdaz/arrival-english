@@ -23,7 +23,7 @@
       "options": [
         { "id": "gr-a", "type": "effective", "text": "Hi. I've got a sore throat. Can you recommend something for it?", "feedback": "Clear and polite. You named the problem and asked for a recommendation.", "reaction": "nod", "to": "howlong", "chunks": ["t3-sore-throat", "t3-recommend"] },
         { "id": "gr-b", "type": "odd", "text": "Give me the strongest medicine you have.", "feedback": "Grammatical, but it sounds demanding, and the pharmacist needs to know the problem first.", "recast": "I've got a sore throat. What do you recommend?", "reaction": "put-off", "to": "whatproblem", "chunks": [] },
-        { "id": "gr-c", "type": "error", "text": "I have pain in my troat.", "feedback": "Mr Okafor understands. Watch the 'th' in 'throat', and the usual phrase is 'I've got a sore throat'.", "recast": "I've got a sore throat.", "reaction": "nod", "to": "howlong", "chunks": [] }
+        { "id": "gr-c", "type": "error", "text": "My throat is sick.", "feedback": "Mr Okafor understands. In English a throat isn't 'sick' — the usual phrase is 'I've got a sore throat'.", "recast": "I've got a sore throat.", "reaction": "nod", "to": "howlong", "chunks": [] }
       ]
     },
     "whatproblem": {
@@ -163,7 +163,7 @@
       "speaker": "Narrator",
       "line": "You explained your problem, answered the pharmacist's questions and checked the instructions. Remember: this was a language task. For real health problems, ask a pharmacist or doctor.",
       "outcome": "success",
-      "summary": "Task complete: problem described, follow-up questions answered, instructions checked."
+      "summary": "Task complete: problem described, follow-up questions answered, instructions checked. One sound to watch: the 'th' of 'throat' is the /θ/ sound — tongue lightly between the teeth, no 't'."
     }
   }
 }
