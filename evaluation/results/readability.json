@@ -1,0 +1,255 @@
+{
+  "generated": "2026-10-27T13:15:39.394Z",
+  "method": "Flesch Reading Ease / Flesch-Kincaid grade (standard formulas, not CEFR-calibrated). Vocabulary: Cambridge English A2 Key and B1 Preliminary vocabulary lists (UCLES), headwords extracted with pdftotext; crude lemmatisation; names of fictional people and places excluded.",
+  "sources": {
+    "A2": "https://www.cambridgeenglish.org/images/506886-a2-key-2020-vocabulary-list.pdf",
+    "B1": "https://www.cambridgeenglish.org/images/506887-b1-preliminary-vocabulary-list.pdf"
+  },
+  "sections": {
+    "task1": {
+      "title": "Getting around",
+      "npcLines": {
+        "sentences": 59,
+        "words": 298,
+        "wordsPerSentence": 5.05,
+        "syllablesPerWord": 1.23,
+        "fleschReadingEase": 97.8,
+        "fleschKincaidGrade": 0.9
+      },
+      "learnerOptions": {
+        "sentences": 37,
+        "words": 157,
+        "wordsPerSentence": 4.24,
+        "syllablesPerWord": 1.27,
+        "fleschReadingEase": 95.3,
+        "fleschKincaidGrade": 1
+      },
+      "feedback": {
+        "sentences": 60,
+        "words": 457,
+        "wordsPerSentence": 7.62,
+        "syllablesPerWord": 1.26,
+        "fleschReadingEase": 92.8,
+        "fleschKincaidGrade": 2.2
+      },
+      "vocabulary": {
+        "tokens": 416,
+        "types": 156,
+        "tokenCoverageA2": 0.981,
+        "tokenCoverageA2B1": 0.993,
+        "b1Words": [
+          "accepted",
+          "care",
+          "tap",
+          "though",
+          "will"
+        ],
+        "offList": [
+          "stairs"
+        ]
+      }
+    },
+    "task2": {
+      "title": "Café",
+      "npcLines": {
+        "sentences": 61,
+        "words": 350,
+        "wordsPerSentence": 5.74,
+        "syllablesPerWord": 1.29,
+        "fleschReadingEase": 91.5,
+        "fleschKincaidGrade": 1.9
+      },
+      "learnerOptions": {
+        "sentences": 37,
+        "words": 165,
+        "wordsPerSentence": 4.46,
+        "syllablesPerWord": 1.28,
+        "fleschReadingEase": 94.1,
+        "fleschKincaidGrade": 1.2
+      },
+      "feedback": {
+        "sentences": 67,
+        "words": 438,
+        "wordsPerSentence": 6.54,
+        "syllablesPerWord": 1.38,
+        "fleschReadingEase": 83.2,
+        "fleschKincaidGrade": 3.3
+      },
+      "vocabulary": {
+        "tokens": 495,
+        "types": 150,
+        "tokenCoverageA2": 0.915,
+        "tokenCoverageA2B1": 0.923,
+        "b1Words": [
+          "counter",
+          "will"
+        ],
+        "offList": [
+          "allergic",
+          "allergy",
+          "nut",
+          "nuts",
+          "pesto",
+          "pine",
+          "risk",
+          "walnuts"
+        ]
+      }
+    },
+    "task3": {
+      "title": "Pharmacy",
+      "npcLines": {
+        "sentences": 52,
+        "words": 319,
+        "wordsPerSentence": 6.13,
+        "syllablesPerWord": 1.3,
+        "fleschReadingEase": 90.5,
+        "fleschKincaidGrade": 2.2
+      },
+      "learnerOptions": {
+        "sentences": 35,
+        "words": 181,
+        "wordsPerSentence": 5.17,
+        "syllablesPerWord": 1.28,
+        "fleschReadingEase": 93.1,
+        "fleschKincaidGrade": 1.6
+      },
+      "feedback": {
+        "sentences": 61,
+        "words": 413,
+        "wordsPerSentence": 6.77,
+        "syllablesPerWord": 1.43,
+        "fleschReadingEase": 79.3,
+        "fleschKincaidGrade": 3.9
+      },
+      "vocabulary": {
+        "tokens": 466,
+        "types": 198,
+        "tokenCoverageA2": 0.936,
+        "tokenCoverageA2B1": 0.97,
+        "b1Words": [
+          "counter",
+          "painful",
+          "plenty",
+          "private",
+          "recommend",
+          "roughly",
+          "sore",
+          "throat",
+          "won't"
+        ],
+        "offList": [
+          "instructions",
+          "lozenge",
+          "lozenges",
+          "medical",
+          "pharmacist",
+          "suck",
+          "swallow",
+          "swallowing",
+          "task",
+          "troat"
+        ]
+      }
+    },
+    "task4": {
+      "title": "Hostel",
+      "npcLines": {
+        "sentences": 55,
+        "words": 308,
+        "wordsPerSentence": 5.6,
+        "syllablesPerWord": 1.33,
+        "fleschReadingEase": 88.5,
+        "fleschKincaidGrade": 2.3
+      },
+      "learnerOptions": {
+        "sentences": 41,
+        "words": 201,
+        "wordsPerSentence": 4.9,
+        "syllablesPerWord": 1.41,
+        "fleschReadingEase": 82.7,
+        "fleschKincaidGrade": 2.9
+      },
+      "feedback": {
+        "sentences": 65,
+        "words": 405,
+        "wordsPerSentence": 6.23,
+        "syllablesPerWord": 1.36,
+        "fleschReadingEase": 85.8,
+        "fleschKincaidGrade": 2.8
+      },
+      "vocabulary": {
+        "tokens": 454,
+        "types": 159,
+        "tokenCoverageA2": 0.925,
+        "tokenCoverageA2B1": 0.971,
+        "b1Words": [
+          "absolutely",
+          "care",
+          "charge",
+          "hostel",
+          "nearby",
+          "obviously",
+          "option",
+          "private",
+          "reception",
+          "reservation",
+          "system"
+        ],
+        "offList": [
+          "confirmation",
+          "dorm",
+          "dormitory",
+          "frustrating",
+          "useless"
+        ]
+      }
+    },
+    "listening": {
+      "title": "Listening check",
+      "npcLines": {
+        "sentences": 14,
+        "words": 139,
+        "wordsPerSentence": 9.93,
+        "syllablesPerWord": 1.27,
+        "fleschReadingEase": 89,
+        "fleschKincaidGrade": 3.3
+      },
+      "learnerOptions": {
+        "sentences": 33,
+        "words": 146,
+        "wordsPerSentence": 4.42,
+        "syllablesPerWord": 1.26,
+        "fleschReadingEase": 95.7,
+        "fleschKincaidGrade": 1
+      },
+      "feedback": {
+        "sentences": 37,
+        "words": 203,
+        "wordsPerSentence": 5.49,
+        "syllablesPerWord": 1.34,
+        "fleschReadingEase": 87.5,
+        "fleschKincaidGrade": 2.4
+      },
+      "vocabulary": {
+        "tokens": 270,
+        "types": 124,
+        "tokenCoverageA2": 0.959,
+        "tokenCoverageA2B1": 0.974,
+        "b1Words": [
+          "pie",
+          "reception",
+          "will"
+        ],
+        "offList": [
+          "allergic",
+          "allergies",
+          "nut",
+          "nuts",
+          "reference",
+          "walnuts"
+        ]
+      }
+    }
+  }
+}

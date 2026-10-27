@@ -30,7 +30,11 @@ export function buildPharmacy() {
   // Shelving behind the counter, with generic boxes.
   const shelves = new THREE.Group();
   shelves.add(box(4.0, 2.3, 0.05, white, 0, 1.15, -0.22));
+  // Generic boxes are instanced (2 draw calls for ~200 boxes) to stay inside the
+  // <= 300 draw-call budget on Medium (standards 4.5).
   const palette = [0xffffff, 0xe7f1fb, 0xfdf0e2, 0xe9f6ee, 0xf6e9f2, 0xfff7d6];
+  const bandColors = [0x1b7a5a, 0x2b6cb0, 0xc05621, 0x6b46c1];
+  const items = [];
   for (let row = 0; row < 4; row++) {
     const y = 0.45 + row * 0.5;
     shelves.add(box(4.0, 0.03, 0.32, white, 0, y, -0.06));
@@ -39,14 +43,25 @@ export function buildPharmacy() {
     while (x < 1.85) {
       const w = 0.09 + ((i * 37) % 7) * 0.012;
       const h = 0.14 + ((i * 53) % 5) * 0.025;
-      const b = box(w, h, 0.12, solid(palette[i % palette.length], { roughness: 0.6 }), x + w / 2, y + 0.015 + h / 2, -0.06);
-      shelves.add(b);
-      const band = box(w + 0.002, 0.025, 0.122, solid([0x1b7a5a, 0x2b6cb0, 0xc05621, 0x6b46c1][i % 4], { roughness: 0.5 }), x + w / 2, y + 0.015 + h * 0.7, -0.06);
-      shelves.add(band);
+      items.push({ x: x + w / 2, y, w, h, i });
       x += w + 0.025;
       i++;
     }
   }
+  const unit = new THREE.BoxGeometry(1, 1, 1);
+  const boxes = new THREE.InstancedMesh(unit, new THREE.MeshStandardMaterial({ roughness: 0.6 }), items.length);
+  const bands = new THREE.InstancedMesh(unit, new THREE.MeshStandardMaterial({ roughness: 0.5 }), items.length);
+  const m = new THREE.Matrix4();
+  const col = new THREE.Color();
+  items.forEach((it, k) => {
+    m.makeScale(it.w, it.h, 0.12).setPosition(it.x, it.y + 0.015 + it.h / 2, -0.06);
+    boxes.setMatrixAt(k, m);
+    boxes.setColorAt(k, col.setHex(palette[it.i % palette.length]));
+    m.makeScale(it.w + 0.002, 0.025, 0.122).setPosition(it.x, it.y + 0.015 + it.h * 0.7, -0.06);
+    bands.setMatrixAt(k, m);
+    bands.setColorAt(k, col.setHex(bandColors[it.i % 4]));
+  });
+  for (const im of [boxes, bands]) { im.castShadow = true; im.receiveShadow = true; im.instanceMatrix.needsUpdate = true; im.instanceColor.needsUpdate = true; shelves.add(im); }
   shelves.position.set(0, 0, -1.55);
   g.add(shelves);
 

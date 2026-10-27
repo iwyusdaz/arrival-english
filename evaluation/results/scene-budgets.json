@@ -1,0 +1,110 @@
+{
+  "generated": "2026-10-27T13:22:26.833Z",
+  "note": "Headless Chromium + SwiftShader. Byte counts are uncompressed file sizes served by a local static server (Vercel serves JS/CSS/JSON compressed, so real transfer is smaller). Draw calls / triangles are renderer.info after one frame on the Medium preset; they do not depend on the GPU.",
+  "firstLoad": {
+    "desktop": {
+      "bytes": 3310583,
+      "mb": 3.16,
+      "preset": "medium",
+      "files": [
+        [
+          "/assets/station-CyG10aQk.hdr",
+          1736568
+        ],
+        [
+          "/assets/index-CZQM_zFX.js",
+          963522
+        ],
+        [
+          "/assets/station-4k-C1RqbwpR.webp",
+          448458
+        ],
+        [
+          "/assets/marble_color-B83K3zUa.webp",
+          50996
+        ],
+        [
+          "/content/dialogues/task2.json",
+          13392
+        ],
+        [
+          "/content/dialogues/task3.json",
+          12525
+        ],
+        [
+          "/content/dialogues/task1.json",
+          12430
+        ],
+        [
+          "/assets/marble_rough-CiD_I3Ra.webp",
+          12420
+        ]
+      ]
+    },
+    "phone": {
+      "bytes": 2985153,
+      "mb": 2.85,
+      "preset": "low",
+      "files": [
+        [
+          "/assets/station-CyG10aQk.hdr",
+          1736568
+        ],
+        [
+          "/assets/index-CZQM_zFX.js",
+          963522
+        ],
+        [
+          "/assets/station-2k-D4s12NS6.webp",
+          123028
+        ],
+        [
+          "/assets/marble_color-B83K3zUa.webp",
+          50996
+        ],
+        [
+          "/content/dialogues/task2.json",
+          13392
+        ],
+        [
+          "/content/dialogues/task3.json",
+          12525
+        ],
+        [
+          "/content/dialogues/task1.json",
+          12430
+        ],
+        [
+          "/assets/marble_rough-CiD_I3Ra.webp",
+          12420
+        ]
+      ]
+    }
+  },
+  "scenes": {
+    "station": {
+      "drawCalls": 98,
+      "triangles": 274790,
+      "geometries": 49,
+      "textures": 31
+    },
+    "cafe": {
+      "drawCalls": 121,
+      "triangles": 277274,
+      "geometries": 55,
+      "textures": 32
+    },
+    "pharmacy": {
+      "drawCalls": 63,
+      "triangles": 144696,
+      "geometries": 47,
+      "textures": 28
+    },
+    "hostel": {
+      "drawCalls": 91,
+      "triangles": 142768,
+      "geometries": 61,
+      "textures": 29
+    }
+  }
+}

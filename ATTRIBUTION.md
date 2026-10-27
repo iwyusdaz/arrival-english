@@ -10,14 +10,14 @@ all licensed as CC0". ambientCG assets are CC0 (https://ambientcg.com, per-asset
 
 | # | Asset | Author | Source | License | Retrieved | Changes |
 |---|---|---|---|---|---|---|
-| 1 | Hamburg Hbf (HDRI, station backdrop + lighting) | Greg Zaal (Poly Haven) | https://polyhaven.com/a/hamburg_hbf | CC0 1.0 | 2026-10-27 | Tonemapped 8K JPG resized to 4096x2048 and 2048x1024 WebP, 0.8 px blur, -10 % saturation; 1K .hdr used for image-based lighting |
-| 2 | Comfy Café (HDRI, café backdrop + lighting) | Sergej Majboroda (Poly Haven) | https://polyhaven.com/a/comfy_cafe | CC0 1.0 | 2026-10-27 | Same processing as #1 |
-| 3 | Phone Shop (HDRI, pharmacy backdrop + lighting) | Philip Modin (Poly Haven) | https://polyhaven.com/a/phone_shop | CC0 1.0 | 2026-10-27 | Same processing as #1; used as a generic retail interior behind the fictional pharmacy foreground |
-| 4 | St. Fagans Interior (HDRI, hostel backdrop + lighting) | Morgan Evans (Poly Haven) | https://polyhaven.com/a/st_fagans_interior | CC0 1.0 | 2026-10-27 | Same processing as #1; used as a generic modern lobby behind the fictional hostel foreground |
-| 5 | Wood 049 (PBR material) | ambientCG | https://ambientcg.com/view?id=Wood049 | CC0 1.0 | 2026-10-27 | 1K-JPG colour, normal (GL), roughness resized to 512 px WebP |
-| 6 | Metal 032 (PBR material) | ambientCG | https://ambientcg.com/view?id=Metal032 | CC0 1.0 | 2026-10-27 | Same processing as #5 |
-| 7 | Marble 006 (PBR material) | ambientCG | https://ambientcg.com/view?id=Marble006 | CC0 1.0 | 2026-10-27 | Same processing as #5 |
-| 8 | Plastic 010 (PBR material) | ambientCG | https://ambientcg.com/view?id=Plastic010 | CC0 1.0 | 2026-10-27 | Same processing as #5 |
+| 1 | Hamburg Hbf (HDRI, station backdrop + lighting; published 2017-10-02) | Greg Zaal (Poly Haven) | https://polyhaven.com/a/hamburg_hbf | CC0 1.0 | 2026-10-27 | Tonemapped 8K JPG resized to 4096x2048 and 2048x1024 WebP, 0.8 px blur, -10 % saturation; 1K .hdr used for image-based lighting |
+| 2 | Comfy Café (HDRI, café backdrop + lighting; published 2021-04-20) | Sergej Majboroda (Poly Haven) | https://polyhaven.com/a/comfy_cafe | CC0 1.0 | 2026-10-27 | Same processing as #1 |
+| 3 | Phone Shop (HDRI, pharmacy backdrop + lighting; published 2018-11-08) | Philip Modin (Poly Haven) | https://polyhaven.com/a/phone_shop | CC0 1.0 | 2026-10-27 | Same processing as #1; used as a generic retail interior behind the fictional pharmacy foreground |
+| 4 | St. Fagans Interior (HDRI, hostel backdrop + lighting; published 2020-09-10) | Morgan Evans (Poly Haven) | https://polyhaven.com/a/st_fagans_interior | CC0 1.0 | 2026-10-27 | Same processing as #1; used as a generic modern lobby behind the fictional hostel foreground |
+| 5 | Wood 049 (PBR material; released 2020-09-27) | ambientCG | https://ambientcg.com/view?id=Wood049 | CC0 1.0 | 2026-10-27 | 1K-JPG colour, normal (GL), roughness resized to 512 px WebP |
+| 6 | Metal 032 (PBR material; released 2020-08-09) | ambientCG | https://ambientcg.com/view?id=Metal032 | CC0 1.0 | 2026-10-27 | Same processing as #5 |
+| 7 | Marble 006 (PBR material; released 2020-01-26) | ambientCG | https://ambientcg.com/view?id=Marble006 | CC0 1.0 | 2026-10-27 | Same processing as #5 |
+| 8 | Plastic 010 (PBR material; released 2020-09-06) | ambientCG | https://ambientcg.com/view?id=Plastic010 | CC0 1.0 | 2026-10-27 | Same processing as #5 |
 
 ## Original work in this repository (no third-party licence)
 

@@ -1,6 +1,6 @@
 [
   {
-    "asset": "Hamburg Hbf (HDRI, station backdrop + lighting)",
+    "asset": "Hamburg Hbf (HDRI, station backdrop + lighting; published 2017-10-02)",
     "author": "Greg Zaal (Poly Haven)",
     "source": "https://polyhaven.com/a/hamburg_hbf",
     "license": "CC0 1.0",
@@ -8,7 +8,7 @@
     "changes": "Tonemapped 8K JPG resized to 4096x2048 and 2048x1024 WebP, 0.8 px blur, -10 % saturation; 1K .hdr used for image-based lighting"
   },
   {
-    "asset": "Comfy Café (HDRI, café backdrop + lighting)",
+    "asset": "Comfy Café (HDRI, café backdrop + lighting; published 2021-04-20)",
     "author": "Sergej Majboroda (Poly Haven)",
     "source": "https://polyhaven.com/a/comfy_cafe",
     "license": "CC0 1.0",
@@ -16,7 +16,7 @@
     "changes": "Same processing as #1"
   },
   {
-    "asset": "Phone Shop (HDRI, pharmacy backdrop + lighting)",
+    "asset": "Phone Shop (HDRI, pharmacy backdrop + lighting; published 2018-11-08)",
     "author": "Philip Modin (Poly Haven)",
     "source": "https://polyhaven.com/a/phone_shop",
     "license": "CC0 1.0",
@@ -24,7 +24,7 @@
     "changes": "Same processing as #1; used as a generic retail interior behind the fictional pharmacy foreground"
   },
   {
-    "asset": "St. Fagans Interior (HDRI, hostel backdrop + lighting)",
+    "asset": "St. Fagans Interior (HDRI, hostel backdrop + lighting; published 2020-09-10)",
     "author": "Morgan Evans (Poly Haven)",
     "source": "https://polyhaven.com/a/st_fagans_interior",
     "license": "CC0 1.0",
@@ -32,7 +32,7 @@
     "changes": "Same processing as #1; used as a generic modern lobby behind the fictional hostel foreground"
   },
   {
-    "asset": "Wood 049 (PBR material)",
+    "asset": "Wood 049 (PBR material; released 2020-09-27)",
     "author": "ambientCG",
     "source": "https://ambientcg.com/view?id=Wood049",
     "license": "CC0 1.0",
@@ -40,7 +40,7 @@
     "changes": "1K-JPG colour, normal (GL), roughness resized to 512 px WebP"
   },
   {
-    "asset": "Metal 032 (PBR material)",
+    "asset": "Metal 032 (PBR material; released 2020-08-09)",
     "author": "ambientCG",
     "source": "https://ambientcg.com/view?id=Metal032",
     "license": "CC0 1.0",
@@ -48,7 +48,7 @@
     "changes": "Same processing as #5"
   },
   {
-    "asset": "Marble 006 (PBR material)",
+    "asset": "Marble 006 (PBR material; released 2020-01-26)",
     "author": "ambientCG",
     "source": "https://ambientcg.com/view?id=Marble006",
     "license": "CC0 1.0",
@@ -56,7 +56,7 @@
     "changes": "Same processing as #5"
   },
   {
-    "asset": "Plastic 010 (PBR material)",
+    "asset": "Plastic 010 (PBR material; released 2020-09-06)",
     "author": "ambientCG",
     "source": "https://ambientcg.com/view?id=Plastic010",
     "license": "CC0 1.0",
