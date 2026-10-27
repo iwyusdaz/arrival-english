@@ -1,0 +1,40 @@
+# Decisions
+
+Every significant decision, the alternatives considered and the reason. Deviations from the plan
+(`05-arrival-language-game.md`) are marked **DEVIATION**.
+
+| ID | Decision | Alternatives | Rationale |
+|---|---|---|---|
+| D-01 | Authored branching dialogue, no AI | LLM conversation | No API key; predictable, reviewable language at the target level; every branch is testable (plan §9) |
+| D-02 | Each turn offers effective / pragmatically odd / common learner error (+ optional "acceptable") | Grammar errors only | Real communication fails on tone and register too. Odd options are grammatical, so learners see that accuracy alone is not enough (plan §9) |
+| D-03 | Odd and wrong choices still reach the goal, sometimes by a longer route (the NPC asks again or rephrases) | Fail states / game over | Lowers anxiety (S6); keeps the task meaning-focused; the NPC's reaction and the feedback carry the consequence |
+| D-04 | Repair bar on every turn (repeat, more slowly, spell, listen again); the NPC answers with an authored slower or spelled line | Fail on misunderstanding; generic slowed TTS only | Teaches a key strategy (O5) and lowers anxiety; authored "slower" lines also simplify the language, not just the speed |
+| D-05 | Speech input optional and **off by default**, feature-detected, with the browser-vendor disclosure shown before it can be switched on; key-chunk check only, labelled approximate | Speech required; pronunciation scoring | Privacy (S8: some browsers send audio to a server), browser support, learner comfort; pronunciation scoring is out of scope (plan §4) |
+| D-06 | Same HTML task panel in 3D mode (docked beside the scene) and text mode (under an illustration) | A separate text-mode implementation | Parity by construction: the same choices, feedback and records, so the two modes cannot drift apart |
+| D-07 | **DEVIATION:** stylized procedural NPC figures instead of MakeHuman CC0 exports | MakeHuman exports; Mixamo (not allowed); photo billboards | MakeHuman could not be installed or exported in this build environment. The procedural figures are realistic in scale and proportion but have no facial features (avoids the uncanny valley and any implied caricature) and react through posture and gesture only (nod, shrug, folded arms, point, think, apologetic, look down), in line with plan §6.1 "no lip sync; reactions shown through posture and gesture". `src/scenes/npc.js` keeps the figure behind one `NPC` class, so a MakeHuman glTF can replace it later. Labelled in the README and STATUS |
+| D-08 | Backdrops: Poly Haven photo HDRIs of real places (Hamburg Hbf, Comfy Café, Phone Shop, St. Fagans Interior) via `GroundedSkybox`, slightly blurred and desaturated, behind fictional foreground signage | 3D-modelled interiors; no backdrop | Authentic context at low cost (plan §1). Real signage in the photos (German station names, adverts, the phone shop's displays) is blurred and sits behind the fictional Harbour City signage. The pharmacy uses a retail-shop photo because Poly Haven has no pharmacy HDRI; its shelving covers most of the shop displays from the default view |
+| D-09 | A backdrop yaw per scene, chosen by rendering test views | Default orientation | The default views put a bright window or a dull wall behind the counter; the chosen yaw shows the train hall and the café interior |
+| D-10 | British English spelling; variety-neutral vocabulary where possible (design/english-variety.md) | US English; mixed | One consistent variety (plan §3); matches the Cambridge A2 / B1 lists used for the level check |
+| D-11 | Readability via Flesch formulas plus vocabulary coverage against the Cambridge A2 Key / B1 Preliminary lists (downloaded at check time, not committed) | Readability formulas only; a commercial CEFR profiler | Published, free, verifiable lists; formulas are reported as rough signals only. The PDFs are UCLES / CUPA copyright, so they are not committed |
+| D-12 | **DEVIATION:** no ambient city sound in v1.0.0 | Low, mutable CC0 ambience (plan §6.1) | Listening is a learning target, and the plan already requires ambience off during listening. No CC0 ambience was vetted in this build; adding one is listed under next steps. Voices are browser `speechSynthesis` (no audio files ship) |
+| D-13 | Listening items voiced by browser TTS, with transcripts after answering and a reading-equivalent path | Recorded human audio | No recording budget or consent process; TTS respects the speech-rate setting. Voice quality varies and this is disclosed. The reading path is documented as an alternative, not equivalent listening practice (plan §11) |
+| D-14 | Leitner boxes 1-5, intervals 0/1/3/7/14 days; a miss returns the card to box 1, due again in one minute | SM-2; no spaced review | Simple, transparent and well known; the logic is unit-tested with an injected clock |
+| D-15 | Learning record: the template's local xAPI-shaped log with extensions for option type, mode, repairs and listening path; slug-prefixed keys (`arrival-english:*`) | Server LRS | No server; the shared origin needs prefixed keys; "Clear my data" removes only this project's keys (tested) |
+| D-16 | Restrained post: ACES via `ToneMappingEffect` in the composer (Medium+), SMAA, N8AO on High+; no bloom, no DOF | Bloom on signs | No physically motivated light sources need bloom; standards 4.3. Rendering into the composer's float buffer bypasses three's own tone mapping, so ACES is applied in the effect pass (the backdrop material sets `toneMapped=false` because it is already a tone-mapped photo) |
+| D-17 | Pharmacy shelf boxes as two `InstancedMesh`es | Separate meshes | Measured 471 draw calls on Medium (budget ≤ 300); instancing brings it to 63 |
+| D-18 | Portrait phone layout: scene band (34 vh) on top, dialogue panel below | Landscape only | Many learners practise on phones; dialogue reads well in portrait (plan §9) |
+| D-19 | No timers; no score; a results table per task (effective choices %, repairs used) | Points, stars | Formative, low anxiety; the numbers support the post-task language focus |
+| D-20 | Each scene-intro cinematic plays once, the first time a task opens in 3D mode; text mode never auto-plays them; all are replayable | Always play; never play | Orients first-time players without repeating; cinematic budget 50 s (≤ 70 s) |
+| D-21 | Pre-task models use different places and details from the tasks (Northgate instead of Seaview, a cough instead of a sore throat) | Model the task itself | Learners notice the chunks without being handed the task answers |
+| D-22 | Hosting limits checked: Vercel CLI static uploads 100 MB (Hobby) / 1 GB (Pro) (S13). This build is about 13 MB and its largest file is 1.7 MB, inside the 150 MB / 20 MB budgets | | Required by 08 §5.5 |
+
+## Revision log (changes made because of checks and reviews during the build)
+
+1. **Pharmacy draw calls 471 → 63** (instanced shelf boxes), found by `scripts/measure-scenes.mjs`.
+2. **Mode buttons had an invalid `aria-pressed` value** (`[object Object]`); found by axe in the build-mode state; fixed with a boolean.
+3. **Backdrop orientation**: the first renders showed a bright window or blank wall behind the counters; the per-scene yaw was changed after rendering test views (D-09).
+4. **Café clutter**: a checkerboard tile texture and a coffee machine blocked the counter; replaced with a plain plastered wall and wainscot, and the machine moved aside.
+5. **Pharmacy backdrop leakage**: the phone shop's "cell phone" displays showed beside narrow shelving; the shelves were widened to 4 m.
+6. **Vocabulary check false positives**: the first run flagged *am, are, ten, forty...* as off-list; the script now maps irregular forms and includes the A2 list's Appendix 1 number words (verified in the PDF).
+7. **Attribution accuracy**: the n8ao licence was corrected to ISC (from its package.json); two ambientCG materials that were not used were removed from the build and from ATTRIBUTION.md; an ambientCG author name that could not be confirmed was removed.
+8. **English-variety doc**: example words that did not appear in the content were replaced with words that do.

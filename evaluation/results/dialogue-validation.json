@@ -1,0 +1,38 @@
+{
+  "graphs": {
+    "task1": {
+      "nodes": 18,
+      "reachable": 18,
+      "options": 23,
+      "outcomes": 1,
+      "buildTurns": 1,
+      "speakTurns": 5
+    },
+    "task2": {
+      "nodes": 19,
+      "reachable": 19,
+      "options": 26,
+      "outcomes": 1,
+      "buildTurns": 1,
+      "speakTurns": 4
+    },
+    "task3": {
+      "nodes": 17,
+      "reachable": 17,
+      "options": 24,
+      "outcomes": 1,
+      "buildTurns": 1,
+      "speakTurns": 3
+    },
+    "task4": {
+      "nodes": 14,
+      "reachable": 14,
+      "options": 24,
+      "outcomes": 1,
+      "buildTurns": 1,
+      "speakTurns": 3
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

@@ -171,6 +171,26 @@ test('build mode is keyboard operable; near misses explain; repair is always ava
   await expect(page.locator('.dlg-log')).toContainText('(built from tiles)');
 });
 
+test('keyboard only: task 1 can be completed with focus + Enter (no mouse)', async ({ page }) => {
+  test.setTimeout(180_000);
+  await boot(page);
+  await page.evaluate(() => window.__TEST__.engine?.pause());
+  const press = async (loc) => { await loc.focus(); await expect(loc).toBeFocused(); await page.keyboard.press('Enter'); };
+  await press(page.getByTestId('begin'));
+  await press(page.getByTestId('start-task'));
+  for (let guard = 0; guard < 40; guard++) {
+    const finish = page.getByTestId('dlg-finish');
+    if (await finish.count()) { await press(finish); break; }
+    const cont = page.locator('#task-panel [data-testid="dlg-continue"]');
+    if (await cont.count()) { await press(cont); continue; }
+    const id = await page.evaluate(() => window.__TEST__.app.tasks.task1.conv.current.options.find((o) => o.type === 'effective').id);
+    await press(page.locator(`#task-panel [data-option="${id}"]`));
+  }
+  await expect(page.locator('table.results')).toContainText('Achieved');
+  await press(page.getByTestId('next-task'));
+  await expect(page.locator('h2.module-title')).toContainText('Task 2');
+});
+
 test('speech input is off by default and the vendor disclosure is shown', async ({ page }) => {
   await boot(page);
   expect(await page.evaluate(() => window.__TEST__.settings.get().speechInput)).toBe(false);
