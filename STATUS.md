@@ -11,7 +11,7 @@ Legend: **done** = built and checked by automated tests or scripts · **done (ag
 | Captions, transcripts, speech-rate control work | done | Conversation text always shown, caption overlay, transcripts only after answering (functional test), rate 0.75-1.25x clamped (unit test) and persisted (functional test). Actual voice output is not audible in headless tests |
 | Phrasebook and spaced review persist locally; "Clear my data" works | done | Leitner unit tests; functional tests for the review card box change and for clearing only `arrival-english:` keys |
 | Text mode and reading path cover every objective | done | Same panel in both modes (D-06); text-mode test; reading path with 8 items; `design/text-mode.md` parity table |
-| Performance budgets met | partly done | Measured headless: first load 3.16 MB desktop / 2.85 MB phone (≤ 15 / 8 MB); ≤ 121 draw calls (≤ 300); ≤ 0.28 M triangles (≤ 1.5 M). **Frame rate: not possible here** (headless software WebGL; headed GPU runs are done by the orchestrator) |
+| Performance budgets met | done (orchestrator, headed Apple M1, 2026-10-27): Medium 60 fps (budget ≥ 55), 122 draw calls, 147k triangles, menu interactive 0.11 s, 3.17 MB before first interaction; phone-size transfer re-checked at 2.85 MB in the earlier headless run (`evaluation/results/perf-2026-10-27.json`) |
 | README: play link, trailer, realism rationale, evaluation notice | done (trailer pending) | README has the notice, play link (pending deployment) and rationale. The trailer is a placeholder until the orchestrator's headed recording |
 
 ## Plan phases
@@ -30,7 +30,7 @@ Legend: **done** = built and checked by automated tests or scripts · **done (ag
 
 ## Known gaps
 
-- No ambient city sound (D-12). No learner testing. No screen-reader session. No real-device or GPU performance runs.
+- No ambient city sound (D-12). No learner testing. No screen-reader session. No real-device runs (GPU performance was measured on the Mac; see `evaluation/results/perf-2026-10-27.json`).
 - Real signage in the backdrop photos is blurred, not removed (D-08).
 
 ## Agent review findings still open (with reasons)

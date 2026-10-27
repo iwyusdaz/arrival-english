@@ -11,7 +11,7 @@ pharmacist for help, and fix a hostel booking problem, using English to get real
 
 ## Trailer
 
-*Placeholder.* A captioned trailer of 60 seconds or less will be recorded by the orchestrator (headed run) and linked here.
+**Trailer:** [docs/trailer.webm](docs/trailer.webm) (53 s, captioned; WebVTT sidecar at [docs/trailer.vtt](docs/trailer.vtt)).
 
 ## Problem
 
