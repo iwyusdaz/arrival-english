@@ -1,0 +1,66 @@
+[
+  {
+    "asset": "Hamburg Hbf (HDRI, station backdrop + lighting)",
+    "author": "Greg Zaal (Poly Haven)",
+    "source": "https://polyhaven.com/a/hamburg_hbf",
+    "license": "CC0 1.0",
+    "retrieved": "2026-10-27",
+    "changes": "Tonemapped 8K JPG resized to 4096x2048 and 2048x1024 WebP, 0.8 px blur, -10 % saturation; 1K .hdr used for image-based lighting"
+  },
+  {
+    "asset": "Comfy Café (HDRI, café backdrop + lighting)",
+    "author": "Sergej Majboroda (Poly Haven)",
+    "source": "https://polyhaven.com/a/comfy_cafe",
+    "license": "CC0 1.0",
+    "retrieved": "2026-10-27",
+    "changes": "Same processing as #1"
+  },
+  {
+    "asset": "Phone Shop (HDRI, pharmacy backdrop + lighting)",
+    "author": "Philip Modin (Poly Haven)",
+    "source": "https://polyhaven.com/a/phone_shop",
+    "license": "CC0 1.0",
+    "retrieved": "2026-10-27",
+    "changes": "Same processing as #1; used as a generic retail interior behind the fictional pharmacy foreground"
+  },
+  {
+    "asset": "St. Fagans Interior (HDRI, hostel backdrop + lighting)",
+    "author": "Morgan Evans (Poly Haven)",
+    "source": "https://polyhaven.com/a/st_fagans_interior",
+    "license": "CC0 1.0",
+    "retrieved": "2026-10-27",
+    "changes": "Same processing as #1; used as a generic modern lobby behind the fictional hostel foreground"
+  },
+  {
+    "asset": "Wood 049 (PBR material)",
+    "author": "ambientCG",
+    "source": "https://ambientcg.com/view?id=Wood049",
+    "license": "CC0 1.0",
+    "retrieved": "2026-10-27",
+    "changes": "1K-JPG colour, normal (GL), roughness resized to 512 px WebP"
+  },
+  {
+    "asset": "Metal 032 (PBR material)",
+    "author": "ambientCG",
+    "source": "https://ambientcg.com/view?id=Metal032",
+    "license": "CC0 1.0",
+    "retrieved": "2026-10-27",
+    "changes": "Same processing as #5"
+  },
+  {
+    "asset": "Marble 006 (PBR material)",
+    "author": "ambientCG",
+    "source": "https://ambientcg.com/view?id=Marble006",
+    "license": "CC0 1.0",
+    "retrieved": "2026-10-27",
+    "changes": "Same processing as #5"
+  },
+  {
+    "asset": "Plastic 010 (PBR material)",
+    "author": "ambientCG",
+    "source": "https://ambientcg.com/view?id=Plastic010",
+    "license": "CC0 1.0",
+    "retrieved": "2026-10-27",
+    "changes": "Same processing as #5"
+  }
+]

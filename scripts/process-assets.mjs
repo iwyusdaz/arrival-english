@@ -34,8 +34,6 @@ export const MATERIALS = [
   { name: 'metal', id: 'Metal032' },
   { name: 'marble', id: 'Marble006' },
   { name: 'plastic', id: 'Plastic010' },
-  { name: 'fabric', id: 'Fabric030' },
-  { name: 'tiles', id: 'Tiles074' },
 ];
 
 const run = (cmd, args) => execFileSync(cmd, args, { stdio: ['ignore', 'pipe', 'inherit'] });

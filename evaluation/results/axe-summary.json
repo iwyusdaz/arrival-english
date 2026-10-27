@@ -1,0 +1,101 @@
+{
+  "generated": "2026-10-27T13:08:00.276Z",
+  "tags": [
+    "wcag2a",
+    "wcag2aa",
+    "wcag21a",
+    "wcag21aa"
+  ],
+  "states": [
+    {
+      "state": "start (can-do before)",
+      "violations": [],
+      "passes": 24
+    },
+    {
+      "state": "settings dialog",
+      "violations": [],
+      "passes": 16
+    },
+    {
+      "state": "menu dialog",
+      "violations": [],
+      "passes": 15
+    },
+    {
+      "state": "progress dialog",
+      "violations": [],
+      "passes": 13
+    },
+    {
+      "state": "task 1 pre-task",
+      "violations": [],
+      "passes": 27
+    },
+    {
+      "state": "task 1 dialogue (choose)",
+      "violations": [],
+      "passes": 25
+    },
+    {
+      "state": "task 1 feedback (odd option + recast)",
+      "violations": [],
+      "passes": 25
+    },
+    {
+      "state": "task 1 build mode with message",
+      "violations": [],
+      "passes": 25
+    },
+    {
+      "state": "task 1 after a repair",
+      "violations": [],
+      "passes": 25
+    },
+    {
+      "state": "task 1 post-task language focus",
+      "violations": [],
+      "passes": 26
+    },
+    {
+      "state": "listening check (answered item with transcript)",
+      "violations": [],
+      "passes": 22
+    },
+    {
+      "state": "reading-equivalent path",
+      "violations": [],
+      "passes": 22
+    },
+    {
+      "state": "phrasebook review",
+      "violations": [],
+      "passes": 23
+    },
+    {
+      "state": "wrap-up",
+      "violations": [],
+      "passes": 26
+    },
+    {
+      "state": "text mode (wrap-up)",
+      "violations": [],
+      "passes": 27
+    },
+    {
+      "state": "text mode (pharmacy pre-task with illustration)",
+      "violations": [],
+      "passes": 28
+    },
+    {
+      "state": "phone portrait, high contrast, extra large text (start)",
+      "violations": [],
+      "passes": 24
+    },
+    {
+      "state": "phone portrait, high contrast (café dialogue)",
+      "violations": [],
+      "passes": 25
+    }
+  ]
+}

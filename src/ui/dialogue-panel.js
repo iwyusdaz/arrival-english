@@ -203,7 +203,7 @@ export class DialoguePanel {
     const modes = [['choose', 'Choose'], ['build', 'Build'], ['speak', 'Speak']];
     const bar = el('div', { class: 'mode-bar', role: 'group', 'aria-label': 'Answer mode' });
     for (const [m, label] of modes) {
-      const available = m === 'choose' || (m === 'build' && n.build) || (m === 'speak' && speakOk);
+      const available = m === 'choose' || (m === 'build' && Boolean(n.build)) || (m === 'speak' && Boolean(speakOk));
       bar.append(el('button', { type: 'button', class: 'mode-btn', 'aria-pressed': String(this.mode === m && available), disabled: !available, 'data-mode': m, onclick: () => this.setMode(m) }, label));
     }
     wrap.append(bar);

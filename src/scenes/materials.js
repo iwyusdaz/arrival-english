@@ -11,8 +11,6 @@ const TEX = {
   metal: { color: new URL('../assets/textures/metal_color.webp', import.meta.url).href, normal: new URL('../assets/textures/metal_normal.webp', import.meta.url).href, rough: new URL('../assets/textures/metal_rough.webp', import.meta.url).href },
   marble: { color: new URL('../assets/textures/marble_color.webp', import.meta.url).href, normal: new URL('../assets/textures/marble_normal.webp', import.meta.url).href, rough: new URL('../assets/textures/marble_rough.webp', import.meta.url).href },
   plastic: { color: new URL('../assets/textures/plastic_color.webp', import.meta.url).href, normal: new URL('../assets/textures/plastic_normal.webp', import.meta.url).href, rough: new URL('../assets/textures/plastic_rough.webp', import.meta.url).href },
-  fabric: { color: new URL('../assets/textures/fabric_color.webp', import.meta.url).href, normal: new URL('../assets/textures/fabric_normal.webp', import.meta.url).href, rough: new URL('../assets/textures/fabric_rough.webp', import.meta.url).href },
-  tiles: { color: new URL('../assets/textures/tiles_color.webp', import.meta.url).href, normal: new URL('../assets/textures/tiles_normal.webp', import.meta.url).href, rough: new URL('../assets/textures/tiles_rough.webp', import.meta.url).href },
 };
 
 const loader = new THREE.TextureLoader();

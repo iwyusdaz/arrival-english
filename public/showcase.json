@@ -1,0 +1,20 @@
+{
+  "slug": "arrival-english",
+  "version": "1.0.0",
+  "title": "Arrival: a task-based English game",
+  "format": "Game",
+  "niche": "Language learning (English, A2 to B1)",
+  "audience": "Adult and older-teen English learners at CEFR A2 working towards B1",
+  "summary": "Just arrived in a new city: buy a ticket, order lunch with a nut allergy, ask a pharmacist for help and fix a hostel booking, in English. Branching dialogues with feedback, repair phrases and a phrasebook. Speech input is optional and off by default.",
+  "playTimeMinutes": 35,
+  "features": ["text-mode", "keyboard", "reduced-motion", "captions", "mobile-supported", "speech-rate-control", "optional-speech-input"],
+  "contentNotes": ["The pharmacy task is language practice only, not medical advice."],
+  "permissions": ["microphone"],
+  "poster": {
+    "webp": "poster-1.0.0.webp",
+    "jpg": "poster-1.0.0.jpg",
+    "alt": "A station help desk under a glass roof: a staff member behind a blue desk, a ticket machine showing CARD NOT ACCEPTED, and a departures board listing the 10:15 to Seaview from platform 4."
+  },
+  "repoUrl": "https://github.com/iwyusdaz/arrival-english",
+  "license": { "content": "CC BY 4.0", "code": "MIT" }
+}
