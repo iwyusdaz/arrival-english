@@ -1,0 +1,16 @@
+{
+  "note": "Self-assessment only. It is not a test and does not give a CEFR level. Statements are written for learners and informed by CEFR Companion Volume (2020) descriptors; see design/cefr-alignment.md for the mapping and the exact descriptor wording.",
+  "scale": [
+    { "value": 1, "label": "I can't do this yet" },
+    { "value": 2, "label": "I can do this with a lot of help" },
+    { "value": 3, "label": "I can do this with a little help" },
+    { "value": 4, "label": "I can do this on my own" }
+  ],
+  "statements": [
+    { "id": "O1", "text": "I can buy a train ticket and ask for and understand simple directions." },
+    { "id": "O2", "text": "I can order food and explain a dietary need, like an allergy." },
+    { "id": "O3", "text": "I can describe a common minor health problem at a pharmacy and check the instructions I'm given." },
+    { "id": "O4", "text": "I can explain a problem with a booking and agree on a simple solution." },
+    { "id": "O5", "text": "When I don't understand, I can ask people to repeat, slow down or spell, and I can check that I understood." }
+  ]
+}

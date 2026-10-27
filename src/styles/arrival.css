@@ -1,0 +1,109 @@
+/* Arrival-specific overlay styles. Layout: scene on the left, task panel docked on the
+   right (desktop/landscape); on narrow portrait screens the scene becomes a band at the
+   top and the dialogue panel fills the rest (portrait-friendly dialogue, plan §9). */
+
+.cinematic-overlay[hidden], .textmode[hidden], .task-panel[hidden], .scene-caption[hidden] { display: none !important; }
+
+h1.app-title { margin: 0; font-size: 1rem; font-weight: 600; }
+.stage { display: flex; }
+#app { flex: 1 1 auto; min-width: 0; }
+.task-panel {
+  flex: 0 0 min(30rem, 42vw);
+  height: 100%;
+  overflow-y: auto;
+  background: var(--surface);
+  border-left: 1px solid color-mix(in srgb, var(--muted) 30%, transparent);
+  padding: 0.8rem 1rem 2rem;
+}
+.textmode { z-index: 6; }
+.textmode .textmode-body { max-width: 50rem; }
+.module-title { font-size: 1.25rem; margin: 0.2rem 0 0.6rem; }
+.module-title:focus { outline: none; }
+
+.scene-caption {
+  position: absolute; left: 1rem; bottom: 1rem;
+  max-width: min(44rem, calc(100% - min(30rem, 42vw) - 2rem));
+  margin: 0; padding: 0.5rem 0.8rem;
+  background: rgba(0, 0, 0, 0.74); color: #fff; border-radius: 6px;
+  font-size: 1.05rem; z-index: 4;
+}
+.cinematic-overlay { right: auto; width: calc(100% - min(30rem, 42vw)); }
+
+button.primary { background: var(--accent-strong); border-color: var(--accent-strong); color: #fff; font-weight: 600; }
+button.secondary { border-color: var(--accent); }
+button[disabled] { opacity: 0.55; cursor: not-allowed; }
+.dlg-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.6rem 0; }
+.hint { color: var(--muted); font-size: 0.92rem; }
+.goal { margin: 0.2rem 0 0.5rem; }
+.safety { border-left: 4px solid var(--warn); padding: 0.4rem 0.6rem; background: color-mix(in srgb, var(--warn) 12%, transparent); }
+
+.stage-nav, .mode-bar, .look-group { display: flex; flex-wrap: wrap; gap: 0.35rem; margin: 0.5rem 0; align-items: center; }
+.stage-nav button[aria-current="step"], .mode-btn[aria-pressed="true"] { background: var(--accent-strong); border-color: var(--accent-strong); color: #fff; }
+
+.dlg-log { list-style: none; margin: 0.4rem 0; padding: 0.5rem; max-height: 38vh; overflow-y: auto; border: 1px solid color-mix(in srgb, var(--muted) 30%, transparent); border-radius: 8px; background: var(--bg); }
+.textmode .dlg-log { max-height: none; }
+.dlg-line { margin: 0.35rem 0; }
+.dlg-line .dlg-speaker { font-weight: 700; }
+.who-narrator { font-style: italic; color: var(--muted); }
+.who-you { padding-left: 1.2rem; }
+.who-you .dlg-speaker { color: var(--accent); }
+.is-repair { color: var(--muted); }
+.dlg-note { color: var(--muted); font-size: 0.85rem; }
+
+.choices .choice-btn { padding: 0.55rem 0.75rem; }
+.choice-btn.correct { border-width: 2px; }
+.choice-btn.incorrect { border-width: 2px; }
+
+.dlg-feedback { border: 2px solid var(--accent); border-radius: 8px; padding: 0.6rem 0.8rem; margin: 0.5rem 0; }
+.dlg-feedback:focus { outline: 3px solid var(--focus); }
+.dlg-feedback.type-effective, .dlg-feedback.type-acceptable { border-color: var(--ok); }
+.dlg-feedback.type-odd { border-color: var(--warn); }
+.dlg-feedback.type-error { border-color: var(--err); }
+.badge { font-weight: 700; margin: 0 0 0.3rem; }
+.recast-label { font-weight: 600; }
+.reaction { color: var(--muted); }
+.dlg-outcome { border: 2px solid var(--ok); border-radius: 8px; padding: 0.6rem 0.8rem; }
+
+.repair-bar { display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: center; margin-top: 0.6rem; padding-top: 0.5rem; border-top: 1px dashed color-mix(in srgb, var(--muted) 40%, transparent); }
+.repair-label { font-weight: 600; margin-right: 0.2rem; }
+.repair-btn { font-size: 0.9rem; }
+
+.builder-prompt { font-weight: 600; }
+.tile-answer, .tile-bank { display: flex; flex-wrap: wrap; gap: 0.4rem; min-height: 2.6rem; padding: 0.4rem; border-radius: 8px; margin: 0.4rem 0; }
+.tile-answer { border: 2px dashed var(--accent); }
+.tile-bank { border: 1px solid color-mix(in srgb, var(--muted) 40%, transparent); }
+.tile { padding: 0.4rem 0.65rem; border-radius: 999px; }
+.tile.in-answer { border-color: var(--accent); }
+.tile-empty { color: var(--muted); align-self: center; }
+.dlg-message { font-weight: 600; }
+
+.model-exchange { padding-left: 1.2rem; }
+.model-exchange li.playing { background: color-mix(in srgb, var(--accent) 16%, transparent); }
+.model-exchange strong { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.chunk-list dt { font-weight: 700; margin-top: 0.4rem; }
+.chunk-list dd { margin-left: 1rem; color: var(--muted); }
+.match-item .choice-btn { display: inline-block; width: auto; margin: 0.2rem; }
+.listen-item .choice-btn { margin: 0.25rem 0; }
+.transcript { font-style: italic; }
+.reading-text { font-family: ui-monospace, Menlo, monospace; background: var(--bg); padding: 0.5rem; border-radius: 6px; }
+.disclosure { font-size: 0.92rem; }
+
+.scene-still { margin: 0 0 0.8rem; }
+.scene-still img { width: 100%; height: auto; border-radius: 8px; display: block; }
+.scene-still figcaption { color: var(--muted); font-size: 0.88rem; margin-top: 0.3rem; }
+
+dialog { max-height: 90vh; overflow-y: auto; }
+dialog label { display: block; margin-top: 0.4rem; }
+dialog input[type="range"], dialog select { display: block; width: 100%; max-width: 22rem; }
+
+/* Portrait / narrow: scene band on top, panel below (dialogue reads well in portrait). */
+@media (max-width: 760px), (orientation: portrait) and (max-width: 1024px) {
+  .stage { flex-direction: column; }
+  #app { flex: 0 0 34vh; height: 34vh; }
+  .task-panel { flex: 1 1 auto; width: 100%; height: auto; min-height: 0; border-left: 0; border-top: 1px solid color-mix(in srgb, var(--muted) 30%, transparent); }
+  .scene-caption { max-width: calc(100% - 2rem); bottom: auto; top: calc(34vh - 3.2rem); font-size: 0.95rem; }
+  .cinematic-overlay { width: 100%; height: 34vh; }
+  .dlg-log { max-height: 30vh; }
+}
+
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }

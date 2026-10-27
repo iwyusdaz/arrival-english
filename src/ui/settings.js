@@ -1,44 +1,44 @@
 /**
- * Settings dialog: quality preset (with manual override), text size, contrast,
- * captions, reduced motion, FOV comfort, separate volume controls + mute.
- * Persisted under slug-prefixed keys (shared origin with other projects).
+ * Settings dialog: quality preset, text size, contrast, captions, reduced motion, FOV,
+ * voice on/off + voice choice + speech rate (0.75-1.25x), volume/mute, and the optional
+ * speech input (OFF by default, with the browser-vendor disclosure shown before it can be
+ * switched on). Persisted under the slug-prefixed key `arrival-english:settings`.
  * @module ui/settings
  */
 import { openDialog, closeDialog } from '../a11y/focus.js';
+import { RATE_MIN, RATE_MAX, clampRate, hasRecognition, hasSynthesis, SPEECH_DISCLOSURE } from '../systems/speech.js';
+
+export const DEFAULTS = {
+  textSize: 'normal',
+  contrast: 'normal',
+  captions: true,
+  voiceOn: true,
+  voiceName: '',
+  speechRate: 1,
+  speechInput: false, // OFF by default (plan §5.4)
+  volumeMaster: 0.8,
+  volumeVoice: 1.0,
+  muted: false,
+  fov: 55,
+};
 
 export class Settings {
-  /**
-   * @param {object} opts
-   * @param {string} opts.slug
-   * @param {HTMLDialogElement} opts.dialog  a <dialog> in the DOM
-   * @param {import('../core/quality.js').QualityManager} [opts.quality]
-   * @param {import('../a11y/motion.js').MotionPrefs} [opts.motion]
-   * @param {Function} [opts.onVolume]
-   * @param {Function} [opts.onFov]  receives fov degrees
-   */
-  constructor({ slug, dialog, quality, motion, onVolume, onFov }) {
+  constructor({ slug, dialog, quality, motion, voice, onChange }) {
     this.slug = slug;
     this.dialog = dialog;
     this.quality = quality;
     this.motion = motion;
-    this.onVolume = onVolume;
-    this.onFov = onFov;
+    this.voice = voice;
+    this.onChange = onChange;
     this.state = this._load();
-    this._build();
+    this._apply();
   }
 
   _load() {
-    const d = {
-      textSize: 'normal',
-      contrast: 'normal',
-      captions: true,
-      volumeMaster: 0.8,
-      volumeVoice: 1.0,
-      volumeAmbient: 0.6,
-      muted: false,
-      fov: 60,
-    };
+    const d = { ...DEFAULTS };
     try { Object.assign(d, JSON.parse(localStorage.getItem(`${this.slug}:settings`) || '{}')); } catch { /* ignore */ }
+    d.speechRate = clampRate(d.speechRate);
+    if (!hasRecognition()) d.speechInput = false;
     return d;
   }
 
@@ -46,96 +46,118 @@ export class Settings {
     try { localStorage.setItem(`${this.slug}:settings`, JSON.stringify(this.state)); } catch { /* ignore */ }
   }
 
+  get() { return this.state; }
+
   _build() {
+    const s = this.state;
+    const recog = hasRecognition();
+    const synth = hasSynthesis();
+    const voices = this.voice?.voices() || [];
     const q = this.dialog;
     q.innerHTML = `
-      <h2>Settings</h2>
+      <h2 id="settings-h">Settings</h2>
       <form method="dialog">
         <fieldset>
-          <legend>Graphics quality</legend>
-          <label>Quality preset
-            <select id="set-quality">
-              <option value="low">Low (phones, older laptops)</option>
-              <option value="medium">Medium (integrated GPUs)</option>
-              <option value="high">High (discrete GPUs)</option>
-              <option value="ultra">Ultra (strong desktops)</option>
-            </select>
-          </label>
+          <legend>Voice and captions</legend>
+          <label><input type="checkbox" id="set-captions"> Captions over the scene (the conversation text is always shown in the panel)</label>
+          <label><input type="checkbox" id="set-voice" ${synth ? '' : 'disabled'}> Read lines aloud (browser voice)</label>
+          ${synth ? '' : '<p class="hint">Your browser has no built-in voices. All lines are shown as text.</p>'}
+          <label for="set-voicename">Voice</label>
+          <select id="set-voicename" ${voices.length ? '' : 'disabled'}>
+            <option value="">Default English voice</option>
+            ${voices.map((v) => `<option value="${escapeAttr(v.name)}">${escapeHTML(v.name)} (${escapeHTML(v.lang)})</option>`).join('')}
+          </select>
+          <label for="set-rate">Speech rate <output id="set-rate-out" for="set-rate">${s.speechRate.toFixed(2)}\u00D7</output></label>
+          <input type="range" id="set-rate" min="${RATE_MIN}" max="${RATE_MAX}" step="0.05" value="${s.speechRate}">
+          <label><input type="checkbox" id="set-muted"> Mute all audio</label>
+          <label for="set-vol-master">Master volume</label>
+          <input type="range" id="set-vol-master" min="0" max="1" step="0.05" value="${s.volumeMaster}">
+          <label for="set-vol-voice">Voice volume</label>
+          <input type="range" id="set-vol-voice" min="0" max="1" step="0.05" value="${s.volumeVoice}">
         </fieldset>
         <fieldset>
-          <legend>Display</legend>
-          <label>Text size
-            <select id="set-textsize">
-              <option value="normal">Normal</option>
-              <option value="large">Large</option>
-              <option value="xlarge">Extra large</option>
-            </select>
-          </label>
-          <label>Contrast
-            <select id="set-contrast">
-              <option value="normal">Normal</option>
-              <option value="high">High contrast</option>
-            </select>
-          </label>
-          <label>Field of view (comfort) <output id="set-fov-out">${this.state.fov}°</output>
-            <input type="range" id="set-fov" min="40" max="90" step="5" value="${this.state.fov}">
-          </label>
+          <legend>Speaking practice (optional)</legend>
+          <p class="disclosure" id="speech-disclosure">${escapeHTML(SPEECH_DISCLOSURE)}</p>
+          ${recog
+            ? '<label><input type="checkbox" id="set-speech" aria-describedby="speech-disclosure"> Turn on speech input (off by default)</label>'
+            : '<p class="hint" id="set-speech-unsupported">Speech input is not available in this browser. You can still choose or build every answer.</p>'}
         </fieldset>
         <fieldset>
-          <legend>Audio and captions</legend>
-          <label><input type="checkbox" id="set-captions" ${this.state.captions ? 'checked' : ''}> Captions on</label>
-          <label><input type="checkbox" id="set-muted" ${this.state.muted ? 'checked' : ''}> Mute all audio</label>
-          <label>Master volume <input type="range" id="set-vol-master" min="0" max="1" step="0.05" value="${this.state.volumeMaster}"></label>
-          <label>Voice volume <input type="range" id="set-vol-voice" min="0" max="1" step="0.05" value="${this.state.volumeVoice}"></label>
-          <label>Ambient volume <input type="range" id="set-vol-ambient" min="0" max="1" step="0.05" value="${this.state.volumeAmbient}"></label>
-        </fieldset>
-        <fieldset>
-          <legend>Motion</legend>
-          <label><input type="checkbox" id="set-motion" ${this.motion?.reduced ? 'checked' : ''}> Reduce motion (no camera flights; still frames and cuts instead)</label>
+          <legend>Display and comfort</legend>
+          <label for="set-textsize">Text size</label>
+          <select id="set-textsize"><option value="normal">Normal</option><option value="large">Large</option><option value="xlarge">Extra large</option></select>
+          <label for="set-contrast">Contrast</label>
+          <select id="set-contrast"><option value="normal">Normal</option><option value="high">High contrast</option></select>
+          <label for="set-fov">Field of view <output id="set-fov-out" for="set-fov">${s.fov}\u00B0</output></label>
+          <input type="range" id="set-fov" min="40" max="75" step="5" value="${s.fov}">
+          <label><input type="checkbox" id="set-motion"> Reduce motion (no camera moves; still frames and cuts instead)</label>
+          <label for="set-quality">Graphics quality</label>
+          <select id="set-quality">
+            <option value="low">Low (phones, older laptops)</option>
+            <option value="medium">Medium (integrated GPUs)</option>
+            <option value="high">High (discrete GPUs)</option>
+            <option value="ultra">Ultra (strong desktops)</option>
+          </select>
         </fieldset>
         <menu>
           <button value="cancel" type="button" id="set-cancel">Cancel</button>
           <button value="confirm" type="submit" id="set-save">Save settings</button>
         </menu>
       </form>`;
-    const $ = (id) => q.querySelector(id);
-    if (this.quality) $('select#set-quality').value = this.quality.name;
-    $('select#set-textsize').value = this.state.textSize;
-    $('select#set-contrast').value = this.state.contrast;
-    $('input#set-captions').checked = this.state.captions;
-    $('input#set-muted').checked = this.state.muted;
-    $('input#set-motion').checked = Boolean(this.motion?.reduced);
-    $('input#set-fov').addEventListener('input', (e) => { $('output#set-fov-out').textContent = `${e.target.value}°`; });
-    $('button#set-cancel').addEventListener('click', () => closeDialog(q));
+    const $ = (sel) => q.querySelector(sel);
+    $('#set-captions').checked = s.captions;
+    $('#set-voice').checked = s.voiceOn && synth;
+    $('#set-voicename').value = s.voiceName;
+    $('#set-muted').checked = s.muted;
+    if ($('#set-speech')) $('#set-speech').checked = s.speechInput;
+    $('#set-textsize').value = s.textSize;
+    $('#set-contrast').value = s.contrast;
+    $('#set-motion').checked = Boolean(this.motion?.reduced);
+    if (this.quality) $('#set-quality').value = this.quality.name;
+    else $('#set-quality').disabled = true;
+    $('#set-rate').addEventListener('input', (e) => { $('#set-rate-out').textContent = `${Number(e.target.value).toFixed(2)}\u00D7`; });
+    $('#set-fov').addEventListener('input', (e) => { $('#set-fov-out').textContent = `${e.target.value}\u00B0`; });
+    $('#set-cancel').addEventListener('click', () => closeDialog(q));
     q.querySelector('form').addEventListener('submit', (e) => {
       e.preventDefault();
-      if (this.quality) {
-        const v = $('select#set-quality').value;
-        if (v !== this.quality.name) this.quality.set(v);
-      }
-      this.state.textSize = $('select#set-textsize').value;
-      this.state.contrast = $('select#set-contrast').value;
-      this.state.captions = $('input#set-captions').checked;
-      this.state.muted = $('input#set-muted').checked;
-      this.state.volumeMaster = parseFloat($('input#set-vol-master').value);
-      this.state.volumeVoice = parseFloat($('input#set-vol-voice').value);
-      this.state.volumeAmbient = parseFloat($('input#set-vol-ambient').value);
-      this.state.fov = parseFloat($('input#set-fov').value);
-      if (this.motion) this.motion.setToggle($('input#set-motion').checked);
+      s.captions = $('#set-captions').checked;
+      s.voiceOn = $('#set-voice').checked;
+      s.voiceName = $('#set-voicename').value;
+      s.speechRate = clampRate($('#set-rate').value);
+      s.muted = $('#set-muted').checked;
+      s.volumeMaster = parseFloat($('#set-vol-master').value);
+      s.volumeVoice = parseFloat($('#set-vol-voice').value);
+      s.speechInput = Boolean($('#set-speech')?.checked) && recog;
+      s.textSize = $('#set-textsize').value;
+      s.contrast = $('#set-contrast').value;
+      s.fov = parseFloat($('#set-fov').value);
+      if (this.motion) this.motion.setToggle($('#set-motion').checked);
+      if (this.quality && $('#set-quality').value !== this.quality.name) this.quality.set($('#set-quality').value);
       this.save();
       this._apply();
       closeDialog(q);
     });
   }
 
+  /** Programmatic update (used by tests and the "Speak" onboarding). */
+  update(patch) {
+    Object.assign(this.state, patch);
+    this.state.speechRate = clampRate(this.state.speechRate);
+    if (!hasRecognition()) this.state.speechInput = false;
+    this.save();
+    this._apply();
+  }
+
   _apply() {
     const root = document.documentElement;
     root.dataset.textSize = this.state.textSize;
     root.dataset.contrast = this.state.contrast;
-    this.onVolume?.(this.state);
-    this.onFov?.(this.state.fov);
+    root.dataset.captions = this.state.captions ? 'on' : 'off';
+    this.onChange?.(this.state);
   }
 
-  /** Open via the shell's Settings button. */
-  open(trigger) { this._build(); openDialog(this.dialog, trigger); this._apply(); }
+  open(trigger) { this._build(); openDialog(this.dialog, trigger); }
 }
+
+function escapeHTML(s) { return String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+function escapeAttr(s) { return escapeHTML(s).replace(/'/g, '&#39;'); }

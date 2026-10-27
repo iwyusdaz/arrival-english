@@ -1,0 +1,36 @@
+{
+  "note": "Cinematic budget: 50 s in total (plan limit 70 s; standards limit 90 s, each shot <= 25 s). Every shot is skippable (button + Esc), captioned, has a text description, and becomes a still frame with reduced motion. Camera coordinates are metres in each location's local space. Captions may use {phrases} (number of phrasebook entries).",
+  "cinematics": [
+    {
+      "id": "S1", "title": "Arrival", "scene": "station", "objective": "all", "purpose": "orient + motivate",
+      "shots": [
+        { "purpose": "orient", "duration": 8, "easing": "easeInOut", "path": [[3.2, 2.4, 3.6], [2.2, 2.0, 3.2], [1.4, 1.8, 2.9]], "target": [1.4, 2.0, -1.2],
+          "captions": ["You've just arrived in Harbour City. Everyone here speaks English."],
+          "description": "The camera moves slowly through a large station hall with a glass roof. A departures board lists trains to Seaview, Northgate and the airport." },
+        { "purpose": "motivate", "duration": 8, "easing": "easeOut", "path": [[1.4, 1.8, 2.9], [0.6, 1.7, 2.6], [0, 1.62, 2.35]], "target": [0.1, 1.35, -0.9],
+          "captions": ["Today you have four things to do: get a ticket, order lunch, visit a pharmacy, and check in at your hostel."],
+          "description": "The camera settles at a blue help desk. A staff member stands behind it. Next to it, a red ticket machine shows an error message." }
+      ]
+    },
+    { "id": "S2", "title": "Station intro", "scene": "station", "objective": "O1", "purpose": "orient",
+      "shots": [{ "purpose": "orient", "duration": 6, "easing": "easeOut", "path": [[-1.2, 1.9, 3.4], [0, 1.62, 2.35]], "target": [0.1, 1.35, -0.9],
+        "captions": ["Task 1: the ticket machine won't take your card. The help desk is open."],
+        "description": "The camera moves past the ticket machine to the help desk, where Sam is waiting." }] },
+    { "id": "S3", "title": "Café intro", "scene": "cafe", "objective": "O2", "purpose": "orient",
+      "shots": [{ "purpose": "orient", "duration": 6, "easing": "easeOut", "path": [[1.3, 1.8, 3.2], [0, 1.6, 2.25]], "target": [0, 1.55, -1.0],
+        "captions": ["Task 2: lunch at the Harbour Café. Read the menu board before you order."],
+        "description": "The camera arrives at a café counter with a cake display and a large menu board. Priya is behind the counter." }] },
+    { "id": "S4", "title": "Pharmacy intro", "scene": "pharmacy", "objective": "O3", "purpose": "orient",
+      "shots": [{ "purpose": "orient", "duration": 6, "easing": "easeOut", "path": [[-1.2, 1.8, 3.1], [0, 1.6, 2.2]], "target": [0, 1.4, -1.0],
+        "captions": ["Task 3: the pharmacy. This is language practice only, not medical advice."],
+        "description": "The camera arrives at a pharmacy counter with shelves of plain boxes and a green sign. Mr Okafor is behind the counter." }] },
+    { "id": "S5", "title": "Hostel intro", "scene": "hostel", "objective": "O4", "purpose": "orient",
+      "shots": [{ "purpose": "orient", "duration": 6, "easing": "easeOut", "path": [[1.2, 1.9, 3.3], [0, 1.62, 2.3]], "target": [0, 1.45, -1.0],
+        "captions": ["Task 4: check in at Harbour Hostel. You booked a private room for three nights."],
+        "description": "The camera arrives at a hostel reception desk in a bright lobby. Leo is behind the desk." }] },
+    { "id": "S6", "title": "Wrap-up", "scene": "hostel", "objective": "all", "purpose": "motivate",
+      "shots": [{ "purpose": "motivate", "duration": 10, "easing": "easeInOut", "path": [[0, 1.62, 2.3], [0.5, 1.7, 3.0], [0.9, 1.8, 3.7]], "target": [0, 1.4, -1.0],
+        "captions": ["Evening in Harbour City. You did all four tasks in English. Your phrasebook now has {phrases} phrases to review."],
+        "description": "The lobby lights are lower now. The camera slowly moves back from the reception desk." }] }
+  ]
+}

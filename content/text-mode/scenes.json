@@ -1,0 +1,21 @@
+{
+  "note": "Text mode shows each place as an illustration (a still rendered from the real 3D scene) with this description, then the same pre-task, dialogue choices, feedback and phrasebook as 3D mode. NPC reactions are written out in words.",
+  "scenes": {
+    "station": {
+      "title": "Harbour Central station (fictional)",
+      "alt": "A station concourse under a glass roof. In front: a red ticket machine showing CARD NOT ACCEPTED, a blue help desk with a staff member, and a departures board listing the 10:15 to Seaview from platform 4."
+    },
+    "cafe": {
+      "title": "Harbour Café (fictional)",
+      "alt": "A warm café counter with a coffee machine, a glass cake display and a large menu board. The vegetable curry is crossed out as sold out; the pesto pasta and Harbour salad are marked as containing nuts."
+    },
+    "pharmacy": {
+      "title": "Harbour Pharmacy (fictional)",
+      "alt": "A bright pharmacy counter with a green PHARMACY sign and shelves of plain boxes. The pharmacist stands behind the counter. A yellow box of fictional honey and lemon lozenges shows the instructions: one every three hours, no more than six in 24 hours."
+    },
+    "hostel": {
+      "title": "Harbour Hostel (fictional)",
+      "alt": "A hostel reception in a bright lobby with a green wall. A receptionist stands behind a wooden desk with a bell and a screen that reads NO BOOKING for tonight. A sign lists room prices and says private rooms are full tonight."
+    }
+  }
+}

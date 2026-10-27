@@ -54,6 +54,21 @@ export class Engine {
 
     // Respect prefers-reduced-motion at startup; the settings toggle overrides it.
     this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.composer = null;
+  }
+
+  /** Provide an EffectComposer (or null); when set, rendering goes through it. */
+  setComposer(composer) {
+    this.composer?.dispose?.();
+    this.composer = composer;
+    if (composer) composer.setSize(this.canvas.clientWidth || window.innerWidth, this.canvas.clientHeight || window.innerHeight);
+  }
+
+  /** Render one frame immediately (still frames, poster). */
+  renderNow() {
+    this.renderer.info.reset();
+    if (this.composer) this.composer.render(0.016);
+    else this.renderer.render(this.scene, this.camera);
   }
 
   resize() {
@@ -64,6 +79,7 @@ export class Engine {
     this.renderer.setSize(w, h, false);
     this.camera.aspect = w / h;
     this.camera.updateProjectionMatrix();
+    if (this.composer) this.composer.setSize(w, h);
   }
 
   /** Register a per-frame update fn(dt seconds, elapsed seconds). */
@@ -81,7 +97,8 @@ export class Engine {
       const t = this.clock.elapsedTime;
       for (const fn of this._updateFns) fn(dt, t);
       this.renderer.info.reset();
-      this.renderer.render(this.scene, this.camera);
+      if (this.composer) this.composer.render(dt);
+      else this.renderer.render(this.scene, this.camera);
       // Dynamic resolution: sample a 2 s window during the first 20 s after load.
       this.frames++; this._fpsFrames++;
       this._fpsT += dt;
