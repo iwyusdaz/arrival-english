@@ -1,0 +1,153 @@
+{
+  "id": "task4",
+  "title": "Hostel",
+  "scene": "hostel",
+  "goal": "Check in at the hostel and solve the problem with your missing booking.",
+  "twist": "The hostel can't find your booking, and tonight's private rooms are full. You negotiate a different room or date.",
+  "npc": { "name": "Leo", "role": "hostel reception (fictional)" },
+  "note": "Fictional dialogue constructed for teaching purposes. Harbour Hostel is fictional.",
+  "start": "start",
+  "nodes": {
+    "start": {
+      "speaker": "Narrator",
+      "line": "It's evening. You booked a private room at Harbour Hostel for three nights. Your booking number is HC4719. You go to reception.",
+      "next": "greet"
+    },
+    "greet": {
+      "speaker": "Leo",
+      "reaction": "warm",
+      "line": "Hi, welcome to Harbour Hostel. Are you checking in?",
+      "slower": "Hello. Do you want to check in?",
+      "speak": { "option": "gr-a", "keyphrases": ["booking under", "reservation under", "booked a room", "have a booking"] },
+      "options": [
+        { "id": "gr-a", "type": "effective", "text": "Yes, hi. I have a booking under the name Rossi.", "feedback": "Perfect check-in phrase. 'Under the name ...' tells Leo what to look for.", "reaction": "nod", "to": "notfound", "chunks": ["t4-booking-under"] },
+        { "id": "gr-b", "type": "odd", "text": "Obviously. Room, please.", "feedback": "'Obviously' sounds sarcastic, and Leo still needs your name.", "recast": "Yes, please. I have a booking under the name Rossi.", "reaction": "put-off", "to": "whatname", "chunks": [] },
+        { "id": "gr-c", "type": "error", "text": "Yes, I did a reservation with name Rossi.", "feedback": "Understood. English says 'make a reservation' (not 'do'), or 'I have a booking under the name Rossi'.", "recast": "Yes, I made a reservation under the name Rossi.", "reaction": "nod", "to": "notfound", "chunks": [] }
+      ]
+    },
+    "whatname": {
+      "speaker": "Leo",
+      "reaction": "neutral",
+      "line": "Sure. What name is the booking under?",
+      "next": "spellname"
+    },
+    "spellname": {
+      "speaker": "Leo",
+      "reaction": "think",
+      "line": "And how do you spell that?",
+      "slower": "Please say the letters of your name.",
+      "options": [
+        { "id": "sn-a", "type": "effective", "text": "R, O, double S, I. Rossi.", "feedback": "Clear. 'Double S' is the natural way to spell two of the same letter.", "reaction": "nod", "to": "notfound", "chunks": [] },
+        { "id": "sn-b", "type": "odd", "text": "It's Rossi. Everybody knows how to spell Rossi.", "feedback": "Leo asks so there is no mistake. Not everyone knows how a name is spelled.", "recast": "R, O, double S, I.", "reaction": "put-off", "to": "notfound", "chunks": [] },
+        { "id": "sn-c", "type": "error", "text": "Is R, O, S, S, I.", "feedback": "Leo understands. Start with 'It's ...', or just say the letters.", "recast": "It's R, O, double S, I.", "reaction": "nod", "to": "notfound", "chunks": [] }
+      ]
+    },
+    "notfound": {
+      "speaker": "Leo",
+      "reaction": "look-down",
+      "line": "Hmm. I'm sorry, I can't find a booking under that name for tonight. When did you book?",
+      "slower": "Sorry. Your booking is not on my computer. When did you book the room?",
+      "build": {
+        "prompt": "Say you booked online last week and show your confirmation email.",
+        "tiles": ["I booked it", "I book it", "online", "last week.", "Here's my", "confirmation email."],
+        "accept": [
+          ["I booked it", "online", "last week.", "Here's my", "confirmation email."],
+          ["I booked it", "last week.", "Here's my", "confirmation email."],
+          ["Here's my", "confirmation email.", "I booked it", "online", "last week."]
+        ],
+        "nearMisses": [
+          { "seq": ["I book it", "online", "last week.", "Here's my", "confirmation email."], "feedback": "'Last week' is in the past, so use the past simple: 'I booked it'." },
+          { "seq": ["I book it", "last week.", "Here's my", "confirmation email."], "feedback": "'Last week' is in the past, so use the past simple: 'I booked it'." }
+        ],
+        "hint": "Past time, so use the past simple. Then give your evidence.",
+        "option": "nf-a"
+      },
+      "options": [
+        { "id": "nf-a", "type": "effective", "text": "I booked it online last week. Here's my confirmation email.", "feedback": "Calm and helpful. You gave the details and evidence Leo needs.", "reaction": "nod", "to": "checking", "chunks": ["t4-booked-online", "t4-confirmation"] },
+        { "id": "nf-b", "type": "odd", "text": "That's impossible. Your system is useless.", "feedback": "Grammatical, but angry and blaming. It makes it harder for Leo to help you.", "recast": "Really? I booked it online last week. Can you check again?", "reaction": "put-off", "to": "calm", "chunks": [] },
+        { "id": "nf-c", "type": "error", "text": "I book it before one week on internet.", "feedback": "Use the past simple ('booked') and 'a week ago' or 'last week'. And say 'online'.", "recast": "I booked it online a week ago.", "reaction": "think", "to": "checking", "chunks": [] }
+      ]
+    },
+    "calm": {
+      "speaker": "Leo",
+      "reaction": "apologetic",
+      "line": "I understand it's frustrating. I want to help. Do you have the booking confirmation?",
+      "next": "notfound"
+    },
+    "checking": {
+      "speaker": "Leo",
+      "reaction": "think",
+      "line": "Let me see. Booking HC4719. Ah, I see the problem. Your booking starts tomorrow, not tonight. And tonight all our private rooms are full.",
+      "slower": "Your booking is for tomorrow. Tonight there are no private rooms.",
+      "spell": "H, C, four, seven, one, nine.",
+      "speak": { "option": "ch-a", "keyphrases": ["another room", "any other room", "other rooms", "room available"] },
+      "options": [
+        { "id": "ch-a", "type": "effective", "text": "Oh no. Is there another room available tonight?", "feedback": "Good. You accepted the facts and asked for a solution.", "reaction": "think", "to": "offer", "chunks": ["t4-another-room"] },
+        { "id": "ch-b", "type": "acceptable", "text": "Sorry, could you repeat that? It starts tomorrow?", "feedback": "Good repair. Dates are important, so it's smart to check.", "reaction": "nod", "to": "repeatdate", "chunks": ["r-repeat"] },
+        { "id": "ch-c", "type": "odd", "text": "I want a private room tonight. That's not my problem.", "feedback": "You can be firm, but this ignores the facts. Ask what is possible instead.", "recast": "I really need somewhere to sleep tonight. What can you offer?", "reaction": "put-off", "to": "full", "chunks": [] },
+        { "id": "ch-d", "type": "error", "text": "There is other room for tonight?", "feedback": "Question word order: 'Is there another room ...?' Use 'another' with a singular noun.", "recast": "Is there another room for tonight?", "reaction": "think", "to": "offer", "chunks": [] }
+      ]
+    },
+    "repeatdate": {
+      "speaker": "Leo",
+      "reaction": "nod",
+      "line": "Yes. Your booking starts tomorrow, the fourteenth. Tonight is the thirteenth.",
+      "next": "checking"
+    },
+    "full": {
+      "speaker": "Leo",
+      "reaction": "apologetic",
+      "line": "I'm sorry, the private rooms really are full. But I might have another option.",
+      "next": "offer"
+    },
+    "offer": {
+      "speaker": "Leo",
+      "reaction": "neutral",
+      "line": "I have one bed in a shared room tonight, a six-bed dormitory. Then you can move to your private room tomorrow.",
+      "slower": "Tonight you can sleep in a room with five other people. Tomorrow you get your own room.",
+      "spell": "Dormitory: D, O, R, M, I, T, O, R, Y. A room with many beds.",
+      "options": [
+        { "id": "of-a", "type": "effective", "text": "I don't mind sharing a room for one night. Would it be possible to pay the dorm price tonight?", "feedback": "Excellent negotiation. You accepted the offer and politely asked for a fair price.", "reaction": "think", "to": "deal", "chunks": ["t4-dont-mind", "t4-would-it-be-possible"] },
+        { "id": "of-b", "type": "acceptable", "text": "That works for me. Thank you.", "feedback": "A clear, friendly agreement. You could also ask about the price.", "reaction": "warm", "to": "deal", "chunks": ["t4-that-works"] },
+        { "id": "of-c", "type": "odd", "text": "A dormitory? Absolutely not. I'm not a student.", "feedback": "Grammatical, but it sounds insulting to the guests and to Leo. You can say no politely.", "recast": "Sorry, I'd prefer not to share. Is there anything else?", "reaction": "put-off", "to": "otherdate", "chunks": [] },
+        { "id": "of-d", "type": "error", "text": "Is okay for me sleep in the dormitory.", "feedback": "Understood. Say 'It's OK for me to sleep ...' or, more naturally, 'I don't mind sharing.'", "recast": "It's OK for me to sleep in the dormitory.", "reaction": "nod", "to": "deal", "chunks": [] }
+      ]
+    },
+    "otherdate": {
+      "speaker": "Leo",
+      "reaction": "think",
+      "line": "OK. The other option is a hotel nearby, but it's more expensive. Or the dormitory tonight and your room from tomorrow. What would you prefer?",
+      "slower": "You can go to a hotel. It costs more. Or sleep in the shared room tonight. Which one?",
+      "options": [
+        { "id": "od-a", "type": "effective", "text": "OK, I'll take the dormitory tonight, then the private room tomorrow.", "feedback": "Good decision, clearly said. You compared the options and chose.", "reaction": "nod", "to": "deal", "chunks": [] },
+        { "id": "od-b", "type": "odd", "text": "You choose. I don't care any more.", "feedback": "Leo can't decide for you, and 'I don't care' sounds rude. Make a choice.", "recast": "Hmm. I'll take the dormitory for tonight.", "reaction": "shrug", "to": "offer", "chunks": [] },
+        { "id": "od-c", "type": "error", "text": "I prefer the dormitory than the hotel.", "feedback": "With 'prefer', use 'to': 'I prefer the dormitory to the hotel.'", "recast": "I prefer the dormitory to the hotel.", "reaction": "nod", "to": "deal", "chunks": [] }
+      ]
+    },
+    "deal": {
+      "speaker": "Leo",
+      "reaction": "warm",
+      "line": "Sure. I'll charge you the dorm price for tonight, and your private room is ready from tomorrow at two o'clock. Does that work for you?",
+      "slower": "Tonight you pay less. Tomorrow at two you get your room. Is that OK?",
+      "speak": { "option": "de-a", "keyphrases": ["that works", "works for me", "that's great", "that's fine"] },
+      "options": [
+        { "id": "de-a", "type": "effective", "text": "That works for me. Thanks for sorting it out.", "feedback": "A friendly close. You agreed and thanked Leo for his help.", "reaction": "warm", "to": "end", "chunks": ["t4-that-works"] },
+        { "id": "de-b", "type": "acceptable", "text": "So I pay the dorm price tonight, and the room is ready at two tomorrow. Is that right?", "feedback": "Smart. You checked the deal before you agreed.", "reaction": "nod", "to": "confirmdeal", "chunks": ["r-check"] },
+        { "id": "de-c", "type": "odd", "text": "Fine. But I'm writing a bad review.", "feedback": "Leo solved the problem, so this sounds unfair. Feedback is fine; threats are not.", "recast": "OK, that's fine. Thanks.", "reaction": "put-off", "to": "end", "chunks": [] },
+        { "id": "de-d", "type": "error", "text": "It's work for me.", "feedback": "The phrase is 'That works for me' ('work' is a verb here).", "recast": "That works for me.", "reaction": "nod", "to": "end", "chunks": [] }
+      ]
+    },
+    "confirmdeal": {
+      "speaker": "Leo",
+      "reaction": "nod",
+      "line": "Exactly right. Here's your key for tonight. Bed number three.",
+      "next": "end"
+    },
+    "end": {
+      "speaker": "Narrator",
+      "line": "You have a bed for tonight, a fair price, and your private room from tomorrow.",
+      "outcome": "success",
+      "summary": "Task complete: booking problem explained, alternative negotiated, deal confirmed."
+    }
+  }
+}

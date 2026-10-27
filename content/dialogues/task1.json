@@ -1,0 +1,178 @@
+{
+  "id": "task1",
+  "title": "Getting around",
+  "scene": "station",
+  "goal": "Buy the right ticket to Seaview and find out how to get to the platform.",
+  "twist": "The ticket machine does not accept your card, so you ask a person for help.",
+  "npc": { "name": "Sam", "role": "station help desk (fictional)" },
+  "note": "Fictional dialogue constructed for teaching purposes. Harbour City and Seaview are fictional places.",
+  "start": "start",
+  "nodes": {
+    "start": {
+      "speaker": "Narrator",
+      "line": "You want to go to Seaview for the day. The ticket machine shows: CARD NOT ACCEPTED. There is a help desk next to the machines.",
+      "next": "greet"
+    },
+    "greet": {
+      "speaker": "Sam",
+      "reaction": "neutral",
+      "line": "Hi there. Are you OK? Can I help?",
+      "slower": "Hello. Do you need help?",
+      "speak": { "option": "g-a", "keyphrases": ["help me", "doesn't work", "does not work", "not working", "doesn't take", "won't take"] },
+      "options": [
+        { "id": "g-a", "type": "effective", "text": "Excuse me, can you help me? My card doesn't work in the machine.", "feedback": "Clear and polite. You got attention and explained the problem in one short sentence.", "reaction": "nod", "to": "help", "chunks": ["t1-excuse-me", "t1-card-not-work"] },
+        { "id": "g-b", "type": "odd", "text": "Your machine is broken. Fix it.", "feedback": "The grammar is fine, but it sounds like an order and like you blame Sam. Staff help more happily when you ask, not tell.", "recast": "Excuse me, the machine doesn't take my card. Can you help me?", "reaction": "put-off", "to": "blunt", "chunks": [] },
+        { "id": "g-c", "type": "error", "text": "I have problem card machine.", "feedback": "Sam can guess, but it is hard to understand. Use a full sentence with a verb: 'My card doesn't work in the machine.'", "recast": "I have a problem: my card doesn't work in the machine.", "reaction": "puzzled", "to": "guess", "chunks": [] }
+      ]
+    },
+    "blunt": {
+      "speaker": "Sam",
+      "reaction": "put-off",
+      "line": "Well, I can't fix it myself, I'm afraid. But I can sell you a ticket here at the desk.",
+      "next": "help"
+    },
+    "guess": {
+      "speaker": "Sam",
+      "reaction": "think",
+      "line": "Sorry, the machine doesn't take your card? OK, no problem. I can sell you a ticket here.",
+      "next": "help"
+    },
+    "help": {
+      "speaker": "Sam",
+      "reaction": "neutral",
+      "line": "So, where would you like to go today?",
+      "slower": "Where are you going today?",
+      "spell": "Seaview: S, E, A, V, I, E, W.",
+      "build": {
+        "prompt": "Ask for a ticket to Seaview. You are coming back this evening.",
+        "tiles": ["A", "single", "return", "to Seaview,", "please.", "I'm coming back", "this evening."],
+        "accept": [
+          ["A", "return", "to Seaview,", "please.", "I'm coming back", "this evening."],
+          ["A", "return", "to Seaview,", "please."]
+        ],
+        "nearMisses": [
+          { "seq": ["A", "single", "to Seaview,", "please.", "I'm coming back", "this evening."], "feedback": "A single is a one-way ticket. You are coming back this evening, so you need a return." },
+          { "seq": ["A", "single", "to Seaview,", "please."], "feedback": "A single is a one-way ticket. You are coming back this evening, so you need a return." }
+        ],
+        "hint": "Start with 'A ...'. Choose the ticket type, then the place, then 'please'.",
+        "option": "h-a"
+      },
+      "options": [
+        { "id": "h-a", "type": "effective", "text": "A return to Seaview, please. I'm coming back this evening.", "feedback": "Perfect. You named the ticket type and the place, and the reason helps Sam choose the right fare.", "reaction": "nod", "to": "price", "chunks": ["t1-return-to", "t1-coming-back"] },
+        { "id": "h-b", "type": "odd", "text": "Seaview. Give me a ticket.", "feedback": "Correct English, but 'Give me' sounds rude in a shop or station. Also, Sam still doesn't know which ticket you need.", "recast": "A ticket to Seaview, please.", "reaction": "put-off", "to": "singlereturn", "chunks": [] },
+        { "id": "h-c", "type": "error", "text": "I want go to Seaview and come back today evening.", "feedback": "Sam understands, but there are two common errors: 'want to go' (not 'want go') and 'this evening' (not 'today evening').", "recast": "I want to go to Seaview and come back this evening.", "reaction": "think", "to": "recast-return", "chunks": [] }
+      ]
+    },
+    "singlereturn": {
+      "speaker": "Sam",
+      "reaction": "neutral",
+      "line": "Sure. A single or a return?",
+      "slower": "One way, or there and back?",
+      "speak": { "option": "s-a", "keyphrases": ["return", "coming back", "there and back"] },
+      "options": [
+        { "id": "s-a", "type": "effective", "text": "A return, please. I'm coming back this evening.", "feedback": "Good. 'Return' is the right word for a ticket there and back.", "reaction": "nod", "to": "price", "chunks": ["t1-return-to", "t1-coming-back"] },
+        { "id": "s-b", "type": "odd", "text": "I don't care. Just the cheapest one.", "feedback": "Asking for the cheapest is fine, but 'I don't care' sounds rude. And a cheap single would not get you home.", "recast": "Which one is cheaper for a day trip?", "reaction": "shrug", "to": "price", "chunks": [] },
+        { "id": "s-c", "type": "error", "text": "Return. I come back in the evening today.", "feedback": "Sam understands 'return'. For a plan, use 'I'm coming back' (present continuous) and say 'this evening'.", "recast": "A return. I'm coming back this evening.", "reaction": "nod", "to": "price", "chunks": [] }
+      ]
+    },
+    "recast-return": {
+      "speaker": "Sam",
+      "reaction": "nod",
+      "line": "So you want a return to Seaview, coming back this evening? No problem.",
+      "next": "price"
+    },
+    "price": {
+      "speaker": "Sam",
+      "reaction": "neutral",
+      "line": "That's eleven forty for an off-peak day return. The next train is at ten fifteen.",
+      "slower": "It's eleven forty. Off-peak means a cheaper time. The train is at ten fifteen.",
+      "spell": "Off-peak: O, F, F, then peak: P, E, A, K.",
+      "speak": { "option": "p-a", "keyphrases": ["pay by card", "pay with card", "pay with a card", "card here"] },
+      "options": [
+        { "id": "p-a", "type": "effective", "text": "Can I pay by card here?", "feedback": "Good question. The machine didn't take your card, so you check before you pay.", "reaction": "nod", "to": "paid", "chunks": ["t1-pay-by-card"] },
+        { "id": "p-b", "type": "acceptable", "text": "Sorry, what does 'off-peak' mean?", "feedback": "Great repair strategy. Asking about one word is quick and normal.", "reaction": "warm", "to": "offpeak", "chunks": ["r-mean"] },
+        { "id": "p-c", "type": "odd", "text": "Eleven forty? That's too expensive.", "feedback": "You can say a price is high, but here it sounds like a complaint to the wrong person. Sam does not set the prices.", "recast": "OK, is that the cheapest ticket?", "reaction": "put-off", "to": "pricey", "chunks": [] },
+        { "id": "p-d", "type": "error", "text": "I can pay with card?", "feedback": "Sam understands, but questions need the verb first: 'Can I pay ...?' Also say 'by card'.", "recast": "Can I pay by card?", "reaction": "nod", "to": "paid", "chunks": [] }
+      ]
+    },
+    "offpeak": {
+      "speaker": "Sam",
+      "reaction": "warm",
+      "line": "Off-peak means outside the busy times, so it's cheaper. You can travel after half past nine.",
+      "next": "price"
+    },
+    "pricey": {
+      "speaker": "Sam",
+      "reaction": "shrug",
+      "line": "I know, it's a lot. The off-peak return is the cheapest one, though.",
+      "next": "price"
+    },
+    "paid": {
+      "speaker": "Sam",
+      "reaction": "neutral",
+      "line": "Yes, of course. Just tap it here. ... That's gone through. Here's your ticket.",
+      "slower": "Yes. Put your card here. OK, it worked. This is your ticket.",
+      "speak": { "option": "pd-a", "keyphrases": ["which platform", "what platform", "where is the platform", "where's the platform"] },
+      "options": [
+        { "id": "pd-a", "type": "effective", "text": "Thanks. Which platform does it leave from?", "feedback": "Good. You thanked Sam and asked for the next thing you need.", "reaction": "point", "to": "platform", "chunks": ["t1-which-platform"] },
+        { "id": "pd-b", "type": "odd", "text": "OK. Bye.", "feedback": "Not wrong, but very short. And you don't know where the train is yet.", "recast": "Thanks a lot. Which platform is it?", "reaction": "shrug", "to": "wait", "chunks": [] },
+        { "id": "pd-c", "type": "error", "text": "Which platform it leaves?", "feedback": "A very common error. Questions with 'which' need 'does': 'Which platform does it leave from?'", "recast": "Which platform does it leave from?", "reaction": "point", "to": "platform", "chunks": [] }
+      ]
+    },
+    "wait": {
+      "speaker": "Sam",
+      "reaction": "point",
+      "line": "Wait, before you go! Do you know where your train is?",
+      "next": "platform"
+    },
+    "platform": {
+      "speaker": "Sam",
+      "reaction": "point",
+      "line": "It leaves from platform four. Go straight on, past the café, then turn left. The stairs are on your right.",
+      "slower": "Platform four. Go straight. Pass the café. Turn left. The stairs are on the right.",
+      "spell": "Four: F, O, U, R. Platform number four.",
+      "options": [
+        { "id": "pl-a", "type": "effective", "text": "So straight on, then left, and the stairs are on the right. Is that right?", "feedback": "Excellent. You checked your understanding by repeating the key steps.", "reaction": "nod", "to": "confirm", "chunks": ["r-check", "t1-directions"] },
+        { "id": "pl-b", "type": "acceptable", "text": "Great. How long does it take to get to Seaview?", "feedback": "A useful question. It helps you plan your day.", "reaction": "think", "to": "journey", "chunks": ["t1-how-long"] },
+        { "id": "pl-c", "type": "odd", "text": "No need to explain. I will find it myself.", "feedback": "Correct English, but it sounds like you didn't want Sam's help. 'Thanks, I'll find it' is friendlier.", "recast": "Thanks, I think I can find it.", "reaction": "put-off", "to": "fine", "chunks": [] },
+        { "id": "pl-d", "type": "error", "text": "I am understand. Thank you.", "feedback": "Don't use 'am' with 'understand'. Say 'I understand' or, even more natural, 'Got it, thanks.'", "recast": "I understand. Thank you.", "reaction": "nod", "to": "close", "chunks": [] }
+      ]
+    },
+    "confirm": {
+      "speaker": "Sam",
+      "reaction": "nod",
+      "line": "That's right. Platform four. The journey takes about forty minutes.",
+      "next": "close"
+    },
+    "journey": {
+      "speaker": "Sam",
+      "reaction": "warm",
+      "line": "About forty minutes. It's a nice trip along the coast. Remember: platform four, straight on, then left.",
+      "next": "close"
+    },
+    "fine": {
+      "speaker": "Sam",
+      "reaction": "shrug",
+      "line": "OK. It's well signed. Look for platform four.",
+      "next": "close"
+    },
+    "close": {
+      "speaker": "Sam",
+      "reaction": "warm",
+      "line": "Have a good trip!",
+      "slower": "Enjoy your journey!",
+      "speak": { "option": "c-a", "keyphrases": ["thank", "thanks"] },
+      "options": [
+        { "id": "c-a", "type": "effective", "text": "Thanks very much for your help.", "feedback": "A warm, natural way to finish. People remember a friendly thank-you.", "reaction": "warm", "to": "end", "chunks": ["t1-thanks-help"] },
+        { "id": "c-b", "type": "odd", "text": "Yes.", "feedback": "'Yes' does not answer 'Have a good trip!' Say 'Thanks!' or 'Thank you, you too.'", "recast": "Thanks, I will!", "reaction": "shrug", "to": "end", "chunks": [] },
+        { "id": "c-c", "type": "error", "text": "Thank you for your helping.", "feedback": "Use the noun 'help': 'Thank you for your help.'", "recast": "Thank you for your help.", "reaction": "warm", "to": "end", "chunks": [] }
+      ]
+    },
+    "end": {
+      "speaker": "Narrator",
+      "line": "You have a return ticket to Seaview and you know the way to platform four.",
+      "outcome": "success",
+      "summary": "Task complete: right ticket, payment solved, directions understood."
+    }
+  }
+}

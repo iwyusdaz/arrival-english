@@ -28,3 +28,9 @@ playwright-report/
 *.swp
 .idea/
 .vscode/
+
+# Synced at build time from content/
+public/content/
+
+# Local hook state
+.mimosa/

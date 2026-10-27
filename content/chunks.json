@@ -1,0 +1,45 @@
+{
+  "variety": "British English spelling (Oxford/Cambridge learner-dictionary conventions), variety-neutral vocabulary where possible. See design/english-variety.md.",
+  "note": "All example sentences are constructed for teaching purposes.",
+  "chunks": [
+    { "id": "r-repeat", "task": "repair", "function": "Ask for repetition", "text": "Sorry, could you repeat that?", "meaning": "Please say it again.", "example": "Sorry, could you repeat that? I didn't catch the time." },
+    { "id": "r-slowly", "task": "repair", "function": "Ask someone to slow down", "text": "More slowly, please.", "meaning": "Please speak less fast.", "example": "Could you say that more slowly, please?" },
+    { "id": "r-spell", "task": "repair", "function": "Ask for spelling", "text": "Could you spell that, please?", "meaning": "Please say the letters one by one.", "example": "Could you spell the street name, please?" },
+    { "id": "r-check", "task": "repair", "function": "Check understanding", "text": "So ..., is that right?", "meaning": "I repeat what I understood and ask if it is correct.", "example": "So, platform four at ten fifteen, is that right?" },
+    { "id": "r-mean", "task": "repair", "function": "Ask about a word", "text": "What does ... mean?", "meaning": "I don't know this word. Please explain it.", "example": "Sorry, what does 'off-peak' mean?" },
+
+    { "id": "t1-excuse-me", "task": "task1", "function": "Get attention politely", "text": "Excuse me, can you help me?", "meaning": "A polite way to start talking to a stranger or staff.", "example": "Excuse me, can you help me? I'm looking for the ticket office." },
+    { "id": "t1-card-not-work", "task": "task1", "function": "Explain a problem", "text": "My card doesn't work in the machine.", "meaning": "The machine does not accept my card.", "example": "My card doesn't work in the machine. Can I buy a ticket here?" },
+    { "id": "t1-return-to", "task": "task1", "function": "Buy a ticket", "text": "A return (ticket) to ..., please.", "meaning": "A ticket to go there and come back.", "example": "A return to Seaview, please." },
+    { "id": "t1-coming-back", "task": "task1", "function": "Give a reason", "text": "I'm coming back this evening.", "meaning": "I will return later today.", "example": "A return, please. I'm coming back this evening." },
+    { "id": "t1-pay-by-card", "task": "task1", "function": "Ask about payment", "text": "Can I pay by card?", "meaning": "Is it OK to pay with a bank card?", "example": "Can I pay by card, or is it cash only?" },
+    { "id": "t1-which-platform", "task": "task1", "function": "Ask for information", "text": "Which platform does it leave from?", "meaning": "Where does the train start from in the station?", "example": "Which platform does the Seaview train leave from?" },
+    { "id": "t1-directions", "task": "task1", "function": "Understand directions", "text": "Go straight on, then turn left.", "meaning": "Walk forward, then go to the left.", "example": "Go straight on, past the café, then turn left." },
+    { "id": "t1-how-long", "task": "task1", "function": "Ask about time", "text": "How long does it take?", "meaning": "How many minutes or hours is the journey?", "example": "How long does it take to get to Seaview?" },
+    { "id": "t1-thanks-help", "task": "task1", "function": "Close politely", "text": "Thanks very much for your help.", "meaning": "A friendly way to say thank you and finish.", "example": "That's great. Thanks very much for your help." },
+
+    { "id": "t2-could-i-have", "task": "task2", "function": "Order", "text": "Could I have ..., please?", "meaning": "A polite way to ask for food or a drink.", "example": "Could I have a tomato soup, please?" },
+    { "id": "t2-for-my-friend", "task": "task2", "function": "Order for someone else", "text": "And for my friend, ...", "meaning": "Now I order for the other person.", "example": "And for my friend, the vegetable curry." },
+    { "id": "t2-allergic-nuts", "task": "task2", "function": "Explain a dietary need", "text": "She's allergic to nuts.", "meaning": "Nuts make her ill, so she can't eat them.", "example": "She's allergic to nuts, so she can't have the cake." },
+    { "id": "t2-any-nuts", "task": "task2", "function": "Ask about ingredients", "text": "Does it have any nuts in it?", "meaning": "Are there nuts in this food?", "example": "Does the salad have any nuts in it?" },
+    { "id": "t2-whats-in", "task": "task2", "function": "Ask for clarification", "text": "What's in the ...?", "meaning": "What food is inside this dish?", "example": "What's in the Harbour salad?" },
+    { "id": "t2-instead", "task": "task2", "function": "Choose an alternative", "text": "I'll have the ... instead.", "meaning": "I choose a different thing.", "example": "No problem. I'll have the soup instead." },
+    { "id": "t2-eat-in", "task": "task2", "function": "Answer a service question", "text": "To eat in, please.", "meaning": "We will eat here, at a table.", "example": "To eat in, please. We're sitting by the window." },
+    { "id": "t2-thats-all", "task": "task2", "function": "Finish ordering", "text": "That's all, thanks.", "meaning": "I don't want anything else.", "example": "Two waters as well. That's all, thanks." },
+
+    { "id": "t3-sore-throat", "task": "task3", "function": "Describe a problem", "text": "I've got a sore throat.", "meaning": "My throat hurts.", "example": "I've got a sore throat and a bit of a cough." },
+    { "id": "t3-since", "task": "task3", "function": "Say how long", "text": "since yesterday / for two days", "meaning": "Since + a starting point; for + a length of time.", "example": "I've had it since Monday. I've had it for two days." },
+    { "id": "t3-recommend", "task": "task3", "function": "Ask for help", "text": "Can you recommend something for ...?", "meaning": "What do you think I should buy for this?", "example": "Can you recommend something for a sore throat?" },
+    { "id": "t3-no-medicine", "task": "task3", "function": "Answer a follow-up question", "text": "I'm not taking any other medicine.", "meaning": "I don't use any other medicine now.", "example": "No, I'm not taking any other medicine at the moment." },
+    { "id": "t3-how-often", "task": "task3", "function": "Ask about instructions", "text": "How often should I take it?", "meaning": "How many times, and when?", "example": "How often should I take it? Before or after meals?" },
+    { "id": "t3-see-doctor", "task": "task3", "function": "Ask about next steps", "text": "Should I see a doctor?", "meaning": "Do I need to visit a doctor?", "example": "What if it doesn't get better? Should I see a doctor?" },
+
+    { "id": "t4-booking-under", "task": "task4", "function": "Check in", "text": "I have a booking under the name ...", "meaning": "I reserved a room, and this is the name on it.", "example": "Hi, I have a booking under the name Rossi." },
+    { "id": "t4-booked-online", "task": "task4", "function": "Give details", "text": "I booked it online last week.", "meaning": "I reserved it on the internet seven days ago.", "example": "I booked it online last week, for three nights." },
+    { "id": "t4-confirmation", "task": "task4", "function": "Give evidence", "text": "Here's my confirmation email.", "meaning": "This message shows my booking.", "example": "Here's my confirmation email. It has a booking number." },
+    { "id": "t4-another-room", "task": "task4", "function": "Ask for a solution", "text": "Is there another room available?", "meaning": "Do you have a different free room?", "example": "Is there another room available tonight?" },
+    { "id": "t4-would-it-be-possible", "task": "task4", "function": "Negotiate politely", "text": "Would it be possible to ...?", "meaning": "A polite way to ask for something that is not normal.", "example": "Would it be possible to stay in the dormitory tonight?" },
+    { "id": "t4-dont-mind", "task": "task4", "function": "Say what you accept", "text": "I don't mind sharing a room.", "meaning": "It's OK for me to sleep in a room with other people.", "example": "I don't mind sharing a room for one night." },
+    { "id": "t4-that-works", "task": "task4", "function": "Agree to a solution", "text": "That works for me.", "meaning": "That is OK. I agree.", "example": "The private room from tomorrow? That works for me." }
+  ]
+}

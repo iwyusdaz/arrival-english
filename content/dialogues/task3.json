@@ -1,0 +1,169 @@
+{
+  "id": "task3",
+  "title": "Pharmacy",
+  "scene": "pharmacy",
+  "goal": "Describe your sore throat to the pharmacist and understand how to use what they give you.",
+  "twist": "The pharmacist asks follow-up questions before recommending anything.",
+  "npc": { "name": "Mr Okafor", "role": "pharmacist (fictional)" },
+  "safety": "This is a language task only. The product (Harbour Honey & Lemon lozenges) and its instructions are fictional and constructed for teaching. It is not medical advice. For a real health problem, ask a pharmacist or doctor.",
+  "note": "Fictional dialogue constructed for teaching purposes.",
+  "start": "start",
+  "nodes": {
+    "start": {
+      "speaker": "Narrator",
+      "line": "Language practice only, not medical advice. In this story you have had a sore throat since yesterday. You go to the pharmacy counter.",
+      "next": "greet"
+    },
+    "greet": {
+      "speaker": "Mr Okafor",
+      "reaction": "neutral",
+      "line": "Good morning. How can I help?",
+      "slower": "Hello. What do you need?",
+      "speak": { "option": "gr-a", "keyphrases": ["sore throat"] },
+      "options": [
+        { "id": "gr-a", "type": "effective", "text": "Hi. I've got a sore throat. Can you recommend something for it?", "feedback": "Clear and polite. You named the problem and asked for a recommendation.", "reaction": "nod", "to": "howlong", "chunks": ["t3-sore-throat", "t3-recommend"] },
+        { "id": "gr-b", "type": "odd", "text": "Give me the strongest medicine you have.", "feedback": "Grammatical, but it sounds demanding, and the pharmacist needs to know the problem first.", "recast": "I've got a sore throat. What do you recommend?", "reaction": "put-off", "to": "whatproblem", "chunks": [] },
+        { "id": "gr-c", "type": "error", "text": "I have pain in my troat.", "feedback": "Mr Okafor understands. Watch the 'th' in 'throat', and the usual phrase is 'I've got a sore throat'.", "recast": "I've got a sore throat.", "reaction": "nod", "to": "howlong", "chunks": [] }
+      ]
+    },
+    "whatproblem": {
+      "speaker": "Mr Okafor",
+      "reaction": "think",
+      "line": "I can't give you anything without knowing what it's for. What's the problem?",
+      "slower": "First, tell me the problem, please.",
+      "options": [
+        { "id": "wp-a", "type": "effective", "text": "Sorry. I've got a sore throat.", "feedback": "Good recovery. A short apology and a clear description.", "reaction": "nod", "to": "howlong", "chunks": ["t3-sore-throat"] },
+        { "id": "wp-b", "type": "odd", "text": "Does it matter? I'm just ill.", "feedback": "This sounds impatient. The pharmacist asks so they can give you the right thing.", "recast": "It's my throat. It's very sore.", "reaction": "put-off", "to": "whyask", "chunks": [] },
+        { "id": "wp-c", "type": "error", "text": "My throat is hurting me since yesterday.", "feedback": "Understood. With 'since', English uses the present perfect: 'My throat has hurt since yesterday', or simply 'I've had a sore throat since yesterday'.", "recast": "I've had a sore throat since yesterday.", "reaction": "nod", "to": "symptoms", "chunks": [] }
+      ]
+    },
+    "whyask": {
+      "speaker": "Mr Okafor",
+      "reaction": "neutral",
+      "line": "It does matter. Different problems need different things. Is it your throat, your head, your stomach?",
+      "next": "whatproblem"
+    },
+    "howlong": {
+      "speaker": "Mr Okafor",
+      "reaction": "think",
+      "line": "I see. How long have you had it?",
+      "slower": "When did it start?",
+      "build": {
+        "prompt": "Say that you have had it since yesterday.",
+        "tiles": ["I've had it", "I have it", "since", "for", "yesterday."],
+        "accept": [["I've had it", "since", "yesterday."]],
+        "nearMisses": [
+          { "seq": ["I've had it", "for", "yesterday."], "feedback": "Use 'since' with a starting point (yesterday, Monday). Use 'for' with a length of time (two days)." },
+          { "seq": ["I have it", "since", "yesterday."], "feedback": "With 'since', use the present perfect: 'I've had it'." },
+          { "seq": ["I have it", "for", "yesterday."], "feedback": "Use 'I've had it since yesterday': present perfect + since + a starting point." }
+        ],
+        "hint": "How long? Start with 'I've had it'. Then since + a starting point.",
+        "option": "hl-a"
+      },
+      "options": [
+        { "id": "hl-a", "type": "effective", "text": "I've had it since yesterday.", "feedback": "Correct and clear: present perfect + since + a starting point.", "reaction": "nod", "to": "symptoms", "chunks": ["t3-since"] },
+        { "id": "hl-b", "type": "odd", "text": "A while. Not sure. Maybe a long time, maybe not.", "feedback": "It is very vague, so the pharmacist can't use the answer.", "recast": "About a day. It started yesterday.", "reaction": "puzzled", "to": "vague", "chunks": [] },
+        { "id": "hl-c", "type": "error", "text": "I have it since yesterday.", "feedback": "A very common error. With 'since', use the present perfect: 'I've had it since yesterday.'", "recast": "I've had it since yesterday.", "reaction": "nod", "to": "symptoms", "chunks": [] }
+      ]
+    },
+    "vague": {
+      "speaker": "Mr Okafor",
+      "reaction": "think",
+      "line": "Roughly, then. Did it start today, yesterday, or last week?",
+      "next": "howlong"
+    },
+    "symptoms": {
+      "speaker": "Mr Okafor",
+      "reaction": "neutral",
+      "line": "Do you have a temperature, or any trouble swallowing?",
+      "slower": "Are you hot? Is it hard to eat and drink?",
+      "spell": "Swallowing: S, W, A, L, L, O, W, I, N, G. It means food or drink going down your throat.",
+      "options": [
+        { "id": "sy-a", "type": "effective", "text": "No temperature. It hurts a bit when I swallow, but I can eat and drink.", "feedback": "Very useful answer. You answered both questions with clear detail.", "reaction": "nod", "to": "medicine", "chunks": [] },
+        { "id": "sy-b", "type": "acceptable", "text": "Sorry, what does 'swallowing' mean?", "feedback": "Good repair strategy. It's fine to ask about one word.", "reaction": "warm", "to": "swallow", "chunks": ["r-mean"] },
+        { "id": "sy-c", "type": "odd", "text": "Why are you asking so many questions?", "feedback": "This sounds rude. Pharmacists ask follow-up questions to keep you safe.", "recast": "Sorry, why do you need to know?", "reaction": "put-off", "to": "whyquestions", "chunks": [] },
+        { "id": "sy-d", "type": "error", "text": "I don't have temperature, only hurt when I swallowing.", "feedback": "Understood. Say 'a temperature', and 'it hurts when I swallow'.", "recast": "I don't have a temperature. It only hurts when I swallow.", "reaction": "nod", "to": "medicine", "chunks": [] }
+      ]
+    },
+    "swallow": {
+      "speaker": "Mr Okafor",
+      "reaction": "warm",
+      "line": "Swallowing is when food or drink goes down your throat, like this. Is that painful?",
+      "next": "symptoms"
+    },
+    "whyquestions": {
+      "speaker": "Mr Okafor",
+      "reaction": "neutral",
+      "line": "I need to check it isn't something more serious. It only takes a minute.",
+      "next": "symptoms"
+    },
+    "medicine": {
+      "speaker": "Mr Okafor",
+      "reaction": "neutral",
+      "line": "And are you taking any other medicine at the moment?",
+      "slower": "Do you take other medicine now?",
+      "speak": { "option": "me-a", "keyphrases": ["not taking", "no other medicine", "no medicine", "nothing else"] },
+      "options": [
+        { "id": "me-a", "type": "effective", "text": "No, I'm not taking any other medicine.", "feedback": "Clear answer to an important safety question.", "reaction": "nod", "to": "recommend", "chunks": ["t3-no-medicine"] },
+        { "id": "me-b", "type": "odd", "text": "That's private.", "feedback": "Grammatical, but this is a normal and important question at a pharmacy. Answering helps them keep you safe.", "recast": "No, I'm not taking anything else.", "reaction": "puzzled", "to": "private", "chunks": [] },
+        { "id": "me-c", "type": "error", "text": "No, I not take other medicines.", "feedback": "Use 'I'm not taking' (or 'I don't take') for now.", "recast": "No, I'm not taking any other medicine.", "reaction": "nod", "to": "recommend", "chunks": [] }
+      ]
+    },
+    "private": {
+      "speaker": "Mr Okafor",
+      "reaction": "neutral",
+      "line": "I understand. I only ask because some medicines don't mix well. You can just say yes or no.",
+      "next": "medicine"
+    },
+    "recommend": {
+      "speaker": "Mr Okafor",
+      "reaction": "point",
+      "line": "OK. These honey and lemon lozenges might help. You suck them slowly. You can have one every three hours, but no more than six in a day. It's all on the box.",
+      "slower": "Take one sweet every three hours. Not more than six in one day. Read the box.",
+      "spell": "Lozenges: L, O, Z, E, N, G, E, S. Small sweets for your throat.",
+      "options": [
+        { "id": "re-a", "type": "effective", "text": "So one every three hours, and no more than six a day. Is that right?", "feedback": "Excellent. You checked the instructions by repeating the numbers.", "reaction": "nod", "to": "doctor", "chunks": ["r-check"] },
+        { "id": "re-b", "type": "acceptable", "text": "Sorry, how often should I take them?", "feedback": "Good repair. Numbers in instructions are easy to miss.", "reaction": "nod", "to": "repeatdose", "chunks": ["t3-how-often"] },
+        { "id": "re-c", "type": "odd", "text": "Fine. I'll take lots so it goes away faster.", "feedback": "This is a safety problem. Always follow the instructions on the box, and ask the pharmacist if you are unsure.", "recast": "OK. How many can I have in a day?", "reaction": "puzzled", "to": "nomore", "chunks": [] },
+        { "id": "re-d", "type": "error", "text": "One for three hours?", "feedback": "Use 'every': 'one every three hours'. 'For three hours' means a length of time.", "recast": "One every three hours?", "reaction": "nod", "to": "repeatdose", "chunks": [] }
+      ]
+    },
+    "repeatdose": {
+      "speaker": "Mr Okafor",
+      "reaction": "nod",
+      "line": "One lozenge every three hours. Not more than six in a day.",
+      "next": "doctor"
+    },
+    "nomore": {
+      "speaker": "Mr Okafor",
+      "reaction": "think",
+      "line": "Please don't. No more than six in a day. More won't help it go faster.",
+      "next": "doctor"
+    },
+    "doctor": {
+      "speaker": "Mr Okafor",
+      "reaction": "neutral",
+      "line": "Drink plenty of water, too. Is there anything else you'd like to ask?",
+      "slower": "Drink lots of water. Any more questions?",
+      "speak": { "option": "do-a", "keyphrases": ["see a doctor", "go to a doctor", "doctor"] },
+      "options": [
+        { "id": "do-a", "type": "effective", "text": "What if it doesn't get better? Should I see a doctor?", "feedback": "A very good question to ask. Knowing when to see a doctor is important.", "reaction": "nod", "to": "advice", "chunks": ["t3-see-doctor"] },
+        { "id": "do-b", "type": "acceptable", "text": "No, that's all. Thanks very much.", "feedback": "Polite and natural. It is also a good idea to ask when to see a doctor.", "reaction": "warm", "to": "advice", "chunks": ["t1-thanks-help"] },
+        { "id": "do-c", "type": "odd", "text": "Are you sure you know what you're doing?", "feedback": "This questions the pharmacist's skill and sounds insulting. If you are worried, ask when to see a doctor.", "recast": "Should I see a doctor if it doesn't get better?", "reaction": "put-off", "to": "advice", "chunks": [] },
+        { "id": "do-d", "type": "error", "text": "When I must go to doctor?", "feedback": "Question word order: 'When should I see a doctor?' And use 'a' before 'doctor'.", "recast": "When should I see a doctor?", "reaction": "nod", "to": "advice", "chunks": [] }
+      ]
+    },
+    "advice": {
+      "speaker": "Mr Okafor",
+      "reaction": "warm",
+      "line": "If it isn't better in a few days, or you feel worse, see a doctor. And you can always come back and ask me.",
+      "next": "end"
+    },
+    "end": {
+      "speaker": "Narrator",
+      "line": "You explained your problem, answered the pharmacist's questions and checked the instructions. Remember: this was a language task. For real health problems, ask a pharmacist or doctor.",
+      "outcome": "success",
+      "summary": "Task complete: problem described, follow-up questions answered, instructions checked."
+    }
+  }
+}

@@ -1,0 +1,188 @@
+{
+  "id": "task2",
+  "title": "Café",
+  "scene": "cafe",
+  "goal": "Order lunch for you and your friend Ana. Ana is allergic to nuts.",
+  "twist": "The dish Ana wants is sold out, and two of the alternatives contain nuts.",
+  "npc": { "name": "Priya", "role": "café counter (fictional)" },
+  "note": "Fictional dialogue constructed for teaching purposes. The Harbour Café menu is fictional.",
+  "start": "start",
+  "nodes": {
+    "start": {
+      "speaker": "Narrator",
+      "line": "You and your friend Ana are at the café counter. Read the menu board. You want the tomato soup. Ana wants the vegetable curry, and she is allergic to nuts.",
+      "next": "greet"
+    },
+    "greet": {
+      "speaker": "Priya",
+      "reaction": "warm",
+      "line": "Hi! What can I get you?",
+      "slower": "Hello. What would you like?",
+      "speak": { "option": "gr-a", "keyphrases": ["could i have", "can i have", "i'd like", "i would like"] },
+      "options": [
+        { "id": "gr-a", "type": "effective", "text": "Could I have a tomato soup, please? And for my friend, the vegetable curry.", "feedback": "Polite and complete. You ordered for both of you in a natural way.", "reaction": "nod", "to": "soldout", "chunks": ["t2-could-i-have", "t2-for-my-friend"] },
+        { "id": "gr-b", "type": "odd", "text": "Soup. Curry.", "feedback": "Priya can guess, but one-word orders sound abrupt. Add 'Could I have ..., please?'", "recast": "Could I have a tomato soup and a vegetable curry, please?", "reaction": "puzzled", "to": "abrupt", "chunks": [] },
+        { "id": "gr-c", "type": "error", "text": "I would like eat one soup tomato.", "feedback": "Two common errors: 'like to eat' (or just 'like'), and in English the describing word comes first: 'tomato soup'.", "recast": "I'd like a tomato soup, please.", "reaction": "think", "to": "recast-soup", "chunks": [] }
+      ]
+    },
+    "abrupt": {
+      "speaker": "Priya",
+      "reaction": "puzzled",
+      "line": "Er, OK. One tomato soup. And is the curry for you too?",
+      "next": "friendorder"
+    },
+    "recast-soup": {
+      "speaker": "Priya",
+      "reaction": "nod",
+      "line": "A tomato soup? Sure.",
+      "next": "friendorder"
+    },
+    "friendorder": {
+      "speaker": "Priya",
+      "reaction": "neutral",
+      "line": "And what would your friend like?",
+      "slower": "What does your friend want?",
+      "options": [
+        { "id": "fo-a", "type": "effective", "text": "And for my friend, the vegetable curry, please.", "feedback": "Clear. 'And for my friend, ...' tells Priya who the dish is for.", "reaction": "nod", "to": "soldout", "chunks": ["t2-for-my-friend"] },
+        { "id": "fo-b", "type": "odd", "text": "She eats curry.", "feedback": "Correct grammar, but it sounds like a fact about Ana's habits, not an order.", "recast": "She'd like the vegetable curry, please.", "reaction": "puzzled", "to": "soldout", "chunks": [] },
+        { "id": "fo-c", "type": "error", "text": "For my friend is the curry vegetable.", "feedback": "Say 'the vegetable curry' (describing word first) and leave out 'is'.", "recast": "For my friend, the vegetable curry.", "reaction": "nod", "to": "soldout", "chunks": [] }
+      ]
+    },
+    "soldout": {
+      "speaker": "Priya",
+      "reaction": "apologetic",
+      "line": "Oh, I'm really sorry. We've run out of the vegetable curry. The pesto pasta and the Harbour salad are both really nice.",
+      "slower": "Sorry, there is no more curry today. You can have the pasta or the salad.",
+      "spell": "Pesto: P, E, S, T, O.",
+      "speak": { "option": "so-a", "keyphrases": ["allergic to nuts", "any nuts", "have nuts", "nuts in it"] },
+      "options": [
+        { "id": "so-a", "type": "effective", "text": "She's allergic to nuts. Does the pasta have any nuts in it?", "feedback": "Very important and well done. Always say the allergy first, then ask about the dish.", "reaction": "think", "to": "pesto", "chunks": ["t2-allergic-nuts", "t2-any-nuts"] },
+        { "id": "so-b", "type": "acceptable", "text": "What's in the Harbour salad?", "feedback": "A good clarification question. It is also a good idea to say that Ana has an allergy.", "reaction": "think", "to": "salad", "chunks": ["t2-whats-in"] },
+        { "id": "so-c", "type": "odd", "text": "OK, the pasta then.", "feedback": "Grammatical and polite, but risky: you didn't mention Ana's allergy. With allergies, always tell the staff.", "recast": "She's allergic to nuts. Is the pasta OK for her?", "reaction": "nod", "to": "danger", "chunks": [] },
+        { "id": "so-d", "type": "error", "text": "She is allergy of nuts.", "feedback": "Priya understands, luckily. The adjective is 'allergic', and it goes with 'to': 'allergic to nuts'.", "recast": "She's allergic to nuts.", "reaction": "think", "to": "allergy-recast", "chunks": [] }
+      ]
+    },
+    "pesto": {
+      "speaker": "Priya",
+      "reaction": "apologetic",
+      "line": "Good question. The pesto has pine nuts in it, so that's no good. And the salad has walnuts.",
+      "next": "alternative"
+    },
+    "salad": {
+      "speaker": "Priya",
+      "reaction": "neutral",
+      "line": "It's leaves, tomato, cheese and walnuts. Is anyone allergic to anything?",
+      "next": "danger"
+    },
+    "allergy-recast": {
+      "speaker": "Priya",
+      "reaction": "nod",
+      "line": "Oh, she's allergic to nuts? Thanks for telling me. Then not the pesto or the salad. They both have nuts.",
+      "next": "alternative"
+    },
+    "danger": {
+      "speaker": "Priya",
+      "reaction": "think",
+      "line": "Just so you know, the pesto has pine nuts in it and the salad has walnuts. Does anyone have an allergy?",
+      "slower": "The pasta has nuts. The salad has nuts. Is anyone allergic?",
+      "options": [
+        { "id": "da-a", "type": "effective", "text": "Yes, she's allergic to nuts. Is there anything without nuts?", "feedback": "Good. You said the allergy clearly and asked for a safe choice.", "reaction": "nod", "to": "alternative", "chunks": ["t2-allergic-nuts"] },
+        { "id": "da-b", "type": "odd", "text": "It's fine. She can just eat around them.", "feedback": "This is a safety problem, not only a language problem. Don't guess with allergies; tell the staff and ask.", "recast": "Actually, she's allergic to nuts. What can she have?", "reaction": "puzzled", "to": "careful", "chunks": [] },
+        { "id": "da-c", "type": "error", "text": "Yes. She don't eat nuts.", "feedback": "Use 'doesn't' with 'she'. And 'allergic' is clearer than 'doesn't eat': it tells Priya it is a health issue.", "recast": "Yes. She doesn't eat nuts. She's allergic.", "reaction": "nod", "to": "alternative", "chunks": [] }
+      ]
+    },
+    "careful": {
+      "speaker": "Priya",
+      "reaction": "apologetic",
+      "line": "I'd really not risk it with an allergy. Let me find something without nuts.",
+      "next": "alternative"
+    },
+    "alternative": {
+      "speaker": "Priya",
+      "reaction": "point",
+      "line": "For her, the tomato soup or the cheese sandwich are fine. They're both nut-free.",
+      "slower": "She can have the soup or the cheese sandwich. They have no nuts.",
+      "build": {
+        "prompt": "Choose the cheese sandwich for Ana instead.",
+        "tiles": ["She'll have", "I'll have", "the cheese sandwich", "the pesto pasta", "instead,", "please."],
+        "accept": [
+          ["She'll have", "the cheese sandwich", "instead,", "please."],
+          ["She'll have", "the cheese sandwich", "please."]
+        ],
+        "nearMisses": [
+          { "seq": ["She'll have", "the pesto pasta", "instead,", "please."], "feedback": "The pesto pasta has pine nuts. Choose a nut-free dish." },
+          { "seq": ["She'll have", "the pesto pasta", "please."], "feedback": "The pesto pasta has pine nuts. Choose a nut-free dish." },
+          { "seq": ["I'll have", "the cheese sandwich", "instead,", "please."], "feedback": "'I'll have' is for you. The sandwich is for Ana, so say 'She'll have'." },
+          { "seq": ["I'll have", "the cheese sandwich", "please."], "feedback": "'I'll have' is for you. The sandwich is for Ana, so say 'She'll have'." }
+        ],
+        "hint": "Who is it for? Start with that person. Then the dish, then 'please'.",
+        "option": "al-a"
+      },
+      "options": [
+        { "id": "al-a", "type": "effective", "text": "She'll have the cheese sandwich instead, please.", "feedback": "Clear decision. 'Instead' shows you changed the order.", "reaction": "nod", "to": "eatin", "chunks": ["t2-instead"] },
+        { "id": "al-b", "type": "odd", "text": "Just give her anything.", "feedback": "It sounds careless, and Priya can't choose for Ana. Make a clear choice.", "recast": "She'll have the cheese sandwich, please.", "reaction": "shrug", "to": "choose-for-her", "chunks": [] },
+        { "id": "al-c", "type": "error", "text": "She will to have the sandwich of cheese.", "feedback": "No 'to' after 'will'. And English says 'cheese sandwich', not 'sandwich of cheese'.", "recast": "She'll have the cheese sandwich.", "reaction": "nod", "to": "eatin", "chunks": [] }
+      ]
+    },
+    "choose-for-her": {
+      "speaker": "Priya",
+      "reaction": "shrug",
+      "line": "Hmm, I'd better not choose for her. The soup or the sandwich?",
+      "next": "alternative"
+    },
+    "eatin": {
+      "speaker": "Priya",
+      "reaction": "neutral",
+      "line": "Lovely. Is that to eat in or take away?",
+      "slower": "Will you eat here, or take the food with you?",
+      "speak": { "option": "ei-a", "keyphrases": ["eat in", "eat here", "take away", "takeaway"] },
+      "options": [
+        { "id": "ei-a", "type": "effective", "text": "To eat in, please.", "feedback": "Short and natural. This is the usual answer.", "reaction": "nod", "to": "drinks", "chunks": ["t2-eat-in"] },
+        { "id": "ei-b", "type": "odd", "text": "Why do you need to know?", "feedback": "Not wrong, but it sounds suspicious. This is a normal question in cafés.", "recast": "Sorry, what's the difference?", "reaction": "puzzled", "to": "explain", "chunks": [] },
+        { "id": "ei-c", "type": "error", "text": "For eat here.", "feedback": "Priya understands. The fixed phrase is 'to eat in' or 'to have here'.", "recast": "To eat in, please.", "reaction": "nod", "to": "drinks", "chunks": [] }
+      ]
+    },
+    "explain": {
+      "speaker": "Priya",
+      "reaction": "neutral",
+      "line": "Eat in means you sit here. Take away means you take the food with you. We use different plates and boxes.",
+      "next": "eatin"
+    },
+    "drinks": {
+      "speaker": "Priya",
+      "reaction": "neutral",
+      "line": "Anything to drink?",
+      "slower": "Do you want a drink?",
+      "speak": { "option": "dr-a", "keyphrases": ["that's all", "that is all", "nothing else"] },
+      "options": [
+        { "id": "dr-a", "type": "effective", "text": "Just two glasses of water, please. That's all, thanks.", "feedback": "Good. 'That's all, thanks' tells Priya you have finished ordering.", "reaction": "nod", "to": "total", "chunks": ["t2-thats-all"] },
+        { "id": "dr-b", "type": "odd", "text": "No. Nothing. Finish.", "feedback": "Three short words sound cold. 'No, that's all, thanks' is friendlier.", "recast": "No, that's all, thanks.", "reaction": "shrug", "to": "total", "chunks": [] },
+        { "id": "dr-c", "type": "error", "text": "No, it's all, thank.", "feedback": "The fixed phrase is 'That's all, thanks' (or 'thank you').", "recast": "No, that's all, thanks.", "reaction": "nod", "to": "total", "chunks": [] }
+      ]
+    },
+    "total": {
+      "speaker": "Priya",
+      "reaction": "warm",
+      "line": "So, one tomato soup and one cheese sandwich, to eat in. That's ten thirty, please. I'll tell the kitchen about the nut allergy.",
+      "slower": "One soup and one cheese sandwich. Ten thirty, please. I will tell the kitchen about the allergy.",
+      "options": [
+        { "id": "to-a", "type": "effective", "text": "Great, thank you. Can I pay by card?", "feedback": "Friendly and practical. You thanked Priya and asked about payment.", "reaction": "nod", "to": "end", "chunks": ["t1-pay-by-card"] },
+        { "id": "to-b", "type": "acceptable", "text": "Sorry, could you repeat the price?", "feedback": "Good repair. Prices and numbers are hard to catch.", "reaction": "nod", "to": "priceagain", "chunks": ["r-repeat"] },
+        { "id": "to-c", "type": "odd", "text": "Ten thirty? In my country it's much cheaper.", "feedback": "Grammatical, but comparing prices with your country can sound rude in a service encounter.", "recast": "Ten thirty. OK, can I pay by card?", "reaction": "put-off", "to": "end", "chunks": [] },
+        { "id": "to-d", "type": "error", "text": "Thank you, is very kind.", "feedback": "English needs a subject: 'That's very kind' or 'You're very kind'.", "recast": "Thank you, that's very kind.", "reaction": "warm", "to": "end", "chunks": [] }
+      ]
+    },
+    "priceagain": {
+      "speaker": "Priya",
+      "reaction": "nod",
+      "line": "Of course. Ten thirty. Card is fine.",
+      "next": "end"
+    },
+    "end": {
+      "speaker": "Narrator",
+      "line": "Lunch is ordered. Ana has a safe, nut-free sandwich, and the kitchen knows about her allergy.",
+      "outcome": "success",
+      "summary": "Task complete: order placed for two, allergy explained, sold-out item replaced."
+    }
+  }
+}

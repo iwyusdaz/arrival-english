@@ -1,0 +1,35 @@
+{
+  "name": "arrival-english",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "You've just arrived in a new English-speaking city. Buy a transit ticket, order food with a dietary need, ask a pharmacist for help, and fix a hostel booking problem, using English to get real things done.",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "node scripts/sync-content.mjs && vite",
+    "build": "node scripts/sync-content.mjs && node scripts/validate-dialogues.mjs && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "test:subpath": "playwright test tests/sub-path.spec.js",
+    "check:a11y": "playwright test tests/a11y.spec.js",
+    "validate:dialogues": "node scripts/validate-dialogues.mjs",
+    "check:readability": "node scripts/readability-check.mjs",
+    "build:poster": "node scripts/render-poster.mjs",
+    "build:attribution": "node scripts/build-attribution.mjs",
+    "validate:showcase": "node scripts/validate-showcase.mjs 1.0.0"
+  },
+  "dependencies": {
+    "n8ao": "2.0.1",
+    "postprocessing": "6.39.5",
+    "three": "0.186.1"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.64.1",
+    "vite": "8.3.5",
+    "vitest": "5.0.5"
+  }
+}

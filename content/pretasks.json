@@ -1,0 +1,83 @@
+{
+  "note": "Model exchanges are fictional and constructed for teaching purposes. They use different places and details from the tasks, so learners notice the chunks without being given the answers.",
+  "tasks": [
+    {
+      "task": "task1",
+      "intro": "Listen to (or read) a traveller at another station. Notice the phrases in bold.",
+      "model": [
+        { "speaker": "Traveller", "line": "Excuse me, can you help me? My card doesn't work in the machine." },
+        { "speaker": "Staff", "line": "No problem. Where are you going?" },
+        { "speaker": "Traveller", "line": "A return to Northgate, please. I'm coming back this afternoon." },
+        { "speaker": "Staff", "line": "That's six fifty. The train leaves from platform two." },
+        { "speaker": "Traveller", "line": "Can I pay by card here? And which platform does it leave from, sorry?" },
+        { "speaker": "Staff", "line": "Yes, card is fine. Platform two. Go straight on, then turn left." },
+        { "speaker": "Traveller", "line": "Thanks very much for your help." }
+      ],
+      "keyChunks": ["t1-excuse-me", "t1-card-not-work", "t1-return-to", "t1-pay-by-card", "t1-which-platform", "t1-directions"],
+      "matching": [
+        { "chunk": "t1-return-to", "situation": "You want to go and come back on the same ticket." },
+        { "chunk": "t1-excuse-me", "situation": "You want to start talking to a member of staff." },
+        { "chunk": "t1-which-platform", "situation": "You don't know where your train is." },
+        { "chunk": "t1-pay-by-card", "situation": "You don't have cash." }
+      ]
+    },
+    {
+      "task": "task2",
+      "intro": "Listen to (or read) two friends at a different café. Notice the phrases in bold.",
+      "model": [
+        { "speaker": "Staff", "line": "Hi, what can I get you?" },
+        { "speaker": "Customer", "line": "Could I have a cheese sandwich, please? And for my friend, the fish soup." },
+        { "speaker": "Staff", "line": "Sorry, we've run out of the fish soup." },
+        { "speaker": "Customer", "line": "Oh. He's allergic to nuts. What's in the chicken salad? Does it have any nuts in it?" },
+        { "speaker": "Staff", "line": "No nuts in that one." },
+        { "speaker": "Customer", "line": "Great, he'll have the chicken salad instead. To eat in, please. That's all, thanks." }
+      ],
+      "keyChunks": ["t2-could-i-have", "t2-for-my-friend", "t2-allergic-nuts", "t2-any-nuts", "t2-instead", "t2-thats-all"],
+      "matching": [
+        { "chunk": "t2-allergic-nuts", "situation": "Nuts make your friend ill." },
+        { "chunk": "t2-instead", "situation": "Your first choice is sold out, so you choose something else." },
+        { "chunk": "t2-thats-all", "situation": "You have finished ordering." },
+        { "chunk": "t2-any-nuts", "situation": "You need to check the ingredients." }
+      ]
+    },
+    {
+      "task": "task3",
+      "intro": "Language practice only, not medical advice. Listen to (or read) a customer with a cough. Notice the phrases in bold.",
+      "model": [
+        { "speaker": "Customer", "line": "Hello. I've got a cough. Can you recommend something for it?" },
+        { "speaker": "Pharmacist", "line": "How long have you had it?" },
+        { "speaker": "Customer", "line": "I've had it for three days. I'm not taking any other medicine." },
+        { "speaker": "Pharmacist", "line": "OK. Take this syrup twice a day." },
+        { "speaker": "Customer", "line": "How often should I take it? Twice a day? And should I see a doctor?" },
+        { "speaker": "Pharmacist", "line": "Yes, twice a day. If it doesn't get better in a week, see a doctor." }
+      ],
+      "keyChunks": ["t3-sore-throat", "t3-since", "t3-recommend", "t3-no-medicine", "t3-how-often", "t3-see-doctor"],
+      "matching": [
+        { "chunk": "t3-since", "situation": "You say when the problem started or how long it has lasted." },
+        { "chunk": "t3-how-often", "situation": "You need to check the instructions." },
+        { "chunk": "t3-see-doctor", "situation": "You want to know what to do if it doesn't get better." },
+        { "chunk": "t3-recommend", "situation": "You want the pharmacist's suggestion." }
+      ]
+    },
+    {
+      "task": "task4",
+      "intro": "Listen to (or read) a guest at a different hostel. Notice the phrases in bold.",
+      "model": [
+        { "speaker": "Guest", "line": "Hi. I have a booking under the name Chen." },
+        { "speaker": "Receptionist", "line": "Sorry, I can't see it. When did you book?" },
+        { "speaker": "Guest", "line": "I booked it online last week. Here's my confirmation email." },
+        { "speaker": "Receptionist", "line": "Ah, it's for next Friday. And tonight we're full." },
+        { "speaker": "Guest", "line": "Is there another room available? Would it be possible to stay in a shared room? I don't mind sharing." },
+        { "speaker": "Receptionist", "line": "Yes, I have one bed in a shared room." },
+        { "speaker": "Guest", "line": "That works for me. Thanks." }
+      ],
+      "keyChunks": ["t4-booking-under", "t4-booked-online", "t4-confirmation", "t4-another-room", "t4-would-it-be-possible", "t4-that-works"],
+      "matching": [
+        { "chunk": "t4-booking-under", "situation": "You arrive and want to check in." },
+        { "chunk": "t4-confirmation", "situation": "You show proof of your booking." },
+        { "chunk": "t4-would-it-be-possible", "situation": "You politely ask for something unusual." },
+        { "chunk": "t4-that-works", "situation": "You agree to the solution." }
+      ]
+    }
+  ]
+}
