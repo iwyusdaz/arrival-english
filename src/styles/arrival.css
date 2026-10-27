@@ -29,6 +29,11 @@ main.stage { display: flex; }
   font-size: 1.05rem; z-index: 4;
 }
 .cinematic-overlay { right: auto; width: calc(100% - min(30rem, 42vw)); }
+.scene-loading[hidden] { display: none !important; }
+.scene-loading {
+  position: absolute; left: 1rem; top: 1rem; margin: 0; padding: 0.45rem 0.8rem;
+  background: rgba(0, 0, 0, 0.74); color: #fff; border-radius: 6px; font-size: 1rem; z-index: 4;
+}
 
 button.primary { background: var(--accent-strong); border-color: var(--accent-strong); color: #fff; font-weight: 600; }
 button.secondary { border-color: var(--accent); }

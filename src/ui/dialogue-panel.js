@@ -259,7 +259,10 @@ export class DialoguePanel {
     const { option } = this.pending;
     const kind = feedbackKind(option);
     const b = BADGES[kind];
-    const box = el('section', { class: `dlg-feedback type-${kind}`, tabindex: '-1', 'aria-label': 'Feedback' });
+    // A risky option is still scored as odd: it keeps the type-odd class (tests, semantics)
+    // and adds type-risky for the red border (CSS order makes the risky rule win).
+    const classes = kind === 'risky' ? 'type-odd type-risky' : `type-${kind}`;
+    const box = el('section', { class: `dlg-feedback ${classes}`, tabindex: '-1', 'aria-label': 'Feedback' });
     box.append(el('p', { class: 'badge' }, el('span', { 'aria-hidden': 'true' }, `${b.icon} `), b.label));
     box.append(el('p', {}, option.feedback));
     if (option.recast) box.append(el('p', { class: 'recast' }, el('span', { class: 'recast-label' }, 'A better way to say it: '), el('q', {}, option.recast)));

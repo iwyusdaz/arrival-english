@@ -70,7 +70,7 @@ desaturated so the foreground reads first (signaling). NPCs are kept mid-distanc
 and no decorative motion during tasks, because extraneous detail and decorative animation can add cognitive load,
 and technology can raise language anxiety through overload (Huang & Liu, 2025). VR studies show benefits for
 vocabulary, listening and productive skills in context-rich environments (Sun & Song, 2025; Şimşek et al., 2026),
-but this is desktop and mobile 3D, so that evidence is indirect. Cinematics total 50 s (six shots, all skippable
+but this is desktop and mobile 3D, so that evidence is indirect. Cinematics total 50 s (six cinematics, seven shots, all skippable
 and captioned, still frames under reduced motion). See [design/realism-matrix.md](design/realism-matrix.md) and
 [design/shot-list.md](design/shot-list.md); sources in [research/sources.md](research/sources.md).
 

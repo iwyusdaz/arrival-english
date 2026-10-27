@@ -53,15 +53,24 @@ export function renderPreTask(c, o) {
   // Model exchange (captioned: the text IS the caption; audio optional).
   const model = el('ol', { class: 'model-exchange', 'aria-label': 'Model conversation (constructed for teaching purposes)' });
   pre.model.forEach((m, i) => model.append(el('li', { 'data-i': String(i) }, el('span', { class: 'dlg-speaker' }, `${m.speaker}: `), highlight(m.line, cores))));
-  const playBtn = el('button', { type: 'button', class: 'secondary', onclick: async () => {
-    playBtn.disabled = true;
-    for (const li of model.children) {
+  // Play / Stop toggle (agent review H-6 / A3 / W3 / M8): the learner can stop the voice at
+  // any time; the button shows which line is playing.
+  const PLAY = '\u{1F50A} Listen to the model';
+  let playing = false;
+  const playBtn = el('button', { type: 'button', class: 'secondary', 'data-testid': 'play-model', onclick: async () => {
+    if (playing) { playing = false; o.voice?.stop(); announce('Stopped.'); return; }
+    playing = true;
+    const lines = [...model.children];
+    for (const [n, li] of lines.entries()) {
+      if (!playing) break;
+      playBtn.textContent = `\u25A0 Stop (line ${n + 1} of ${lines.length})`;
       li.classList.add('playing');
       await o.voice?.speak(pre.model[Number(li.dataset.i)].line);
       li.classList.remove('playing');
     }
-    playBtn.disabled = false;
-  } }, '\u{1F50A} Listen to the model');
+    playing = false;
+    playBtn.textContent = PLAY;
+  } }, PLAY);
   c.append(el('div', { class: 'dlg-actions' }, playBtn), model);
 
   // Key chunks.

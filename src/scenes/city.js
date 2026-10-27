@@ -121,7 +121,10 @@ export class City {
   setView(id, { snap = false } = {}) {
     if (!this.current) return null;
     const d = this.current.def;
-    const v = id === 'default' || !d.views[id] ? { ...d.camera, label: 'Counter' } : d.views[id];
+    // 'person': a closer framing of the NPC so posture reactions read (agent review R9 / H-10).
+    const [nx, , nz] = d.npcPos;
+    const v = id === 'person' ? { pos: [nx * 0.6, 1.58, nz + 1.75], target: [nx, 1.32, nz], label: 'Person' }
+      : id === 'default' || !d.views[id] ? { ...d.camera, label: 'Counter' } : d.views[id];
     const cam = this.engine.camera;
     const to = { pos: new THREE.Vector3(...v.pos), target: new THREE.Vector3(...v.target) };
     if (snap || this.motion.reduced) {

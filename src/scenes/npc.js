@@ -17,9 +17,11 @@ import * as THREE from 'three';
 /** Target joint rotations (radians) per reaction. Keys: head pitch/roll/yaw, spine lean, arms. */
 export const POSES = {
   neutral: {},
-  nod: { headPitch: 0.28 },
-  warm: { headRoll: 0.12, lean: 0.06, lShoulder: 0.25, rShoulder: 0.25 },
-  puzzled: { headRoll: -0.32, headPitch: -0.05, rShoulder: 1.9, rElbow: 1.7 },
+  // Head poses were enlarged after agent review R9 / H-10 (nods and tilts were a few pixels
+  // at the counter framing); arm poses were already large. Still within a natural range.
+  nod: { headPitch: 0.42, lean: 0.05 },
+  warm: { headRoll: 0.16, lean: 0.08, lShoulder: 0.35, rShoulder: 0.35, lOut: 0.2, rOut: 0.2 },
+  puzzled: { headRoll: -0.42, headPitch: -0.08, lean: -0.04, rShoulder: 1.9, rElbow: 1.7 },
   'put-off': { lean: -0.12, headPitch: -0.1, lShoulder: 0.5, rShoulder: 0.5, lElbow: 1.9, rElbow: 1.9, lCross: 0.9, rCross: 0.9 },
   shrug: { headRoll: 0.1, lShoulder: 0.55, rShoulder: 0.55, lElbow: 1.5, rElbow: 1.5, lOut: 0.55, rOut: 0.55, shoulderLift: 0.06 },
   point: { headYaw: 0.5, rShoulder: 1.45, rOut: 0.9, rElbow: 0.1, bodyYaw: 0.15 },

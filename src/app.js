@@ -62,7 +62,9 @@ export class App {
     this.textmode = document.getElementById('textmode');
     this.panel = el('aside', { id: 'task-panel', class: 'task-panel', 'aria-label': 'Task panel' });
     this.caption = el('p', { class: 'scene-caption', 'aria-hidden': 'true', hidden: true });
-    this.stage.append(this.panel, this.caption);
+    // Shown over the 3D view while a scene loads (agent review H-4 / V5).
+    this.loading = el('p', { class: 'scene-loading', role: 'status', hidden: true });
+    this.stage.append(this.panel, this.caption, this.loading);
 
     this.record = new LearningRecord(SLUG);
     this.motion = new MotionPrefs(SLUG);
@@ -215,7 +217,12 @@ export class App {
 
   _loadScene(name) {
     if (!this.city) return Promise.resolve();
-    return this.city.load(name).catch((e) => console.warn('scene load failed', e));
+    const label = this.tmScenes?.[name]?.title || 'the scene';
+    const timer = setTimeout(() => { this.loading.textContent = `Loading ${label}\u2026`; this.loading.hidden = this.textOn(); }, 150);
+    return this.city.load(name).catch((e) => console.warn('scene load failed', e)).finally(() => {
+      clearTimeout(timer);
+      this.loading.hidden = true;
+    });
   }
 
   restartModule() {
@@ -271,6 +278,8 @@ export class App {
     const views = Object.entries(cur.def.views);
     const g = el('div', { class: 'look-group', role: 'group', 'aria-label': 'Look at (camera views)' }, el('span', { class: 'repair-label' }, 'Look at:'));
     g.append(el('button', { type: 'button', 'data-view': 'default', onclick: () => { this.city.setView('default'); announce('View: counter'); } }, 'Counter'));
+    const who = MODULES[this.index].task ? this.graphs[MODULES[this.index].task].npc.name : 'the person';
+    g.append(el('button', { type: 'button', 'data-view': 'person', onclick: () => { this.city.setView('person'); announce(`View: close to ${who}`); } }, `Close to ${who}`));
     for (const [id, v] of views) g.append(el('button', { type: 'button', 'data-view': id, onclick: () => { this.city.setView(id); announce(`View: ${v.label}`); } }, v.label));
     slot.append(g);
     if (this.engine) this.engine.renderer.toneMappingExposure = (cur.def.exposure ?? 1) * (MODULES[this.index].id === 'wrap' ? 0.75 : 1);
