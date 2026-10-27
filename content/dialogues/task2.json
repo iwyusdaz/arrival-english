@@ -58,7 +58,7 @@
       "options": [
         { "id": "so-a", "type": "effective", "text": "She's allergic to nuts. Does the pasta have any nuts in it?", "feedback": "Very important and well done. Always say the allergy first, then ask about the dish.", "reaction": "think", "to": "pesto", "chunks": ["t2-allergic-nuts", "t2-any-nuts"] },
         { "id": "so-b", "type": "acceptable", "text": "What's in the Harbour salad?", "feedback": "A good clarification question. It is also a good idea to say that Ana has an allergy.", "reaction": "think", "to": "salad", "chunks": ["t2-whats-in"] },
-        { "id": "so-c", "type": "odd", "text": "OK, the pasta then.", "feedback": "Grammatical and polite, but risky: you didn't mention Ana's allergy. With allergies, always tell the staff.", "recast": "She's allergic to nuts. Is the pasta OK for her?", "reaction": "nod", "to": "danger", "chunks": [] },
+        { "id": "so-c", "type": "odd", "risk": true, "text": "OK, the pasta then.", "feedback": "Grammatical and polite, but risky: you didn't mention Ana's allergy. With allergies, always tell the staff.", "recast": "She's allergic to nuts. Is the pasta OK for her?", "reaction": "nod", "to": "danger", "chunks": [] },
         { "id": "so-d", "type": "error", "text": "She is allergy of nuts.", "feedback": "Priya understands, luckily. The adjective is 'allergic', and it goes with 'to': 'allergic to nuts'.", "recast": "She's allergic to nuts.", "reaction": "think", "to": "allergy-recast", "chunks": [] }
       ]
     },

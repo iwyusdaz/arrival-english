@@ -184,3 +184,24 @@ describe('Conversation metrics, repairs and recasts', () => {
     expect(a.map((o) => o.id).sort()).toEqual(opts.map((o) => o.id).sort());
   });
 });
+
+describe('risky flag on safety omissions (agent review E3 / H-8)', () => {
+  const opt = (g, id) => Object.values(g.nodes).flatMap((n) => n.options || []).find((o) => o.id === id);
+  it('is accepted on an odd option and rejected elsewhere', () => {
+    const g = mini();
+    g.nodes.a.options[1].risk = true;
+    expect(validateGraph(g, new Set()).errors).toEqual([]);
+    const bad = mini();
+    bad.nodes.a.options[2].risk = true;
+    expect(validateGraph(bad, new Set()).errors.join(' ')).toMatch(/risk/);
+  });
+  it('task 2 so-c and task 3 re-c are flagged risky and stay scored as odd', () => {
+    expect(opt(graphs[1], 'so-c')).toMatchObject({ type: 'odd', risk: true });
+    expect(opt(graphs[2], 're-c')).toMatchObject({ type: 'odd', risk: true });
+  });
+  it('task 3 recommends the natural present perfect continuous for an ongoing symptom', () => {
+    const wp = opt(graphs[2], 'wp-c');
+    expect(wp.feedback).toContain('has been hurting since yesterday');
+    expect(wp.feedback).not.toContain('has hurt since');
+  });
+});

@@ -15,7 +15,12 @@ export const BADGES = {
   acceptable: { icon: '\u2713', label: 'This works too' },
   odd: { icon: '\u26A0', label: 'Correct English, but the tone or meaning is odd' },
   error: { icon: '\u2717', label: 'Common learner error' },
+  // Odd options flagged `risk: true`: the English is fine but the choice leaves out safety
+  // information (agent review E3 / H-8 / W8). Scored as odd; shown with its own badge.
+  risky: { icon: '\u26A0', label: 'Correct English, but risky: something important is missing' },
 };
+/** Feedback kind shown to the learner: the option type, or "risky" for flagged odd options. */
+export const feedbackKind = (o) => (o.type === 'odd' && o.risk ? 'risky' : o.type);
 
 const REACTION_TEXT = {
   neutral: '{n} waits for your answer.',
@@ -104,7 +109,7 @@ export class DialoguePanel {
     this.onReaction?.(option.reaction);
     this.onTurn?.({ option, mode, node: this.conv.turns.at(-1).node });
     this.render();
-    const b = BADGES[option.type];
+    const b = BADGES[feedbackKind(option)];
     announce(`${b.label}. ${option.feedback} ${reactionText(option.reaction, this.npcName)}`);
     this.container?.querySelector('.dlg-feedback')?.focus();
   }
@@ -252,8 +257,9 @@ export class DialoguePanel {
 
   _renderFeedback() {
     const { option } = this.pending;
-    const b = BADGES[option.type];
-    const box = el('section', { class: `dlg-feedback type-${option.type}`, tabindex: '-1', 'aria-label': 'Feedback' });
+    const kind = feedbackKind(option);
+    const b = BADGES[kind];
+    const box = el('section', { class: `dlg-feedback type-${kind}`, tabindex: '-1', 'aria-label': 'Feedback' });
     box.append(el('p', { class: 'badge' }, el('span', { 'aria-hidden': 'true' }, `${b.icon} `), b.label));
     box.append(el('p', {}, option.feedback));
     if (option.recast) box.append(el('p', { class: 'recast' }, el('span', { class: 'recast-label' }, 'A better way to say it: '), el('q', {}, option.recast)));

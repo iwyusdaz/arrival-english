@@ -72,19 +72,31 @@ export function buildCafe() {
   g.add(cardSign);
 
   // Menu board.
-  const lines = [{ text: 'HARBOUR CAFÉ  \u2022  LUNCH', size: 66, bold: true, color: '#f7f1e3', x: 50, y: 95 }];
+  // The allergen note is the key cue of task 2, so it has its own column at the same size
+  // and weight as the dish name (agent review M3 / R4 / V3), with a highlight band behind
+  // the nut warnings. Columns: dish | allergens | price.
+  const W = 1600, H = 840, ALG_X = 830;
+  const lines = [
+    { text: 'HARBOUR CAFÉ  \u2022  LUNCH', size: 66, bold: true, color: '#f7f1e3', x: 50, y: 92 },
+    { text: 'DISH', size: 34, bold: true, color: '#c9d6cf', x: 50, y: 160 },
+    { text: 'ALLERGENS', size: 34, bold: true, color: '#c9d6cf', x: ALG_X, y: 160 },
+    { text: 'PRICE', size: 34, bold: true, color: '#c9d6cf', align: 'right', x: W - 50, y: 160 },
+  ];
+  const blocks = [{ x: 40, y: 178, w: W - 80, h: 4, color: '#c9d6cf' }];
   MENU.forEach((m, i) => {
-    const y = 200 + i * 112;
+    const y = 250 + i * 104;
     const sold = /SOLD/.test(m.note);
-    lines.push({ text: m.item, size: 54, bold: true, color: sold ? '#9a9a9a' : '#ffffff', x: 50, y, strike: sold });
-    lines.push({ text: m.price, size: 54, bold: true, color: sold ? '#9a9a9a' : '#ffd166', align: 'right', x: 1230, y });
-    lines.push({ text: m.note, size: 38, color: sold ? '#ff8f8f' : /contains/.test(m.note) ? '#ffcf99' : '#a8e6c1', x: 70, y: y + 46 });
+    const nuts = /contains/.test(m.note);
+    if (nuts) blocks.push({ x: ALG_X - 16, y: y - 50, w: 520, h: 66, color: '#7a2e1d' });
+    lines.push({ text: m.item, size: 52, bold: true, color: sold ? '#9a9a9a' : '#ffffff', x: 50, y, strike: sold });
+    lines.push({ text: m.note, size: 50, bold: true, color: sold ? '#ff9b9b' : nuts ? '#ffe08a' : '#a8e6c1', x: ALG_X, y });
+    lines.push({ text: m.price, size: 52, bold: true, color: sold ? '#9a9a9a' : '#ffd166', align: 'right', x: W - 50, y, strike: sold });
   });
-  lines.push({ text: 'Please tell us about any allergies.', size: 40, color: '#f7f1e3', x: 50, y: 790 });
-  const menu = signMesh({ w: 1280, h: 840, bg: '#1e2a26', lines }, 1.9, { lit: 0.55 });
+  lines.push({ text: 'Please tell us about any allergies.', size: 44, bold: true, color: '#f7f1e3', x: 50, y: 800 });
+  const menu = signMesh({ w: W, h: H, bg: '#1e2a26', blocks, lines }, 2.4, { lit: 0.55 });
   menu.position.set(-0.1, 2.35, -1.54);
   g.add(menu);
-  const frame = box(2.0, 1.32, 0.05, wood, -0.1, 2.35, -1.57);
+  const frame = box(2.5, 1.36, 0.05, wood, -0.1, 2.35, -1.57);
   g.add(frame);
 
   return {

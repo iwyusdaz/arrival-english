@@ -14,6 +14,8 @@
  * Option types: effective (does the job, appropriate tone), acceptable (also works),
  * odd (grammatical but pragmatically odd: too blunt, too formal, off-topic),
  * error (a common learner error that blocks or confuses communication).
+ * An odd option may carry `risk: true` (grammatical, but leaves out safety information);
+ * it is scored as odd and shown with a "risky" badge.
  * @module systems/dialogue-engine
  */
 
@@ -77,6 +79,7 @@ export function validateGraph(g, chunkIds) {
         if (!o.text || !String(o.text).trim()) err(`option "${o.id}" has no text`);
         if (!o.feedback || !String(o.feedback).trim()) err(`option "${o.id}" has no feedback`);
         if ((o.type === 'odd' || o.type === 'error') && !o.recast) err(`option "${o.id}" (${o.type}) has no recast`);
+        if (o.risk !== undefined && (o.type !== 'odd' || o.risk !== true)) err(`option "${o.id}": "risk" may only be true on an odd option`);
         if (!o.reaction) err(`option "${o.id}" has no NPC reaction`);
         else if (!REACTIONS.includes(o.reaction)) err(`option "${o.id}" has unknown reaction "${o.reaction}"`);
         if (!o.to) err(`option "${o.id}" has no target`);
@@ -293,7 +296,7 @@ export class Conversation {
       .map((t) => {
         const o = this.g.nodes[t.node].options.find((x) => x.id === t.option);
         const better = this.g.nodes[t.node].options.find((x) => x.type === 'effective');
-        return { said: o.text, type: o.type, recast: o.recast, better: better?.text, why: o.feedback };
+        return { said: o.text, type: o.type, risk: Boolean(o.risk), recast: o.recast, better: better?.text, why: o.feedback };
       });
   }
 }

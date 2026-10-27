@@ -25,7 +25,7 @@ jobs:
         env:
           VITE_TEST_HOOKS: '1'
       - name: Functional + a11y tests (overlay)
-        run: npx playwright test tests/functional.spec.js tests/a11y.spec.js
+        run: npx playwright test tests/functional.spec.js tests/a11y.spec.js tests/layout.spec.js
       - name: Build (release, no test hooks)
         run: npm run build
       - name: Sub-path test

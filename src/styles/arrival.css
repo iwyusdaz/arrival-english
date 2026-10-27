@@ -5,7 +5,8 @@
 .cinematic-overlay[hidden], .textmode[hidden], .task-panel[hidden], .scene-caption[hidden] { display: none !important; }
 
 h1.app-title { margin: 0; font-size: 1rem; font-weight: 600; }
-.stage { display: flex; }
+main.stage { display: flex; }
+.task-stage { display: block; width: 100%; }
 #app { flex: 1 1 auto; min-width: 0; }
 .task-panel {
   flex: 0 0 min(30rem, 42vw);
@@ -58,7 +59,8 @@ button[disabled] { opacity: 0.55; cursor: not-allowed; }
 .dlg-feedback:focus { outline: 3px solid var(--focus); }
 .dlg-feedback.type-effective, .dlg-feedback.type-acceptable { border-color: var(--ok); }
 .dlg-feedback.type-odd { border-color: var(--warn); }
-.dlg-feedback.type-error { border-color: var(--err); }
+.dlg-feedback.type-error, .dlg-feedback.type-risky { border-color: var(--err); }
+.dlg-feedback.type-risky { border-width: 3px; }
 .badge { font-weight: 700; margin: 0 0 0.3rem; }
 .recast-label { font-weight: 600; }
 .reaction { color: var(--muted); }
@@ -98,7 +100,7 @@ dialog input[type="range"], dialog select { display: block; width: 100%; max-wid
 
 /* Portrait / narrow: scene band on top, panel below (dialogue reads well in portrait). */
 @media (max-width: 760px), (orientation: portrait) and (max-width: 1024px) {
-  .stage { flex-direction: column; }
+  main.stage { flex-direction: column; }
   #app { flex: 0 0 34vh; height: 34vh; }
   .task-panel { flex: 1 1 auto; width: 100%; height: auto; min-height: 0; border-left: 0; border-top: 1px solid color-mix(in srgb, var(--muted) 30%, transparent); }
   .scene-caption { max-width: calc(100% - 2rem); bottom: auto; top: calc(34vh - 3.2rem); font-size: 0.95rem; }

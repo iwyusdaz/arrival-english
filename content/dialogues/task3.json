@@ -34,7 +34,7 @@
       "options": [
         { "id": "wp-a", "type": "effective", "text": "Sorry. I've got a sore throat.", "feedback": "Good recovery. A short apology and a clear description.", "reaction": "nod", "to": "howlong", "chunks": ["t3-sore-throat"] },
         { "id": "wp-b", "type": "odd", "text": "Does it matter? I'm just ill.", "feedback": "This sounds impatient. The pharmacist asks so they can give you the right thing.", "recast": "It's my throat. It's very sore.", "reaction": "put-off", "to": "whyask", "chunks": [] },
-        { "id": "wp-c", "type": "error", "text": "My throat is hurting me since yesterday.", "feedback": "Understood. With 'since', English uses the present perfect: 'My throat has hurt since yesterday', or simply 'I've had a sore throat since yesterday'.", "recast": "I've had a sore throat since yesterday.", "reaction": "nod", "to": "symptoms", "chunks": [] }
+        { "id": "wp-c", "type": "error", "text": "My throat is hurting me since yesterday.", "feedback": "Understood. With 'since', English uses the present perfect: 'My throat has been hurting since yesterday', or simply 'I've had a sore throat since yesterday'.", "recast": "I've had a sore throat since yesterday.", "reaction": "nod", "to": "symptoms", "chunks": [] }
       ]
     },
     "whyask": {
@@ -124,7 +124,7 @@
       "options": [
         { "id": "re-a", "type": "effective", "text": "So one every three hours, and no more than six a day. Is that right?", "feedback": "Excellent. You checked the instructions by repeating the numbers.", "reaction": "nod", "to": "doctor", "chunks": ["r-check"] },
         { "id": "re-b", "type": "acceptable", "text": "Sorry, how often should I take them?", "feedback": "Good repair. Numbers in instructions are easy to miss.", "reaction": "nod", "to": "repeatdose", "chunks": ["t3-how-often"] },
-        { "id": "re-c", "type": "odd", "text": "Fine. I'll take lots so it goes away faster.", "feedback": "This is a safety problem. Always follow the instructions on the box, and ask the pharmacist if you are unsure.", "recast": "OK. How many can I have in a day?", "reaction": "puzzled", "to": "nomore", "chunks": [] },
+        { "id": "re-c", "type": "odd", "risk": true, "text": "Fine. I'll take lots so it goes away faster.", "feedback": "This is a safety problem. Always follow the instructions on the box, and ask the pharmacist if you are unsure.", "recast": "OK. How many can I have in a day?", "reaction": "puzzled", "to": "nomore", "chunks": [] },
         { "id": "re-d", "type": "error", "text": "One for three hours?", "feedback": "Use 'every': 'one every three hours'. 'For three hours' means a length of time.", "recast": "One every three hours?", "reaction": "nod", "to": "repeatdose", "chunks": [] }
       ]
     },

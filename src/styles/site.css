@@ -101,7 +101,7 @@ a { color: var(--accent); }
 }
 .hud:empty { display: none; }
 
-.stage { position: relative; flex: 1; min-height: 0; }
+main.stage { position: relative; flex: 1; min-height: 0; }
 #app { width: 100%; height: 100%; display: block; }
 .textmode { position: absolute; inset: 0; overflow-y: auto; padding: 1rem; background: var(--bg); }
 .textmode-body { max-width: 46rem; margin: 0 auto; }

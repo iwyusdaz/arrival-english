@@ -123,7 +123,7 @@ export class App {
     for (const g of graphs) this._makeTask(g.id);
     if (!this.engine) this._setTextMode(true);
     this.ready = true;
-    this.goto(0);
+    this.goto(0, { focus: false });
     if (__TEST_HOOKS__) {
       window.__TEST__ = { app: this, city: this.city, engine: this.engine, record: this.record, phrasebook: this.phrasebook, graphs: this.graphs, graphCheck: this.graphCheck, settings: this.settings };
     }
@@ -186,7 +186,7 @@ export class App {
     document.getElementById('app').style.visibility = on ? 'hidden' : 'visible';
   }
 
-  goto(i, { stage } = {}) {
+  goto(i, { stage, focus = true } = {}) {
     if (!this.ready) return;
     if (this.player?.playing) this.player.skip();
     this.voice?.stop();
@@ -208,6 +208,9 @@ export class App {
     });
     this.panel.scrollTop = 0;
     this.textmode.scrollTop = 0;
+    // After a module change (nav or "Next" button), put keyboard and screen-reader users
+    // at the start of the new content, not on the nav (agent review A10).
+    if (focus) (this.textOn() ? this.textmode : this.panel).querySelector('.module-title')?.focus();
   }
 
   _loadScene(name) {
@@ -297,7 +300,9 @@ export class App {
     }
     c.append(nav);
     if (!this.textOn() && this.engine) c.append(this._lookSlot());
-    const sec = el('section', { class: `stage stage-${t.stage}`, 'aria-label': `Stage: ${t.stage}` });
+    // Not "stage": that class is the page layout container (<main class="stage">), a
+    // flex row; reusing it here laid the stage content out in columns (agent review V1/A1).
+    const sec = el('section', { class: `task-stage task-stage-${t.stage}`, 'aria-label': `Stage: ${t.stage}` });
     c.append(sec);
     if (t.stage === 'pre') {
       renderPreTask(sec, {
@@ -307,13 +312,15 @@ export class App {
       });
     } else if (t.stage === 'task') {
       sec.append(el('p', { class: 'hint' }, `${g.npc.name}, ${g.npc.role}. ${g.twist}`));
+      // Signs come before the dialogue: the narrator says "Read the menu board" at the
+      // start, so the readable copy must be reachable first (agent review A5 / M4 / H-5 / W6).
+      const d = el('details', { class: 'sign-texts' }, el('summary', {}, 'Read the signs in this place'));
+      for (const s of SIGNS[g.scene]) d.append(el('p', {}, el('strong', {}, `${s.title}: `), s.text));
+      sec.append(d);
       const dlg = el('div', { class: 'dialogue', 'data-task': t.id });
       sec.append(dlg);
       t.panel.mount(dlg);
       if (!t.started) { t.started = true; t.metrics = null; t.panel.start(); this.record.log('attempted', { id: t.id, name: g.title }); }
-      const d = el('details', { class: 'sign-texts' }, el('summary', {}, 'Read the signs in this place'));
-      for (const s of SIGNS[g.scene]) d.append(el('p', {}, el('strong', {}, `${s.title}: `), s.text));
-      sec.append(d);
     } else {
       const n = MODULES.findIndex((x) => x.task === t.id);
       renderPostTask(sec, {

@@ -134,7 +134,7 @@ export function renderPostTask(c, o) {
     const ul = el('ul', { class: 'recast-list' });
     for (const r of o.recasts) {
       ul.append(el('li', {},
-        el('p', {}, el('span', { class: 'recast-label' }, 'You said: '), el('q', {}, r.said), ` (${r.type === 'odd' ? 'correct English, odd tone or meaning' : 'common learner error'})`),
+        el('p', {}, el('span', { class: 'recast-label' }, 'You said: '), el('q', {}, r.said), ` (${r.risk ? 'correct English, but risky' : r.type === 'odd' ? 'correct English, odd tone or meaning' : 'common learner error'})`),
         el('p', {}, el('span', { class: 'recast-label' }, 'Try: '), el('q', {}, r.recast)),
         el('p', { class: 'hint' }, r.why)));
     }
