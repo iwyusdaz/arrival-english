@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { createAnimatedCharacter } from '../../src/v2/stylized-character.js';
 import { AmbientLifeManager } from '../../src/v2/ambient-life.js';
 import { applyCaseGrade, CASE_THEMES, groundProp, createGradientSkyDome } from '../../src/v2/cinematic-grade.js';
+import { NPC, createNPC, CAST } from '../../src/scenes/npc.js';
 
 describe('v2 Living World, Stylized Characters & Cinematic Grade', () => {
   it('creates an articulated animated-movie character with head, eyes, eyelids, brows, arms, legs, and contact shadow', () => {
@@ -79,5 +80,28 @@ describe('v2 Living World, Stylized Characters & Cinematic Grade', () => {
     expect(mesh.receiveShadow).toBe(true);
     expect(prop.getObjectByName('v2-contact-shadow')).toBeTruthy();
     expect(createGradientSkyDome({ radius: 100 })).toBeInstanceOf(THREE.Mesh);
+  });
+
+  it('wraps createAnimatedCharacter in NPC and createNPC for all four Harbour City cast members', () => {
+    for (const [place, look] of Object.entries(CAST)) {
+      const wrapped = createNPC(look);
+      expect(wrapped.group).toBeInstanceOf(THREE.Group);
+      expect(wrapped.root).toBe(wrapped.group);
+      wrapped.react('warm');
+      expect(wrapped.npc.reaction).toBe('warm');
+      expect(wrapped.char.state.action).toBe('wave');
+      wrapped.setPose('puzzled');
+      expect(wrapped.char.state.action).toBe('confused');
+      wrapped.setPose('put-off');
+      expect(wrapped.char.state.action).toBe('withdrawn');
+      wrapped.setPose('point');
+      expect(wrapped.char.state.action).toBe('point');
+      wrapped.setSpeaking(true, 1.0);
+      wrapped.update(0.05, 0.5, 1.0);
+      expect(place).toBeTruthy();
+    }
+    const sam = new NPC(CAST.station);
+    sam.react('nod', { snap: true });
+    expect(sam.reaction).toBe('nod');
   });
 });

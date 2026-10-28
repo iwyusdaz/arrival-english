@@ -25,6 +25,7 @@ import { Voice } from './systems/speech.js';
 import { DialoguePanel, el } from './ui/dialogue-panel.js';
 import { renderPreTask, renderPostTask } from './ui/task-stages.js';
 import { renderListening, renderCanDo, canDoTable, renderPhrasebook } from './ui/activities.js';
+import { initFloatingHud } from './v2/cinematic-grade.js';
 
 export const SLUG = 'arrival-english';
 const REPO = 'https://github.com/iwyusdaz/arrival-english';
@@ -65,6 +66,7 @@ export class App {
     // Shown over the 3D view while a scene loads (agent review H-4 / V5).
     this.loading = el('p', { class: 'scene-loading', role: 'status', hidden: true });
     this.stage.append(this.panel, this.caption, this.loading);
+    initFloatingHud({ slug: SLUG, panel: this.panel });
 
     this.record = new LearningRecord(SLUG);
     this.motion = new MotionPrefs(SLUG);
@@ -174,6 +176,9 @@ export class App {
 
   _caption(speaker, line) {
     const s = this.settings.get();
+    if (!this.textOn() && this.city) {
+      this.city.showSpeech(speaker, line);
+    }
     if (!s.captions || this.textOn() || !this.engine) { this.caption.hidden = true; return; }
     this.caption.textContent = speaker === 'Narrator' ? line : `${speaker}: ${line}`;
     this.caption.hidden = false;
@@ -245,6 +250,9 @@ export class App {
     if (!this.ready) return;
     const m = MODULES[this.index];
     const text = this.textOn();
+    const isTaskTurn = Boolean(m.task && this.tasks[m.task]?.stage === 'task');
+    this.city?.setCalmMode(isTaskTurn);
+    if (!isTaskTurn) this.city?.showSpeech(null, null);
     this.panel.hidden = text;
     (text ? this.panel : this.textmode).replaceChildren();
     const host = text ? this.textmode : this.panel;
@@ -407,6 +415,10 @@ export class App {
     const phrases = String(this.phrasebook.size());
     const shots = def.shots.map((s) => ({ ...s, captions: (s.captions || []).map((x) => x.replace('{phrases}', phrases)) }));
     this.city._camTween = null;
+    if (this.city.interaction) {
+      this.city.interaction.glide = null;
+      this.city.interaction.keys.clear();
+    }
     this.player.load({ id, title: def.title, shots });
     const back = document.activeElement;
     this.player.onDone = () => {
