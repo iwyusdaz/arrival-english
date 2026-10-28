@@ -1,0 +1,68 @@
+/**
+ * Self-hosted case typography for arrival-english (v2.0.0).
+ * Roles:
+ *   --font-display : headings, titles, hero banners (Bricolage Grotesque)
+ *   --font-body    : body copy, instructions, controls (Atkinson Hyperlegible)
+ *   --font-accent  : in-world signage, tags, telemetry, notes (Overpass)
+ * Accessibility:
+ *   html[data-plain-font="on"] switches all three roles to clean system/hyperlegible sans.
+ */
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('./fonts/bricolage-grotesque-latin-600-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('./fonts/bricolage-grotesque-latin-700-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./fonts/atkinson-hyperlegible-latin-400-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('./fonts/atkinson-hyperlegible-latin-700-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Overpass';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('./fonts/overpass-latin-600-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Overpass';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('./fonts/overpass-latin-700-normal.woff2') format('woff2');
+}
+
+:root {
+  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-body: 'Atkinson Hyperlegible', system-ui, sans-serif;
+  --font-accent: 'Overpass', system-ui, sans-serif;
+}
+
+html[data-plain-font="on"] {
+  --font-display: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-accent: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}

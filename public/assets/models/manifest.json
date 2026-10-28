@@ -1,0 +1,74 @@
+{
+  "CoffeeCart_01": {
+    "id": "CoffeeCart_01",
+    "file": "assets/models/CoffeeCart_01-1c90c8d0.glb",
+    "name": "Coffee Cart 01",
+    "authors": "Joe Seabuhr",
+    "source": "https://polyhaven.com/a/CoffeeCart_01",
+    "license": "CC0 1.0",
+    "sizeKB": 1089
+  },
+  "CashRegister_01": {
+    "id": "CashRegister_01",
+    "file": "assets/models/CashRegister_01-a88c3d65.glb",
+    "name": "Cash Register 01",
+    "authors": "Joe Seabuhr",
+    "source": "https://polyhaven.com/a/CashRegister_01",
+    "license": "CC0 1.0",
+    "sizeKB": 528
+  },
+  "standing_chalkboard_01": {
+    "id": "standing_chalkboard_01",
+    "file": "assets/models/standing_chalkboard_01-bb0351c0.glb",
+    "name": "Standing Chalkboard 01",
+    "authors": "ParzivalCG",
+    "source": "https://polyhaven.com/a/standing_chalkboard_01",
+    "license": "CC0 1.0",
+    "sizeKB": 226
+  },
+  "bar_chair_round_01": {
+    "id": "bar_chair_round_01",
+    "file": "assets/models/bar_chair_round_01-c976de38.glb",
+    "name": "Bar Chair Round 01",
+    "authors": "Dairon Sanchez",
+    "source": "https://polyhaven.com/a/bar_chair_round_01",
+    "license": "CC0 1.0",
+    "sizeKB": 1119
+  },
+  "painted_wooden_bench": {
+    "id": "painted_wooden_bench",
+    "file": "assets/models/painted_wooden_bench-013220af.glb",
+    "name": "Painted Wooden Bench",
+    "authors": "Kirill Sannikov",
+    "source": "https://polyhaven.com/a/painted_wooden_bench",
+    "license": "CC0 1.0",
+    "sizeKB": 124
+  },
+  "street_lamp_01": {
+    "id": "street_lamp_01",
+    "file": "assets/models/street_lamp_01-9c2ffbc4.glb",
+    "name": "Street Lamp 01",
+    "authors": "Josh Dean",
+    "source": "https://polyhaven.com/a/street_lamp_01",
+    "license": "CC0 1.0",
+    "sizeKB": 836
+  },
+  "potted_plant_02": {
+    "id": "potted_plant_02",
+    "file": "assets/models/potted_plant_02-2e9c2b21.glb",
+    "name": "Potted Plant 02",
+    "authors": "Rico Cilliers",
+    "source": "https://polyhaven.com/a/potted_plant_02",
+    "license": "CC0 1.0",
+    "sizeKB": 1980
+  },
+  "sofa_02": {
+    "id": "sofa_02",
+    "file": "assets/models/sofa_02-7f28a71e.glb",
+    "name": "Sofa 02",
+    "authors": "Kirill Sannikov",
+    "source": "https://polyhaven.com/a/sofa_02",
+    "license": "CC0 1.0",
+    "sizeKB": 165
+  }
+}

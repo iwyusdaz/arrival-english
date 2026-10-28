@@ -5,34 +5,37 @@ Every third-party asset used in the build is listed here. This table is the sing
 Raw downloads live in `data/raw/` (gitignored); `scripts/process-assets.mjs` re-creates the
 processed files in `src/assets/`.
 
-Licence checks: Poly Haven licence page (https://polyhaven.com/license) opened 2026-10-27: "Our assets are
+Licence checks: Poly Haven licence page (https://polyhaven.com/license) opened 2026-10-28: "Our assets are
 all licensed as CC0". ambientCG assets are CC0 (https://ambientcg.com, per-asset pages; retrieved 2026-10-27).
+Self-hosted fonts are licensed under the SIL Open Font License 1.1 via `@fontsource`.
 
 | # | Asset | Author | Source | License | Retrieved | Changes |
 |---|---|---|---|---|---|---|
-| 1 | Hamburg Hbf (HDRI, station backdrop + lighting; published 2017-10-02) | Greg Zaal (Poly Haven) | https://polyhaven.com/a/hamburg_hbf | CC0 1.0 | 2026-10-27 | Tonemapped 8K JPG resized to 4096x2048 and 2048x1024 WebP, 0.8 px blur, -10 % saturation; 1K .hdr used for image-based lighting |
-| 2 | Comfy Café (HDRI, café backdrop + lighting; published 2021-04-20) | Sergej Majboroda (Poly Haven) | https://polyhaven.com/a/comfy_cafe | CC0 1.0 | 2026-10-27 | Same processing as #1 |
-| 3 | Phone Shop (HDRI, pharmacy backdrop + lighting; published 2018-11-08) | Philip Modin (Poly Haven) | https://polyhaven.com/a/phone_shop | CC0 1.0 | 2026-10-27 | Same processing as #1; used as a generic retail interior behind the fictional pharmacy foreground |
-| 4 | St. Fagans Interior (HDRI, hostel backdrop + lighting; published 2020-09-10) | Morgan Evans (Poly Haven) | https://polyhaven.com/a/st_fagans_interior | CC0 1.0 | 2026-10-27 | Same processing as #1; used as a generic modern lobby behind the fictional hostel foreground |
+| 1 | Hamburg Hbf (HDRI, station image-based lighting; published 2017-10-02) | Greg Zaal (Poly Haven) | https://polyhaven.com/a/hamburg_hbf | CC0 1.0 | 2026-10-27 | 1K .hdr used for image-based lighting (no photo backdrop shown in v2.0.0) |
+| 2 | Comfy Café (HDRI, café image-based lighting; published 2021-04-20) | Sergej Majboroda (Poly Haven) | https://polyhaven.com/a/comfy_cafe | CC0 1.0 | 2026-10-27 | Same processing as #1 |
+| 3 | Phone Shop (HDRI, pharmacy image-based lighting; published 2018-11-08) | Philip Modin (Poly Haven) | https://polyhaven.com/a/phone_shop | CC0 1.0 | 2026-10-27 | Same processing as #1 |
+| 4 | St. Fagans Interior (HDRI, hostel image-based lighting; published 2020-09-10) | Morgan Evans (Poly Haven) | https://polyhaven.com/a/st_fagans_interior | CC0 1.0 | 2026-10-27 | Same processing as #1 |
 | 5 | Wood 049 (PBR material; released 2020-09-27) | ambientCG | https://ambientcg.com/view?id=Wood049 | CC0 1.0 | 2026-10-27 | 1K-JPG colour, normal (GL), roughness resized to 512 px WebP |
 | 6 | Metal 032 (PBR material; released 2020-08-09) | ambientCG | https://ambientcg.com/view?id=Metal032 | CC0 1.0 | 2026-10-27 | Same processing as #5 |
 | 7 | Marble 006 (PBR material; released 2020-01-26) | ambientCG | https://ambientcg.com/view?id=Marble006 | CC0 1.0 | 2026-10-27 | Same processing as #5 |
 | 8 | Plastic 010 (PBR material; released 2020-09-06) | ambientCG | https://ambientcg.com/view?id=Plastic010 | CC0 1.0 | 2026-10-27 | Same processing as #5 |
+| 9 | Coffee Cart 01 (`CoffeeCart_01`, 3D model) | Joe Seabuhr (Poly Haven) | https://polyhaven.com/a/CoffeeCart_01 | CC0 1.0 | 2026-10-28 | Repacked as single-file GLB with resized JPEG textures (`public/assets/models/CoffeeCart_01-1c90c8d0.glb`) |
+| 10 | Cash Register 01 (`CashRegister_01`, 3D model) | Joe Seabuhr (Poly Haven) | https://polyhaven.com/a/CashRegister_01 | CC0 1.0 | 2026-10-28 | Repacked as single-file GLB with resized JPEG textures (`public/assets/models/CashRegister_01-a88c3d65.glb`) |
+| 11 | Standing Chalkboard 01 (`standing_chalkboard_01`, 3D model) | ParzivalCG (Poly Haven) | https://polyhaven.com/a/standing_chalkboard_01 | CC0 1.0 | 2026-10-28 | Repacked as single-file GLB with resized JPEG textures (`public/assets/models/standing_chalkboard_01-bb0351c0.glb`) |
+| 12 | Bar Chair Round 01 (`bar_chair_round_01`, 3D model) | Dairon Sanchez (Poly Haven) | https://polyhaven.com/a/bar_chair_round_01 | CC0 1.0 | 2026-10-28 | Repacked as single-file GLB with resized JPEG textures (`public/assets/models/bar_chair_round_01-c976de38.glb`) |
+| 13 | Painted Wooden Bench (`painted_wooden_bench`, 3D model) | Kirill Sannikov (Poly Haven) | https://polyhaven.com/a/painted_wooden_bench | CC0 1.0 | 2026-10-28 | Repacked as single-file GLB with resized JPEG textures (`public/assets/models/painted_wooden_bench-013220af.glb`) |
+| 14 | Street Lamp 01 (`street_lamp_01`, 3D model) | Josh Dean (Poly Haven) | https://polyhaven.com/a/street_lamp_01 | CC0 1.0 | 2026-10-28 | Repacked as single-file GLB with resized JPEG textures (`public/assets/models/street_lamp_01-9c2ffbc4.glb`) |
+| 15 | Potted Plant 02 (`potted_plant_02`, 3D model) | Rico Cilliers (Poly Haven) | https://polyhaven.com/a/potted_plant_02 | CC0 1.0 | 2026-10-28 | Repacked as single-file GLB with resized JPEG textures (`public/assets/models/potted_plant_02-2e9c2b21.glb`) |
+| 16 | Sofa 02 (`sofa_02`, 3D model) | Kirill Sannikov (Poly Haven) | https://polyhaven.com/a/sofa_02 | CC0 1.0 | 2026-10-28 | Repacked as single-file GLB with resized JPEG textures (`public/assets/models/sofa_02-7f28a71e.glb`) |
+| 17 | Bricolage Grotesque (self-hosted display font, weights 600 & 700) | Mathieu Triay (`@fontsource/bricolage-grotesque`) | https://github.com/ateliertriay/bricolage | OFL-1.1 | 2026-10-28 | Latin subset WOFF2 in `src/styles/fonts/` |
+| 18 | Atkinson Hyperlegible (self-hosted body font, weights 400 & 700) | Braille Institute (`@fontsource/atkinson-hyperlegible`) | https://github.com/googlefonts/atkinson-hyperlegible | OFL-1.1 | 2026-10-28 | Latin subset WOFF2 in `src/styles/fonts/` |
+| 19 | Overpass (self-hosted accent font, weights 600 & 700) | Red Hat / Delve Fonts (`@fontsource/overpass`) | https://github.com/RedHatOfficial/Overpass | OFL-1.1 | 2026-10-28 | Latin subset WOFF2 in `src/styles/fonts/` |
 
 ## Original work in this repository (no third-party licence)
 
-- Foreground 3D (counters, ticket machine, menu board, shelves, reception desk), NPC figures,
-  signage text, favicon, poster and text-mode stills: procedural / original, code MIT, content CC BY 4.0.
-  The poster and stills are screenshots of the 3D scene, so they include the CC0 backdrops above.
+- Architectural 3D environments (station concourse & train, café interior, pharmacy interior, hostel lobby, Harbour City waterfront vista), articulated animated-movie NPC figures (`src/v2/stylized-character.js` + `src/scenes/npc.js`), signage text, favicon, poster and text-mode stills: procedural / original, code MIT, content CC BY 4.0.
 - Dialogue, chunks, listening items and model exchanges: original, constructed for teaching purposes (CC BY 4.0).
 - Voices are produced at runtime by the learner's own browser (`speechSynthesis`); no audio files ship.
-
-## Notes on the photographs
-
-The backdrops are photographs of real places (a German railway station, a café, a shop and a museum lobby),
-used only as generic backgrounds. Real signage visible in the photos (for example the station's own name
-signs and shop branding) is not part of the game's fictional world, and the foreground signage for the
-fictional Harbour City places sits in front of it. No people are identifiable in the photographs.
 
 ## Dependencies (bundled code)
 

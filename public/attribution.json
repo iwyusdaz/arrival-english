@@ -1,14 +1,14 @@
 [
   {
-    "asset": "Hamburg Hbf (HDRI, station backdrop + lighting; published 2017-10-02)",
+    "asset": "Hamburg Hbf (HDRI, station image-based lighting; published 2017-10-02)",
     "author": "Greg Zaal (Poly Haven)",
     "source": "https://polyhaven.com/a/hamburg_hbf",
     "license": "CC0 1.0",
     "retrieved": "2026-10-27",
-    "changes": "Tonemapped 8K JPG resized to 4096x2048 and 2048x1024 WebP, 0.8 px blur, -10 % saturation; 1K .hdr used for image-based lighting"
+    "changes": "1K .hdr used for image-based lighting (no photo backdrop shown in v2.0.0)"
   },
   {
-    "asset": "Comfy Café (HDRI, café backdrop + lighting; published 2021-04-20)",
+    "asset": "Comfy Café (HDRI, café image-based lighting; published 2021-04-20)",
     "author": "Sergej Majboroda (Poly Haven)",
     "source": "https://polyhaven.com/a/comfy_cafe",
     "license": "CC0 1.0",
@@ -16,20 +16,20 @@
     "changes": "Same processing as #1"
   },
   {
-    "asset": "Phone Shop (HDRI, pharmacy backdrop + lighting; published 2018-11-08)",
+    "asset": "Phone Shop (HDRI, pharmacy image-based lighting; published 2018-11-08)",
     "author": "Philip Modin (Poly Haven)",
     "source": "https://polyhaven.com/a/phone_shop",
     "license": "CC0 1.0",
     "retrieved": "2026-10-27",
-    "changes": "Same processing as #1; used as a generic retail interior behind the fictional pharmacy foreground"
+    "changes": "Same processing as #1"
   },
   {
-    "asset": "St. Fagans Interior (HDRI, hostel backdrop + lighting; published 2020-09-10)",
+    "asset": "St. Fagans Interior (HDRI, hostel image-based lighting; published 2020-09-10)",
     "author": "Morgan Evans (Poly Haven)",
     "source": "https://polyhaven.com/a/st_fagans_interior",
     "license": "CC0 1.0",
     "retrieved": "2026-10-27",
-    "changes": "Same processing as #1; used as a generic modern lobby behind the fictional hostel foreground"
+    "changes": "Same processing as #1"
   },
   {
     "asset": "Wood 049 (PBR material; released 2020-09-27)",
@@ -62,5 +62,93 @@
     "license": "CC0 1.0",
     "retrieved": "2026-10-27",
     "changes": "Same processing as #5"
+  },
+  {
+    "asset": "Coffee Cart 01 (`CoffeeCart_01`, 3D model)",
+    "author": "Joe Seabuhr (Poly Haven)",
+    "source": "https://polyhaven.com/a/CoffeeCart_01",
+    "license": "CC0 1.0",
+    "retrieved": "2026-10-28",
+    "changes": "Repacked as single-file GLB with resized JPEG textures (`public/assets/models/CoffeeCart_01-1c90c8d0.glb`)"
+  },
+  {
+    "asset": "Cash Register 01 (`CashRegister_01`, 3D model)",
+    "author": "Joe Seabuhr (Poly Haven)",
+    "source": "https://polyhaven.com/a/CashRegister_01",
+    "license": "CC0 1.0",
+    "retrieved": "2026-10-28",
+    "changes": "Repacked as single-file GLB with resized JPEG textures (`public/assets/models/CashRegister_01-a88c3d65.glb`)"
+  },
+  {
+    "asset": "Standing Chalkboard 01 (`standing_chalkboard_01`, 3D model)",
+    "author": "ParzivalCG (Poly Haven)",
+    "source": "https://polyhaven.com/a/standing_chalkboard_01",
+    "license": "CC0 1.0",
+    "retrieved": "2026-10-28",
+    "changes": "Repacked as single-file GLB with resized JPEG textures (`public/assets/models/standing_chalkboard_01-bb0351c0.glb`)"
+  },
+  {
+    "asset": "Bar Chair Round 01 (`bar_chair_round_01`, 3D model)",
+    "author": "Dairon Sanchez (Poly Haven)",
+    "source": "https://polyhaven.com/a/bar_chair_round_01",
+    "license": "CC0 1.0",
+    "retrieved": "2026-10-28",
+    "changes": "Repacked as single-file GLB with resized JPEG textures (`public/assets/models/bar_chair_round_01-c976de38.glb`)"
+  },
+  {
+    "asset": "Painted Wooden Bench (`painted_wooden_bench`, 3D model)",
+    "author": "Kirill Sannikov (Poly Haven)",
+    "source": "https://polyhaven.com/a/painted_wooden_bench",
+    "license": "CC0 1.0",
+    "retrieved": "2026-10-28",
+    "changes": "Repacked as single-file GLB with resized JPEG textures (`public/assets/models/painted_wooden_bench-013220af.glb`)"
+  },
+  {
+    "asset": "Street Lamp 01 (`street_lamp_01`, 3D model)",
+    "author": "Josh Dean (Poly Haven)",
+    "source": "https://polyhaven.com/a/street_lamp_01",
+    "license": "CC0 1.0",
+    "retrieved": "2026-10-28",
+    "changes": "Repacked as single-file GLB with resized JPEG textures (`public/assets/models/street_lamp_01-9c2ffbc4.glb`)"
+  },
+  {
+    "asset": "Potted Plant 02 (`potted_plant_02`, 3D model)",
+    "author": "Rico Cilliers (Poly Haven)",
+    "source": "https://polyhaven.com/a/potted_plant_02",
+    "license": "CC0 1.0",
+    "retrieved": "2026-10-28",
+    "changes": "Repacked as single-file GLB with resized JPEG textures (`public/assets/models/potted_plant_02-2e9c2b21.glb`)"
+  },
+  {
+    "asset": "Sofa 02 (`sofa_02`, 3D model)",
+    "author": "Kirill Sannikov (Poly Haven)",
+    "source": "https://polyhaven.com/a/sofa_02",
+    "license": "CC0 1.0",
+    "retrieved": "2026-10-28",
+    "changes": "Repacked as single-file GLB with resized JPEG textures (`public/assets/models/sofa_02-7f28a71e.glb`)"
+  },
+  {
+    "asset": "Bricolage Grotesque (self-hosted display font, weights 600 & 700)",
+    "author": "Mathieu Triay (`@fontsource/bricolage-grotesque`)",
+    "source": "https://github.com/ateliertriay/bricolage",
+    "license": "OFL-1.1",
+    "retrieved": "2026-10-28",
+    "changes": "Latin subset WOFF2 in `src/styles/fonts/`"
+  },
+  {
+    "asset": "Atkinson Hyperlegible (self-hosted body font, weights 400 & 700)",
+    "author": "Braille Institute (`@fontsource/atkinson-hyperlegible`)",
+    "source": "https://github.com/googlefonts/atkinson-hyperlegible",
+    "license": "OFL-1.1",
+    "retrieved": "2026-10-28",
+    "changes": "Latin subset WOFF2 in `src/styles/fonts/`"
+  },
+  {
+    "asset": "Overpass (self-hosted accent font, weights 600 & 700)",
+    "author": "Red Hat / Delve Fonts (`@fontsource/overpass`)",
+    "source": "https://github.com/RedHatOfficial/Overpass",
+    "license": "OFL-1.1",
+    "retrieved": "2026-10-28",
+    "changes": "Latin subset WOFF2 in `src/styles/fonts/`"
   }
 ]
