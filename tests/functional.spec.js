@@ -16,6 +16,11 @@ async function boot(page, { reduced = false } = {}) {
   // Skip the one-time scene-intro cinematics for scripted runs (tested separately below),
   // and use the Low preset: headless Chromium renders WebGL in software.
   await page.evaluate(() => { window.__TEST__.settings.update({ intros: false }); window.__TEST__.engine?.quality.set('low'); });
+  // These tests exercise the HTML/dialogue layer; pausing the (software-rendered) 3D
+  // loop keeps Playwright's per-action rAF stability checks fast (same as a11y.spec).
+  // The engine still loads scenes, models and IBL for real; rendering is validated by
+  // the layout/sub-path specs, poster rendering and the headed GPU check.
+  await page.evaluate(() => window.__TEST__?.engine?.pause());
 }
 
 /** Play the current task through the UI, always choosing the effective option. */
@@ -251,14 +256,27 @@ test('text mode: illustrated dialogue with the same choices, feedback and reacti
 test('reduced motion: cinematic shows still frames with captions and can be skipped with Esc', async ({ page }) => {
   await boot(page, { reduced: true });
   if (!(await page.evaluate(() => Boolean(window.__TEST__.engine)))) test.skip(true, 'no WebGL in this browser');
+  // boot() pauses the render loop for the dialogue tests; this one verifies the
+  // reduced-motion cinematic itself, so it needs the loop running again.
+  await page.evaluate(() => window.__TEST__?.engine?.resume());
   await page.getByTestId('play-arrival').click();
   const ov = page.locator('.cinematic-overlay');
   await expect(ov).toBeVisible();
   await expect(page.locator('.cinematic-caption')).toContainText('Harbour City');
-  const p1 = await page.evaluate(() => window.__TEST__.engine.camera.position.toArray());
-  await page.waitForTimeout(400);
-  const p2 = await page.evaluate(() => window.__TEST__.engine.camera.position.toArray());
-  expect(p2).toEqual(p1);
+  // Reduced motion shows still frames: the camera sits exactly on a shot's end point
+  // (or the post-cinematic default view) and never sweeps between them. Sampling over
+  // several seconds is robust to a sample straddling the boundary between two stills.
+  const stills = await page.evaluate(() => {
+    const ends = window.__TEST__.app.player.shots.map((s) => s.path?.[s.path.length - 1]).filter(Boolean);
+    ends.push(window.__TEST__.city.current.def.camera.pos);
+    return ends;
+  });
+  for (let i = 0; i < 5; i++) {
+    const p = await page.evaluate(() => window.__TEST__.engine.camera.position.toArray());
+    const atStill = stills.some((e) => Math.hypot(p[0] - e[0], p[1] - e[1], p[2] - e[2]) < 1e-6);
+    expect(atStill, `camera at a still position (sample ${i}): ${p}`).toBe(true);
+    await page.waitForTimeout(600);
+  }
   await page.keyboard.press('Escape');
   await expect(ov).toBeHidden();
 });

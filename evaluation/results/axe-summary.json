@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-27T18:46:17.695Z",
+  "generated": "2026-10-28T18:48:17.261Z",
   "tags": [
     "wcag2a",
     "wcag2aa",
@@ -10,7 +10,7 @@
     {
       "state": "start (can-do before)",
       "violations": [],
-      "passes": 24
+      "passes": 25
     },
     {
       "state": "settings dialog",
@@ -30,72 +30,72 @@
     {
       "state": "task 1 pre-task",
       "violations": [],
-      "passes": 27
+      "passes": 28
     },
     {
       "state": "task 1 dialogue (choose)",
       "violations": [],
-      "passes": 25
+      "passes": 26
     },
     {
       "state": "task 1 feedback (odd option + recast)",
       "violations": [],
-      "passes": 25
+      "passes": 26
     },
     {
       "state": "task 1 build mode with message",
       "violations": [],
-      "passes": 25
+      "passes": 26
     },
     {
       "state": "task 1 after a repair",
       "violations": [],
-      "passes": 25
+      "passes": 26
     },
     {
       "state": "task 1 post-task language focus",
       "violations": [],
-      "passes": 26
+      "passes": 27
     },
     {
       "state": "listening check (answered item with transcript)",
       "violations": [],
-      "passes": 22
+      "passes": 23
     },
     {
       "state": "reading-equivalent path",
       "violations": [],
-      "passes": 22
+      "passes": 23
     },
     {
       "state": "phrasebook review",
       "violations": [],
-      "passes": 23
+      "passes": 24
     },
     {
       "state": "wrap-up",
       "violations": [],
-      "passes": 26
+      "passes": 27
     },
     {
       "state": "text mode (wrap-up)",
       "violations": [],
-      "passes": 27
+      "passes": 28
     },
     {
       "state": "text mode (pharmacy pre-task with illustration)",
       "violations": [],
-      "passes": 28
+      "passes": 29
     },
     {
       "state": "phone portrait, high contrast, extra large text (start)",
       "violations": [],
-      "passes": 24
+      "passes": 25
     },
     {
       "state": "phone portrait, high contrast (café dialogue)",
       "violations": [],
-      "passes": 25
+      "passes": 26
     }
   ]
 }

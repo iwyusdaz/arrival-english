@@ -154,8 +154,8 @@ export function buildHarbourVista({ z = -5.2, width = 24 } = {}) {
   vista.name = 'harbour-vista';
 
   // Quayside promenade pavement
-  conststoneMat = pbr('marble', { color: 0xc9c2b8, roughness: 0.75, repeat: 6 });
-  const quay = box(width, 0.16, 3.4, conststoneMat, 0, -0.08, z - 1.5);
+  const stoneMat = pbr('marble', { color: 0xc9c2b8, roughness: 0.75, repeat: 6 });
+  const quay = box(width, 0.16, 3.4, stoneMat, 0, -0.08, z - 1.5);
   quay.castShadow = false;
   vista.add(quay);
 

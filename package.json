@@ -1,7 +1,7 @@
 {
   "name": "arrival-english",
   "private": true,
-  "version": "1.0.0",
+  "version": "2.0.0",
   "type": "module",
   "description": "You've just arrived in a new English-speaking city. Buy a transit ticket, order food with a dietary need, ask a pharmacist for help, and fix a hostel booking problem, using English to get real things done.",
   "engines": {
@@ -19,7 +19,7 @@
     "check:readability": "node scripts/readability-check.mjs",
     "build:poster": "node scripts/render-poster.mjs",
     "build:attribution": "node scripts/build-attribution.mjs",
-    "validate:showcase": "node scripts/validate-showcase.mjs 1.0.0"
+    "validate:showcase": "node scripts/validate-showcase.mjs 2.0.0"
   },
   "dependencies": {
     "n8ao": "2.0.1",

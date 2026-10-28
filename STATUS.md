@@ -1,6 +1,17 @@
-# Status (v1.0.0 build, 2026-10-27)
+# Status (v2.0.0 build, 2026-10-28)
 
 Legend: **done** = built and checked by automated tests or scripts · **done (agent review)** = waiting for the orchestrator's agent reviews · **not possible (reason)**.
+
+## v2.0.0 Visual & Interaction Revamp Checklist (`09-visual-revamp.md` §8)
+
+| Item | Status | Evidence |
+|---|---|---|
+| Art bible written; palette, three fonts, grade and assets recorded with licences | done | `design/art-bible.md`, `ATTRIBUTION.md`, `public/attribution.json` (19 entries verified by `scripts/build-attribution.mjs --check`) |
+| No photo backdrops within ~30 m; every prop grounded (contact shadow); no unlit cut-outs | done | `GroundedSkybox` removed in `src/scenes/city.js`; replaced with 3D architectural enclosures + 3D Harbour City vista (`src/scenes/{station,cafe,pharmacy,hostel,materials}.js`) and `groundProp` contact shadows |
+| At least 5 ambient-life systems running; calm mode and reduced-motion work | done | `AmbientLifeManager` runs sunbeams, dust/espresso-steam particle volumes, gliding train car, bobbing boats, swaying plants/pendants, walking commuters, and NPC breathing/blinking/gaze; `setCalmMode(true)` during task turns; unit-tested in `tests/unit/v2-core.test.js` |
+| Every learning action doable in-world, with keyboard and text-mode equivalents | done | `InWorldInteractionManager` + hotspot rings + clickable 3D signs/NPCs + `Look at:` buttons + `Read the signs in this place` + Text Mode |
+| Fonts self-hosted, subset, Plain-font setting works, contrast ≥ 4.5:1 | done | `Bricolage Grotesque`, `Atkinson Hyperlegible`, `Overpass` in `src/styles/fonts/`; `Plain font` toggle in header; verified by `tests/a11y.spec.js` (0 critical/serious axe issues) |
+| v2.0.0 posters and text-mode stills rendered from the revamped 3D scenes | done | `public/poster-2.0.0.webp`, `public/poster-2.0.0.jpg` (1200×630, ≤ 200 KB), and `src/assets/stills/*.webp` rendered via `scripts/render-poster.mjs` |
 
 ## Final Quality Checklist (plan §14)
 
