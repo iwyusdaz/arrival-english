@@ -18,6 +18,13 @@ function easeInOutCubic(x) {
   return x < 0.5 ? 4 * x * x * x : 1 - (-2 * x + 2) ** 3 / 2;
 }
 
+// Floating height of the hotspot diamond beacon. Raised from 0.36 m (V-3): the
+// default cameras sit at y ~1.6 with a 55 deg FOV, so a floor-level beacon was
+// below the frustum edge until you dragged to look down. At ~0.9 m the glow is
+// inside the default view for every hotspot ring (all sit >= ~1.3 m from the
+// default camera), while the floor ring still marks the exact glide target.
+const BEACON_Y = 0.9;
+
 export class InWorldInteractionManager {
   /**
    * @param {object} opts
@@ -44,6 +51,7 @@ export class InWorldInteractionManager {
     this.pickables = [];
     this.hotspotRings = [];
     this.hovered = null;
+    this.calmFactor = 1; // set via setCalmMode to quiet ring pulses during focused tasks
 
     // Camera navigation state (look target + spherical/free walk)
     this.target = new THREE.Vector3(0, 1.3, 0);
@@ -148,6 +156,13 @@ export class InWorldInteractionManager {
   }
 
   /**
+   * Quiet the hotspot-ring pulse during focused tasks (0.3) or restore it (1).
+   */
+  setCalmMode(active) {
+    this.calmFactor = active ? 0.3 : 1;
+  }
+
+  /**
    * Register an interactive 3D object (prop, hazard, artifact, station, NPC).
    * @param {THREE.Object3D} object3d
    * @param {object} meta
@@ -238,7 +253,7 @@ export class InWorldInteractionManager {
         roughness: 0.2,
       }),
     );
-    diamond.position.y = 0.36;
+    diamond.position.y = BEACON_Y;
     group.add(diamond);
 
     (opts.parent || this.scene).add(group);
@@ -448,17 +463,19 @@ export class InWorldInteractionManager {
       }
     }
 
-    // 3. Animate hotspot rings
+    // 3. Animate hotspot rings (scaled by the calm factor so focused tasks stay quiet)
     if (!this.reducedMotion) {
+      const pulseScale = this.calmFactor ?? 1;
       for (const r of this.hotspotRings) {
-        const s = 1 + Math.sin(elapsed * 2.6 + r.phase) * 0.08;
+        const s = 1 + Math.sin(elapsed * 2.6 + r.phase) * 0.08 * pulseScale;
         r.outer.scale.setScalar(s);
-        r.diamond.position.y = 0.36 + Math.sin(elapsed * 2.6 + r.phase) * 0.04;
-        r.diamond.rotation.y = elapsed * 1.4 + r.phase;
+        r.diamond.position.y = BEACON_Y + Math.sin(elapsed * 2.6 + r.phase) * 0.04 * pulseScale;
+        r.diamond.rotation.y = elapsed * 1.4 * Math.max(0.3, pulseScale) + r.phase;
       }
     }
 
-    // 4. Project persistent 3D speech bubbles / callouts
+    // 4. Project persistent 3D speech bubbles / callouts (clamped to the canvas
+    // so high anchors never overlap the app header).
     if (this.bubbles?.size && this.canvas) {
       const rect = this.canvas.getBoundingClientRect();
       const _v = new THREE.Vector3();
@@ -475,8 +492,8 @@ export class InWorldInteractionManager {
           continue;
         }
         rec.el.hidden = false;
-        const x = ((_v.x * 0.5 + 0.5) * rect.width) + rect.left;
-        const y = ((-_v.y * 0.5 + 0.5) * rect.height) + rect.top;
+        const x = THREE.MathUtils.clamp(((_v.x * 0.5 + 0.5) * rect.width) + rect.left, rect.left + 130, rect.right - 130);
+        const y = Math.max(rect.top + 92, ((-_v.y * 0.5 + 0.5) * rect.height) + rect.top);
         rec.el.style.transform = `translate(-50%, -100%) translate(${Math.round(x)}px, ${Math.round(y)}px)`;
       }
     }

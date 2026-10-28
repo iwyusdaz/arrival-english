@@ -204,6 +204,9 @@ export class App {
     this.record.log('experienced', { id: `module-${m.id}`, name: m.label });
     this.caption.hidden = true;
     this.render();
+    // Clear the previous place's Look-at buttons while the new scene loads —
+    // otherwise the bar shows stale labels from the old location (agent review v2).
+    if (!this.textOn()) this.panel.querySelector('.look-slot')?.replaceChildren();
     this._loadScene(m.scene).then(() => {
       if (this.index !== i) return;
       this._refreshViews();

@@ -8,7 +8,7 @@
  */
 import * as THREE from 'three';
 import { pbr, solid, signMesh, box, counter, buildHarbourVista, buildRoomShell } from './materials.js';
-import { groundProp } from '../v2/cinematic-grade.js';
+import { groundProp, mergeStaticGroup } from '../v2/cinematic-grade.js';
 import { NPC, BACKGROUND_CAST } from './npc.js';
 
 export const SIGNS = [
@@ -32,6 +32,12 @@ function buildPharmacyCross() {
 export function buildPharmacy() {
   const g = new THREE.Group();
   g.name = 'scene-pharmacy';
+  // Static architecture & set dressing — merged into one mesh per material after
+  // building (V-2). Excluded: NPCs, hotspot rings, the pulsing green cross, and
+  // interactive containers (product box, signs) that must stay pickable.
+  const statics = new THREE.Group();
+  statics.name = 'pharmacy-static';
+  g.add(statics);
 
   const white = pbr('plastic', { color: 0xf4f6f7, roughness: 0.45 });
   const green = pbr('plastic', { color: 0x1b7a5a, roughness: 0.45 });
@@ -47,25 +53,25 @@ export function buildPharmacy() {
     wainscotColor: 0x1b7a5a,
     beamColor: 0xd0dad8,
   });
-  g.add(room.group);
+  statics.add(room.group);
 
   const vista = buildHarbourVista({ z: -5.3, width: 22 });
-  g.add(vista.group);
+  statics.add(vista.group);
 
   // 2. Pharmacy Counter
   const c = counter({ width: 2.4, height: 1.0, depth: 0.65, body: white, top, kick: green });
   c.position.set(0, 0, -0.5);
-  g.add(c);
+  statics.add(c);
   const stripe = box(2.4, 0.08, 0.01, green, 0, 0.75, -0.005);
-  g.add(stripe);
+  statics.add(stripe);
 
   // Counter clutter: prescription tray & medicine bottles
   const tray = box(0.32, 0.025, 0.22, solid(0x1f8a8a, { roughness: 0.4 }), -0.25, 1.012, -0.35);
-  g.add(tray);
+  statics.add(tray);
   for (const [bx, bz, col] of [[-0.32, -0.36, 0xd9663b], [-0.21, -0.33, 0x2457a6]]) {
     const bottle = new THREE.Mesh(new THREE.CylinderGeometry(0.026, 0.026, 0.09, 16), solid(col, { roughness: 0.35 }));
     bottle.position.set(bx, 1.065, bz);
-    g.add(bottle);
+    statics.add(bottle);
   }
 
   // 3. Illuminated Shelving Behind Counter (instanced boxes for draw-call efficiency)
@@ -113,7 +119,7 @@ export function buildPharmacy() {
   }
   shelves.position.set(0, 0, -1.55);
   groundProp(shelves);
-  g.add(shelves);
+  statics.add(shelves);
 
   // Header sign + Glowing 3D Green Pharmacy Cross
   const sign = signMesh({
@@ -181,6 +187,9 @@ export function buildPharmacy() {
   const shopper = new NPC(BACKGROUND_CAST.pharmacyShopper);
   shopper.root.position.set(-2.35, 0, -0.2);
   g.add(shopper.root);
+
+  // Bake all static architecture + dressing into one mesh per material (V-2).
+  mergeStaticGroup(statics);
 
   return {
     group: g,

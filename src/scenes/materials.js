@@ -195,6 +195,8 @@ export function buildHarbourVista({ z = -5.2, width = 24 } = {}) {
     const cabin = box(0.78, 0.38, 0.52, solid(cabinCol, { roughness: 0.6 }), -0.1, 0.46, 0);
     const mast = box(0.04, 1.45, 0.04, solid(0xd8b48a, { roughness: 0.6 }), 0.35, 0.85, 0);
     boat.add(hull, cabin, mast);
+    // Bobbed by AmbientLifeManager oscillators — must survive static merging whole.
+    boat.userData.v2NoMerge = true;
     vista.add(boat);
     boats.push(boat);
   }
@@ -247,12 +249,15 @@ export function buildRoomShell({
   const cMat = solid(ceilingColor, { roughness: 0.9 });
   const bMat = solid(beamColor, { roughness: 0.7 });
   const frameMat = solid(0x25303b, { metalness: 0.4, roughness: 0.45 });
-  const glassMat = new THREE.MeshPhysicalMaterial({
-    color: 0xe6f4f8,
+  // Plain alpha-blended glass: transmission>0 would force three.js to render the
+  // whole opaque scene into a transmission buffer every frame (one extra full
+  // scene pass), which alone broke the 300-draw-call Medium budget (V-2).
+  const glassMat = new THREE.MeshStandardMaterial({
+    color: 0xdff0f5,
     roughness: 0.08,
-    transmission: 0.82,
+    metalness: 0.25,
     transparent: true,
-    opacity: 0.22,
+    opacity: 0.26,
   });
 
   // Floor & Ceiling
@@ -316,6 +321,8 @@ export function buildRoomShell({
     bulb.position.y = -0.82;
     p.add(bulb);
     shell.add(p);
+    // Swung by AmbientLifeManager oscillators — must survive static merging whole.
+    p.userData.v2NoMerge = true;
     pendants.push(p);
   }
 

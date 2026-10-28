@@ -54,6 +54,44 @@ describe('v2 Living World, Stylized Characters & Cinematic Grade', () => {
     expect(life.calmFactor).toBeGreaterThan(0.25);
   });
 
+  it('freezes all character animation when the calm factor is 0 (reduced motion, M-1)', () => {
+    const char = createAnimatedCharacter({ id: 'rm-char', height: 1.7, hairStyle: 'bob' });
+    char.setAction('idle', 'neutral');
+    char.update(0.05, 1.0, 0.0); // apply the frozen pose once
+    const breathY = char.spine.scale.y;
+    const headRotY = char.head.rotation.y;
+    const lidRotX = char.head.children.find((c) => c.name.startsWith('lid'))?.rotation.x;
+    char.update(0.05, 5.0, 0.0);
+    char.update(0.05, 9.0, 0.0);
+    expect(char.spine.scale.y).toBeCloseTo(breathY, 8);
+    expect(char.head.rotation.y).toBeCloseTo(headRotY, 8);
+    if (lidRotX !== undefined) {
+      const lidNow = char.head.children.find((c) => c.name.startsWith('lid'))?.rotation.x;
+      expect(lidNow).toBeCloseTo(lidRotX, 8);
+    }
+    // A non-zero calm factor still animates (same clock, different factor)
+    char.update(0.05, 13.0, 1.0);
+    expect(Math.abs(char.spine.scale.y - breathY)).toBeGreaterThan(1e-6);
+  });
+
+  it('converges the calm factor time-based and stops advancing elapsed under reduced motion (M-2)', () => {
+    const life = new AmbientLifeManager(new THREE.Scene(), { seed: 5 });
+    life.setCalmMode(true);
+    // Two large steps: time-based convergence reaches the target in ~1 s of
+    // simulated time regardless of how those seconds are split into frames
+    // (the old per-frame 0.08 lerp would still be ~0.89 here).
+    life.update(0.5);
+    life.update(0.5);
+    expect(life.calmFactor).toBeLessThan(0.4);
+
+    // Reduced motion drives the calm factor to 0, so elapsed stops advancing
+    life.setReducedMotion(true);
+    for (let i = 0; i < 20; i++) life.update(0.1);
+    const settled = life.elapsed;
+    life.update(0.5);
+    expect(life.elapsed - settled).toBeLessThan(0.01);
+  });
+
   it('defines distinct colour themes for all 7 cases and grounds props with shadows', () => {
     const slugs = [
       'lunar-field-expedition',

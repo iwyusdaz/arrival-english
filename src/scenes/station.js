@@ -9,7 +9,7 @@
  */
 import * as THREE from 'three';
 import { pbr, solid, signMesh, box, counter, buildHarbourVista } from './materials.js';
-import { groundProp } from '../v2/cinematic-grade.js';
+import { groundProp, mergeStaticGroup } from '../v2/cinematic-grade.js';
 import { NPC, BACKGROUND_CAST } from './npc.js';
 
 export const SIGNS = [
@@ -53,12 +53,22 @@ function buildTrainCar() {
       train.add(box(0.04, 0.16, 0.24, headLightMat, sx, 0.95, sz));
     }
   }
+  // The car moves as one rigid body, so merging its own parts per material is
+  // safe: ~21 meshes become ~6 draw calls (plus the same again in the shadow pass).
+  mergeStaticGroup(train);
   return train;
 }
 
 export function buildStation() {
   const g = new THREE.Group();
   g.name = 'scene-station';
+  // Static architecture & set dressing — merged into one mesh per material after
+  // building (V-2). Excluded from the merge: the train (moving), the clock hands
+  // (animated), NPCs, hotspot rings, and every interactive sign/prop container
+  // (their meshes must stay pickable for raycasting).
+  const statics = new THREE.Group();
+  statics.name = 'station-static';
+  g.add(statics);
 
   const panel = pbr('metal', { color: 0xd9dde2, metalness: 0.6, roughness: 0.55 });
   const dark = pbr('plastic', { color: 0x2a2f36, roughness: 0.6 });
@@ -70,51 +80,53 @@ export function buildStation() {
   const floorMat = pbr('marble', { color: 0xd8d3c8, roughness: 0.55, repeat: 6 });
   const floor = box(16, 0.2, 8.2, floorMat, 0, -0.1, -0.4);
   floor.castShadow = false;
-  g.add(floor);
+  statics.add(floor);
 
   // Yellow tactile safety paving strip along platform edge
   const tactile = box(16, 0.015, 0.32, solid(0xf2b705, { roughness: 0.7 }), 0, 0.008, -3.25);
   tactile.castShadow = false;
-  g.add(tactile);
+  statics.add(tactile);
 
   // Recessed railway track bed behind platform
   const trackBed = box(24, 0.2, 2.8, solid(0x2b3036, { roughness: 0.9 }), 0, -0.55, -4.85);
   trackBed.castShadow = false;
-  g.add(trackBed);
+  statics.add(trackBed);
   for (const rz of [-4.45, -5.25]) {
-    g.add(box(24, 0.06, 0.08, panel, 0, -0.42, rz));
+    statics.add(box(24, 0.06, 0.08, panel, 0, -0.42, rz));
   }
 
   // Steel-and-glass station canopy & architectural columns
   for (const cx of [-4.2, 0.0, 4.2]) {
-    g.add(box(0.26, 4.2, 0.26, transitBlue, cx, 2.1, -2.95));
-    g.add(box(0.36, 0.18, 0.36, harbourTeal, cx, 0.09, -2.95));
+    statics.add(box(0.26, 4.2, 0.26, transitBlue, cx, 2.1, -2.95));
+    statics.add(box(0.36, 0.18, 0.36, harbourTeal, cx, 0.09, -2.95));
     // Roof cross-girders
-    g.add(box(0.22, 0.28, 6.8, transitBlue, cx, 4.15, -0.8));
+    statics.add(box(0.22, 0.28, 6.8, transitBlue, cx, 4.15, -0.8));
   }
   for (const gz of [-3.2, -1.6, 0.0, 1.6]) {
-    g.add(box(14.5, 0.18, 0.2, transitBlue, 0, 4.25, gz));
+    statics.add(box(14.5, 0.18, 0.2, transitBlue, 0, 4.25, gz));
   }
-  const SkylightMat = new THREE.MeshPhysicalMaterial({
+  // Alpha-blended skylight glass (no transmission: that would add a full extra
+  // scene render pass every frame and blow the Medium draw-call budget, V-2).
+  const SkylightMat = new THREE.MeshStandardMaterial({
     color: 0xeaf4f8,
     roughness: 0.1,
-    transmission: 0.78,
+    metalness: 0.2,
     transparent: true,
     opacity: 0.25,
   });
   const roofGlass = box(14.2, 0.04, 6.6, SkylightMat, 0, 4.32, -0.8);
   roofGlass.castShadow = false;
-  g.add(roofGlass);
+  statics.add(roofGlass);
 
   // Side concourse walls with glazed bays
   for (const sx of [-6.8, 6.8]) {
-    g.add(box(0.2, 4.2, 7.6, solid(0xf4e7cf, { roughness: 0.85 }), sx, 2.1, -0.4));
-    g.add(box(0.24, 1.1, 7.6, harbourTeal, sx, 0.55, -0.4));
+    statics.add(box(0.2, 4.2, 7.6, solid(0xf4e7cf, { roughness: 0.85 }), sx, 2.1, -0.4));
+    statics.add(box(0.24, 1.1, 7.6, harbourTeal, sx, 0.55, -0.4));
   }
 
   // Harbour vista beyond the train tracks
   const vista = buildHarbourVista({ z: -6.4, width: 26 });
-  g.add(vista.group);
+  statics.add(vista.group);
 
   // Animated train car on the platform track
   const trainCar = buildTrainCar();
@@ -124,17 +136,17 @@ export function buildStation() {
   // 2. Help desk (Sam stands behind it)
   const desk = counter({ width: 2.2, height: 1.05, depth: 0.75, body: pbr('plastic', { color: 0x1f4e79, roughness: 0.5 }), top, kick: dark });
   desk.position.set(0.2, 0, -0.55);
-  g.add(desk);
+  statics.add(desk);
 
   const glass = new THREE.Mesh(
     new THREE.BoxGeometry(2.0, 0.55, 0.012),
-    new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.05, transmission: 0.9, thickness: 0.01, transparent: true, opacity: 0.25 }),
+    new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.05, metalness: 0.3, transparent: true, opacity: 0.25 }),
   );
   glass.position.set(0.2, 1.36, -0.62);
-  g.add(glass);
+  statics.add(glass);
 
   const card = box(0.11, 0.015, 0.16, dark, 0.65, 1.06, -0.45);
-  g.add(card);
+  statics.add(card);
 
   const hdSign = signMesh({
     w: 1024,
@@ -150,7 +162,7 @@ export function buildStation() {
 
   const back = box(3.0, 2.6, 0.08, pbr('plastic', { color: 0xf4e7cf, roughness: 0.7 }), 0.2, 1.3, -1.5);
   groundProp(back);
-  g.add(back);
+  statics.add(back);
 
   // Analog station clock above the help desk
   const clockGroup = new THREE.Group();
@@ -207,12 +219,14 @@ export function buildStation() {
     h: 640,
     bg: '#101418',
     lines: [
+      // Row type downsized 54 -> 48 so the STATUS column clears the right edge of
+      // the 1280 px canvas at 1280x800 (V-4).
       { text: 'DEPARTURES', size: 64, bold: true, color: '#ffd166', x: 40, y: 80 },
       { text: 'TIME   DESTINATION      PLAT   STATUS', size: 40, color: '#9aa5b1', x: 40, y: 150 },
-      { text: '10:15  Seaview            4     On time', size: 54, color: '#ffffff', x: 40, y: 240 },
-      { text: '10:32  Northgate          2     On time', size: 54, color: '#ffffff', x: 40, y: 330 },
-      { text: '10:40  Airport            1     Delayed 5 min', size: 54, color: '#ffffff', x: 40, y: 420 },
-      { text: '11:05  Seaview            4     On time', size: 54, color: '#ffffff', x: 40, y: 510 },
+      { text: '10:15  Seaview            4     On time', size: 48, color: '#ffffff', x: 40, y: 240 },
+      { text: '10:32  Northgate          2     On time', size: 48, color: '#ffffff', x: 40, y: 330 },
+      { text: '10:40  Airport            1     Delayed 5 min', size: 48, color: '#ffffff', x: 40, y: 420 },
+      { text: '11:05  Seaview            4     On time', size: 48, color: '#ffffff', x: 40, y: 510 },
     ],
   }, 2.0, { lit: 0.85 });
   dep.position.set(2.15, 2.25, -1.0);
@@ -248,6 +262,9 @@ export function buildStation() {
   commuterB.root.position.set(-2.9, 0, -1.7);
   commuterB.root.rotation.y = 0.35;
   g.add(commuterB.root);
+
+  // Bake all static architecture + dressing into one mesh per material (V-2).
+  mergeStaticGroup(statics);
 
   return {
     group: g,

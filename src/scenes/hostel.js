@@ -8,7 +8,7 @@
  */
 import * as THREE from 'three';
 import { pbr, solid, signMesh, box, counter, buildHarbourVista, buildRoomShell } from './materials.js';
-import { groundProp } from '../v2/cinematic-grade.js';
+import { groundProp, mergeStaticGroup } from '../v2/cinematic-grade.js';
 import { NPC, BACKGROUND_CAST } from './npc.js';
 
 export const SIGNS = [
@@ -39,6 +39,12 @@ function buildLuggageCluster() {
 export function buildHostel() {
   const g = new THREE.Group();
   g.name = 'scene-hostel';
+  // Static architecture & set dressing — merged into one mesh per material after
+  // building (V-2). Excluded: NPCs, hotspot rings, and interactive containers
+  // (booking screen, key rack, signs) that must stay pickable.
+  const statics = new THREE.Group();
+  statics.name = 'hostel-static';
+  g.add(statics);
 
   const wood = pbr('wood', { color: 0xd8b48a, roughness: 0.7, repeat: 2 });
   const top = pbr('marble', { color: 0x30343a, roughness: 0.35 });
@@ -53,19 +59,19 @@ export function buildHostel() {
     wainscotColor: 0x2457a6,
     beamColor: 0x7c5432,
   });
-  g.add(room.group);
+  statics.add(room.group);
 
   const vista = buildHarbourVista({ z: -5.5, width: 22 });
-  g.add(vista.group);
+  statics.add(vista.group);
 
   // 2. Reception Desk & Feature Wall
   const c = counter({ width: 2.6, height: 1.08, depth: 0.7, body: wood, top, kick: solid(0x2b2b2b) });
   c.position.set(0, 0, -0.5);
-  g.add(c);
+  statics.add(c);
 
   const wall = box(3.6, 2.85, 0.08, pbr('plastic', { color: 0x1f8a8a, roughness: 0.78 }), 0, 1.425, -1.65);
   groundProp(wall);
-  g.add(wall);
+  statics.add(wall);
 
   // Warm wall sconces flanking the reception wall
   const sconceMat = solid(0xffe6a3, { emissive: 0xffbf52, emissiveIntensity: 1.5, roughness: 0.25 });
@@ -75,7 +81,7 @@ export function buildHostel() {
     sconce.position.set(sx, 2.15, -1.58);
     sconce.add(box(0.12, 0.24, 0.08, sconceMat, 0, 0, 0.04));
     sconce.add(box(0.16, 0.05, 0.10, solid(0x2b3038), 0, -0.12, 0.03));
-    g.add(sconce);
+    statics.add(sconce);
     sconceMeshes.push(sconce.children[0]);
   }
 
@@ -85,7 +91,7 @@ export function buildHostel() {
   mon.add(box(0.05, 0.12, 0.05, solid(0x2a2d31), 0, 0.06, 0));
   mon.position.set(-0.45, 1.08, -0.6);
   mon.rotation.y = 0.25;
-  g.add(mon);
+  statics.add(mon);
 
   const screenGroup = new THREE.Group();
   screenGroup.name = 'booking-screen';
@@ -115,7 +121,7 @@ export function buildHostel() {
   );
   bell.position.set(-0.05, 1.08, -0.25);
   bell.castShadow = true;
-  g.add(bell);
+  statics.add(bell);
 
   // Key rack with room keys
   const rackGroup = new THREE.Group();
@@ -170,12 +176,15 @@ export function buildHostel() {
   const luggage = buildLuggageCluster();
   luggage.position.set(-1.55, 0, 0.25);
   luggage.rotation.y = 0.4;
-  g.add(luggage);
+  statics.add(luggage);
 
   const guest = new NPC(BACKGROUND_CAST.hostelGuest);
   guest.root.position.set(-2.3, 0, 0.35);
   guest.root.rotation.y = 1.15;
   g.add(guest.root);
+
+  // Bake all static architecture + dressing into one mesh per material (V-2).
+  mergeStaticGroup(statics);
 
   return {
     group: g,

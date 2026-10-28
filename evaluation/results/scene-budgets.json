@@ -1,110 +1,110 @@
 {
-  "generated": "2026-10-27T13:22:26.833Z",
+  "generated": "2026-10-28T21:12:55.021Z",
   "note": "Headless Chromium + SwiftShader. Byte counts are uncompressed file sizes served by a local static server (Vercel serves JS/CSS/JSON compressed, so real transfer is smaller). Draw calls / triangles are renderer.info after one frame on the Medium preset; they do not depend on the GPU.",
   "firstLoad": {
     "desktop": {
-      "bytes": 3310583,
-      "mb": 3.16,
+      "bytes": 6137557,
+      "mb": 5.85,
       "preset": "medium",
       "files": [
+        [
+          "/assets/models/potted_plant_02-2e9c2b21.glb",
+          2027784
+        ],
         [
           "/assets/station-CyG10aQk.hdr",
           1736568
         ],
         [
-          "/assets/index-CZQM_zFX.js",
-          963522
+          "/assets/index-p9YWRgGE.js",
+          1100226
         ],
         [
-          "/assets/station-4k-C1RqbwpR.webp",
-          448458
+          "/assets/models/street_lamp_01-9c2ffbc4.glb",
+          855896
+        ],
+        [
+          "/assets/models/painted_wooden_bench-013220af.glb",
+          127448
         ],
         [
           "/assets/marble_color-B83K3zUa.webp",
           50996
         ],
         [
-          "/content/dialogues/task2.json",
-          13392
+          "/assets/bricolage-grotesque-latin-600-normal-nxTgbNFE.woff2",
+          22456
         ],
         [
-          "/content/dialogues/task3.json",
-          12525
-        ],
-        [
-          "/content/dialogues/task1.json",
-          12430
-        ],
-        [
-          "/assets/marble_rough-CiD_I3Ra.webp",
-          12420
+          "/assets/bricolage-grotesque-latin-700-normal-gtcctNPv.woff2",
+          22384
         ]
       ]
     },
     "phone": {
-      "bytes": 2985153,
-      "mb": 2.85,
+      "bytes": 6137557,
+      "mb": 5.85,
       "preset": "low",
       "files": [
+        [
+          "/assets/models/potted_plant_02-2e9c2b21.glb",
+          2027784
+        ],
         [
           "/assets/station-CyG10aQk.hdr",
           1736568
         ],
         [
-          "/assets/index-CZQM_zFX.js",
-          963522
+          "/assets/index-p9YWRgGE.js",
+          1100226
         ],
         [
-          "/assets/station-2k-D4s12NS6.webp",
-          123028
+          "/assets/models/street_lamp_01-9c2ffbc4.glb",
+          855896
+        ],
+        [
+          "/assets/models/painted_wooden_bench-013220af.glb",
+          127448
         ],
         [
           "/assets/marble_color-B83K3zUa.webp",
           50996
         ],
         [
-          "/content/dialogues/task2.json",
-          13392
+          "/assets/bricolage-grotesque-latin-600-normal-nxTgbNFE.woff2",
+          22456
         ],
         [
-          "/content/dialogues/task3.json",
-          12525
-        ],
-        [
-          "/content/dialogues/task1.json",
-          12430
-        ],
-        [
-          "/assets/marble_rough-CiD_I3Ra.webp",
-          12420
+          "/assets/bricolage-grotesque-latin-700-normal-gtcctNPv.woff2",
+          22384
         ]
       ]
     }
   },
   "scenes": {
     "station": {
-      "drawCalls": 98,
-      "triangles": 274790,
-      "geometries": 49,
-      "textures": 31
+      "drawCalls": 257,
+      "triangles": 339970,
+      "geometries": 183,
+      "textures": 46
     },
     "cafe": {
-      "drawCalls": 121,
-      "triangles": 277274,
-      "geometries": 55,
-      "textures": 32
+      "drawCalls": 199,
+      "triangles": 318327,
+      "geometries": 170,
+      "textures": 71
     },
     "pharmacy": {
-      "drawCalls": 63,
-      "triangles": 144696,
-      "geometries": 47,
-      "textures": 28
+      "drawCalls": 179,
+      "triangles": 203191,
+      "geometries": 163,
+      "textures": 70
     },
     "hostel": {
-      "drawCalls": 91,
-      "triangles": 142768,
-      "geometries": 61,
-      "textures": 29
+      "drawCalls": 205,
+      "triangles": 257282,
+      "geometries": 179,
+      "textures": 80
     }
   }
 }

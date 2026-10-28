@@ -9,7 +9,7 @@
  */
 import * as THREE from 'three';
 import { pbr, solid, signMesh, box, counter, buildHarbourVista, buildRoomShell } from './materials.js';
-import { groundProp } from '../v2/cinematic-grade.js';
+import { groundProp, mergeStaticGroup } from '../v2/cinematic-grade.js';
 import { NPC, BACKGROUND_CAST } from './npc.js';
 
 export const MENU = [
@@ -28,6 +28,12 @@ export const SIGNS = [
 export function buildCafe() {
   const g = new THREE.Group();
   g.name = 'scene-cafe';
+  // Static architecture & set dressing — merged into one mesh per material after
+  // building (V-2). Excluded: NPCs, hotspot rings, and interactive containers
+  // (menu board, allergy card, cake display) whose meshes must stay pickable.
+  const statics = new THREE.Group();
+  statics.name = 'cafe-static';
+  g.add(statics);
 
   const wood = pbr('wood', { color: 0xc49a6c, roughness: 0.8, repeat: 2 });
   const top = pbr('marble', { color: 0xf0ece6, roughness: 0.3 });
@@ -42,22 +48,22 @@ export function buildCafe() {
     wainscotColor: 0x1f8a8a,
     beamColor: 0x7a5230,
   });
-  g.add(room.group);
+  statics.add(room.group);
 
   const vista = buildHarbourVista({ z: -5.4, width: 22 });
-  g.add(vista.group);
+  statics.add(vista.group);
 
   // 2. Café Counter & Back Shelving
   const c = counter({ width: 2.8, height: 1.0, depth: 0.7, body: wood, top, kick: solid(0x2a2522) });
   c.position.set(0, 0, -0.5);
-  g.add(c);
+  statics.add(c);
 
   const backWall = box(3.2, 2.95, 0.08, pbr('plastic', { color: 0xf4e7cf, roughness: 0.85 }), 0, 1.475, -1.6);
   const wainscot = box(3.2, 1.0, 0.03, wood, 0, 0.5, -1.55);
-  g.add(wainscot, backWall);
+  statics.add(wainscot, backWall);
 
   const shelf = box(2.2, 0.04, 0.3, wood, -0.4, 1.55, -1.45);
-  g.add(shelf);
+  statics.add(shelf);
   for (let i = 0; i < 6; i++) {
     const cup = new THREE.Mesh(
       new THREE.CylinderGeometry(0.045, 0.035, 0.09, 20),
@@ -65,7 +71,7 @@ export function buildCafe() {
     );
     cup.position.set(-1.25 + i * 0.3, 1.62, -1.42);
     cup.castShadow = true;
-    g.add(cup);
+    statics.add(cup);
   }
 
   // Espresso machine (right side of counter)
@@ -74,13 +80,13 @@ export function buildCafe() {
   mach.add(box(0.7, 0.45, 0.45, pbr('metal', { color: 0xcfd3d6, metalness: 0.85, roughness: 0.3 }), 0, 0.225, 0));
   mach.add(box(0.7, 0.06, 0.45, solid(0xb8322a, { roughness: 0.35 }), 0, 0.48, 0));
   mach.position.set(1.05, 1.0, -0.6);
-  g.add(mach);
+  statics.add(mach);
 
   // Glass cake & pastry display (left side of counter)
   const displayGroup = new THREE.Group();
   const display = new THREE.Mesh(
     new THREE.BoxGeometry(0.75, 0.38, 0.45),
-    new THREE.MeshPhysicalMaterial({ color: 0xffffff, transmission: 0.9, roughness: 0.04, thickness: 0.01, transparent: true, opacity: 0.3 }),
+    new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.04, metalness: 0.3, transparent: true, opacity: 0.3 }),
   );
   display.position.set(-0.85, 1.19, -0.45);
   displayGroup.add(display);
@@ -148,12 +154,15 @@ export function buildCafe() {
   sideTable.children[0].position.y = 0.74;
   sideTable.add(box(0.08, 0.72, 0.08, solid(0x25303b), 0, 0.36, 0));
   groundProp(sideTable);
-  g.add(sideTable);
+  statics.add(sideTable);
 
   const patron = new NPC(BACKGROUND_CAST.cafePatron);
   patron.root.position.set(2.35, 0, -0.75);
   patron.root.rotation.y = -0.35;
   g.add(patron.root);
+
+  // Bake all static architecture + dressing into one mesh per material (V-2).
+  mergeStaticGroup(statics);
 
   return {
     group: g,
