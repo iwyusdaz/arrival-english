@@ -1,6 +1,6 @@
 {
   "slug": "arrival-english",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "title": "Arrival: a task-based English game",
   "format": "Game",
   "niche": "Language learning (English, A2 to B1)",
@@ -11,8 +11,8 @@
   "contentNotes": ["The pharmacy task is language practice only, not medical advice."],
   "permissions": ["microphone"],
   "poster": {
-    "webp": "poster-2.0.0.webp",
-    "jpg": "poster-2.0.0.jpg",
+    "webp": "poster-2.0.1.webp",
+    "jpg": "poster-2.0.1.jpg",
     "alt": "A station help desk under a glass roof: a staff member behind a blue desk, a ticket machine showing CARD NOT ACCEPTED, and a departures board listing the 10:15 to Seaview from platform 4."
   },
   "repoUrl": "https://github.com/iwyusdaz/arrival-english",

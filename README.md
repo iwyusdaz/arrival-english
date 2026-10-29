@@ -5,9 +5,8 @@
 You've just arrived in a new English-speaking city. Buy a transit ticket, order food with a dietary need, ask a
 pharmacist for help, and fix a hostel booking problem, using English to get real things done.
 
-**Play now:** https://immersive-learning-showcase.vercel.app/play/arrival-english/ (available once v1.0.0 is pinned in the showcase; pending deployment)
-
-![A station help desk under a glass roof: a staff member behind a blue desk, a ticket machine showing CARD NOT ACCEPTED, and a departures board listing the 10:15 to Seaview from platform 4.](public/poster-2.0.0.jpg)
+**Play now:** https://immersive-learning-showcase.vercel.app/play/arrival-english/
+![A station help desk under a glass roof: a staff member behind a blue desk, a ticket machine showing CARD NOT ACCEPTED, and a departures board listing the 10:15 to Seaview from platform 4.](public/poster-2.0.1.jpg)
 
 ## Trailer
 

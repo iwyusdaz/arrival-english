@@ -1,6 +1,6 @@
 /**
  * render-poster.mjs — renders, from the REAL 3D scene (build contract 08 §5.3):
- *  - public/poster-2.0.0.webp + .jpg  (1200x630, each <= 200 KB): station hero shot
+ *  - public/poster-2.0.1.webp + .jpg  (1200x630, each <= 200 KB): station hero shot
  *  - src/assets/stills/<scene>.webp   (960x540): text-mode illustrations of the 4 places
  *
  * It needs a build with test hooks (to stage the camera), then a normal release build
@@ -128,7 +128,7 @@ for (const [ext, type, q] of [['webp', 'image/webp', 0.82], ['jpg', 'image/jpeg'
   let quality = q;
   let buf = await encode(poster, type, quality, 1200, 630);
   while (buf.length > 200 * 1024 && quality > 0.5) { quality -= 0.06; buf = await encode(poster, type, quality, 1200, 630); }
-  const f = `public/poster-2.0.0.${ext}`;
+  const f = `public/poster-2.0.1.${ext}`;
   writeFileSync(f, buf);
   out.push(`${f}: ${(buf.length / 1024).toFixed(1)} KB (q=${quality.toFixed(2)})`);
   if (buf.length > 200 * 1024) { console.error(`${f} over 200 KB`); process.exit(1); }

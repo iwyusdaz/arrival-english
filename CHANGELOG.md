@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.1 (2026-10-29) — patch
+
+- Shared v2 core fixes: hover tooltips are suppressed while a tool or dialog owns the pointer; the collapsed HUD drawer is `inert` and `aria-hidden`, so Tab can't reach hidden controls; the hotspot ring and disc are one mesh. The reduced-motion gaze freeze (M-1 residual) and the raised hotspot beacon (V-3) now live in the shared template.
+- Posters renamed to `poster-2.0.1.*` (same image). No dialogue, scoring or microphone/speech changes. 63 unit and 16 browser tests pass.
+
 ## 2.0.0 (2026-10-28)
 
 Visual and interaction revamp (`09-visual-revamp.md` §4.5 — *"Harbour City, first day"*).
